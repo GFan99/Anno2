@@ -38,7 +38,7 @@ public class Input {
 	 * @param
 	 * @return String[]
 	 */
-	public String[] labelLesen(){
+	public static String[] labelLesen(){
 		try {
 			
 			String dateiname ="labels.xml";

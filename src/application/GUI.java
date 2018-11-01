@@ -5,10 +5,15 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 
 public class GUI extends Application {
@@ -36,6 +41,34 @@ public class GUI extends Application {
 			
 			primaryStage.setScene(idabfrage);
 			primaryStage.show();
+			
+			int x = 800;
+			int y = 500;
+			VBox klasspane= new VBox();
+			HBox daten = new HBox();
+			GridPane ranking = new GridPane();
+			ScrollPane textanz = new ScrollPane();
+			
+			ProgressBar fortschritt = new ProgressBar(0);
+			Label idanzeige = new Label("Nutzer-ID: "+Steuerung.nutzerID);
+			Text text = new Text(Steuerung.getText());
+			
+			
+			
+			for(int i=0; i<Input.labelLesen().length;i++){
+				Label label0 =new Label(Input.labelLesen()[i]);
+				GridPane.setConstraints(label0, 1, i+1);;
+			}
+			
+			
+			
+			daten.getChildren().addAll(idanzeige, fortschritt);
+			textanz.setContent(text);
+			
+			
+			Scene klass = new Scene(klasspane,x,y);
+			klasspane.getChildren().addAll(daten, textanz, ranking);
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
