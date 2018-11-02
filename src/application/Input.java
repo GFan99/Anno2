@@ -1,6 +1,8 @@
 package application;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.xml.parsers.*;
 
@@ -47,6 +49,37 @@ public class Input {
 			Document doc = builder.parse(pfadNachOS(dateiname));
 			NodeList nList = doc.getElementsByTagName("label");
 			
+			String[] label = new String[nList.getLength()];
+			
+			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
+			for (int i = 0; i < nList.getLength(); i++)
+			{
+			 Node node = nList.item(i);
+			 
+			 if (node.getNodeType() == Node.ELEMENT_NODE) {
+			    Element eElement = (Element) node;
+			    label[i]=eElement.getElementsByTagName("name").item(0).getTextContent();
+			 }
+			}
+			return label;
+		 } catch (Exception e) {
+			e.printStackTrace();
+			String[] leer=new String[0];
+			return leer;
+		 }
+		
+	}
+	
+	public static HashMap<String,ArrayList<String>> labelLesen2(){
+		try {
+			
+			String dateiname ="labels.xml";
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(pfadNachOS(dateiname));
+			NodeList nList = doc.getElementsByTagName("label");
+			
+			HashMap<String,ArrayList<String>> label2 = new HashMap<>();
 			String[] label = new String[nList.getLength()];
 			
 			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben

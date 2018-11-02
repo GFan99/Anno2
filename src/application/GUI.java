@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +27,7 @@ public class GUI extends Application {
 			TextField id = new TextField();
 			Button idok = new Button("OK");
 			Button neueid = new Button("ID erstellen");
+			
 			AnchorPane.setTopAnchor(idfrage, 10.0);
 			AnchorPane.setLeftAnchor(idfrage, 10.0);
 			AnchorPane.setTopAnchor(id, 40.0);
@@ -55,12 +57,22 @@ public class GUI extends Application {
 			
 			
 			
-			for(int i=0; i<Input.labelLesen().length;i++){
+			/**for(int i=0; i<Input.labelLesen().length;i++){
 				Label label0 =new Label(Input.labelLesen()[i]);
 				GridPane.setConstraints(label0, 1, i+1);;
+			}**/
+			//Wie kann man jeden button/label anders benennen, um sie
+			//später bei Event ansprechen zu können???
+			int zeile=1;
+			for(String key : Input.labelLesen2().keySet()) {
+				Label label0 = new Label(key);
+				GridPane.setConstraints(label0, 1, zeile);
+				for(int i=0; i<Input.labelLesen2().get(key).size();i++){
+					RadioButton rbutton0 = new RadioButton(Input.labelLesen2().get(key).get(i));
+					GridPane.setConstraints(rbutton0, i+2, zeile);
+				}
+				zeile++;
 			}
-			
-			
 			
 			daten.getChildren().addAll(idanzeige, fortschritt);
 			textanz.setContent(text);
