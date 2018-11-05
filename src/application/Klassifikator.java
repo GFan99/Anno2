@@ -3,7 +3,6 @@ package application;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-
 import javafx.scene.text.Text;
 
 
@@ -29,10 +28,11 @@ import javafx.scene.text.Text;
 public class Klassifikator {
 	
 	private String[] label;
-	private String[] texte;
+	protected String[] texte;
 	private ArrayList<Integer> textids;
 	private HashMap<Integer,boolean[]> ergebnisse;
 	private int idgroesse;
+	private String nutzerID;
 	
 	/**
 	 * Ein leerer Konstruktor...
@@ -45,6 +45,7 @@ public class Klassifikator {
 		this.textids = new ArrayList<Integer>();
 		this.ergebnisse = new HashMap<Integer,boolean[]>();
 		this.idgroesse = 0;
+		this.nutzerID = "";
 	}
 	
 	/**
@@ -55,7 +56,7 @@ public class Klassifikator {
 	 * @param String[] label, String[] texte
 	 * @return Klassifikator
 	 */
-	public Klassifikator(String[] label, String[] texte) {
+	public Klassifikator(String nutzerID, String[] label, String[] texte) {
 		this.label = label;
 		this.texte = texte;
 		this.textids = new ArrayList<Integer>();
@@ -64,6 +65,7 @@ public class Klassifikator {
 			textids.add(i);
 		}	
 		this.ergebnisse = new HashMap<Integer,boolean[]>();
+		this.nutzerID = nutzerID;
 	}
 	
 	/**
@@ -99,6 +101,21 @@ public class Klassifikator {
 	public String getText() {
 		int i = this.waehleText();
 		return texte[i];
+	}
+	
+	public String generiereNutzer() {
+		final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		StringBuilder builder = new StringBuilder();
+		int count = 16;
+		while (count-- != 0) {
+			int character = (int)(Math.random()*ALPHA_NUMERIC_STRING.length());
+			builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+		}
+		return builder.toString();
+	}
+	
+	public String[] getTexte() {
+		return this.texte;
 	}
 
 }
