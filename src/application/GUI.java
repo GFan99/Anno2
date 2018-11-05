@@ -48,6 +48,8 @@ public class GUI extends Application {
 			Button idok = new Button("OK");
 			Button neueid = new Button("ID erstellen");
 			
+			id.setPrefWidth(280.0);;
+			
 			AnchorPane.setTopAnchor(idfrage, 10.0);
 			AnchorPane.setLeftAnchor(idfrage, 10.0);
 			AnchorPane.setTopAnchor(id, 40.0);
@@ -58,14 +60,23 @@ public class GUI extends Application {
 			AnchorPane.setLeftAnchor(neueid, 80.0);
 			idpane.getChildren().addAll(idfrage, id, idok, neueid);
 			
-			Scene idabfrage = new Scene(idpane,400,250);
+			Scene idabfrage = new Scene(idpane,300,150);
 			idabfrage.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			primaryStage.setScene(idabfrage);
 			primaryStage.show();
 			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void abfrage(Stage secondStage) {
+		try {
 			int x = 800;
 			int y = 500;
+			
 			VBox klasspane= new VBox();
 			HBox daten = new HBox();
 			GridPane ranking = new GridPane();
@@ -73,17 +84,12 @@ public class GUI extends Application {
 			
 			//Input-Aufruf
 			
-			Klassifikator klasse = new Klassifikator(); //inputs als parameter übergeben
+			Klassifikator klasse = new Klassifikator(); //inputs als parameter uebergeben
 			ProgressBar fortschritt = new ProgressBar(0);
 			Label idanzeige = new Label("Nutzer-ID: "+Steuerung.nutzerID);
 			Text text = new Text(klasse.getText());
+			Button labelok = new Button("OK");
 			
-			
-			
-			/**for(int i=0; i<Input.labelLesen().length;i++){
-				Label label0 =new Label(Input.labelLesen()[i]);
-				GridPane.setConstraints(label0, 1, i+1);;
-			}**/
 			//Wie kann man jeden button/label anders benennen, um sie
 			//sp�ter bei Event ansprechen zu k�nnen???
 			int zeile=1;
@@ -102,9 +108,64 @@ public class GUI extends Application {
 			
 			
 			Scene klass = new Scene(klasspane,x,y);
-			klasspane.getChildren().addAll(daten, textanz, ranking);
+			klasspane.getChildren().addAll(daten, textanz, ranking, labelok);
 			
-		} catch(Exception e) {
+			klass.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
+			secondStage.setScene(klass);
+			secondStage.show();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void ende(Stage thirdStage, Klassifikator klasse) {
+		try {
+			
+			AnchorPane gameoverpane=new AnchorPane();
+			double prozent=klasse.te ;
+			Label timeout= new Label("Ihre Zeit ist leider abgelaufen. \n Sie haben bereits " +prozent+ "% klassifiziert.");
+			Button schliessen = new Button("Schliessen");
+			
+			AnchorPane.setLeftAnchor(timeout, 10.0);
+			AnchorPane.setTopAnchor(timeout, 10.0);
+			AnchorPane.setLeftAnchor(schliessen, 10.0);
+			AnchorPane.setTopAnchor(schliessen, 40.0);
+			gameoverpane.getChildren().addAll(timeout, schliessen);
+			
+			Scene beenden =new Scene(gameoverpane,400,250);
+			beenden.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
+			
+			thirdStage.setScene(beenden);
+			thirdStage.show();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void fertig(Stage fourthStage) {
+		try {
+			
+			AnchorPane endpain=new AnchorPane();
+			Label fertig = new Label("Sie haben alle Texte klassifiziert.");
+			Button schliessen = new Button("Schliessen");
+			
+			AnchorPane.setLeftAnchor(fertig, 10.0);
+			AnchorPane.setTopAnchor(fertig, 10.0);
+			AnchorPane.setLeftAnchor(schliessen, 10.0);
+			AnchorPane.setTopAnchor(schliessen, 40.0);
+			endpain.getChildren().addAll(endpain);
+			
+			Scene beenden =new Scene(endpain,400,250);
+			beenden.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
+			fourthStage.setScene(beenden);
+			fourthStage.show();
+			
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}

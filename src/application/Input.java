@@ -79,8 +79,7 @@ public class Input {
 			Document doc = builder.parse(pfadNachOS(dateiname));
 			NodeList nList = doc.getElementsByTagName("label");
 			
-			HashMap<String,ArrayList<String>> label2 = new HashMap<>();
-			String[] label = new String[nList.getLength()];
+			HashMap<String,ArrayList<String>> label = new HashMap<>();
 			
 			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
 			for (int i = 0; i < nList.getLength(); i++)
@@ -95,7 +94,7 @@ public class Input {
 			return label;
 		 } catch (Exception e) {
 			e.printStackTrace();
-			String[] leer=new String[0];
+			HashMap<String,ArrayList<String>> leer=new HashMap<>;
 			return leer;
 		 }
 		
