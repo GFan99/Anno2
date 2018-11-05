@@ -51,9 +51,12 @@ public class GUI extends Application {
 			GridPane ranking = new GridPane();
 			ScrollPane textanz = new ScrollPane();
 			
+			//Input-Aufruf
+			
+			Klassifikator klasse = new Klassifikator(); //inputs als parameter Ã¼bergeben
 			ProgressBar fortschritt = new ProgressBar(0);
 			Label idanzeige = new Label("Nutzer-ID: "+Steuerung.nutzerID);
-			Text text = new Text(Steuerung.getText());
+			Text text = new Text(klasse.getText());
 			
 			
 			
@@ -62,7 +65,7 @@ public class GUI extends Application {
 				GridPane.setConstraints(label0, 1, i+1);;
 			}**/
 			//Wie kann man jeden button/label anders benennen, um sie
-			//später bei Event ansprechen zu können???
+			//spï¿½ter bei Event ansprechen zu kï¿½nnen???
 			int zeile=1;
 			for(String key : Input.labelLesen2().keySet()) {
 				Label label0 = new Label(key);

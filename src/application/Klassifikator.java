@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import javafx.scene.text.Text;
+
 
 /**
  * Dies wird die Klasse Klassifikator.
@@ -94,5 +96,9 @@ public class Klassifikator {
 		return sort;
 	}
 	
+	public String getText() {
+		int i = this.waehleText();
+		return texte[i];
+	}
 
 }
