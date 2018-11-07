@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.bioforscher.de/fosil/DataFormatter"
+	xmlns:ns="http://www.bioforscher.de/fosil/DataFormatter"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<element name="element" type="ns:DataEntity"></element>
+
+	<complexType name="DataEntity">
+		<sequence>
+			<!-- Source to raw text -->
+			<element name="source" type="string"></element>
+
+			<!-- Unique id (name) for text -->
+			<element name="textID" type="string"></element>
+
+			<!-- Raw text -->
+			<element name="text" type="string"></element>
+
+			<!-- Annotation items -->
+			<element name="annotations" type="ns:AnnotationItem"></element>
+
+			<!-- Rater ID -->
+			<element name="raterID" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<!-- To decide items should be defined here -->
+	<complexType name="AnnotationItem">
+		<sequence>
+			<!-- Is event related -->
+			<element name="isEvent" type="boolean"></element>
+
+			<!-- Is music related -->
+			<element name="isMusic" type="boolean"></element>
+		</sequence>
+	</complexType>
+</schema>

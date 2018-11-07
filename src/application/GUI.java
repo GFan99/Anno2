@@ -152,7 +152,7 @@ public class GUI extends Application {
 			AnchorPane endpain=new AnchorPane();
 			Label fertig = new Label("Sie haben alle Texte klassifiziert.");
 			Button schliessen = new Button("Schliessen");
-			
+
 			AnchorPane.setLeftAnchor(fertig, 10.0);
 			AnchorPane.setTopAnchor(fertig, 10.0);
 			AnchorPane.setLeftAnchor(schliessen, 10.0);
