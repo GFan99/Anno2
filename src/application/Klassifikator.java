@@ -112,6 +112,7 @@ public class Klassifikator {
 			builder.append(ALPHA_NUMERIC_STRING.charAt(character));
 		}
 		return builder.toString();
+		//datenbank erstllen, abgleichen, neu generierenx
 	}
 	
 	public String[] getTexte() {
