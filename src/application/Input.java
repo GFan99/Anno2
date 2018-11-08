@@ -44,6 +44,17 @@ public class Input {
 		try {
 			
 			String dateiname ="labels.xml";
+			/**
+			 * File labels = Input.pfadNachOS(dateiname);
+			 * JAXBContext context = JABXContext.newInstance(AnnotationItem.class);
+			 * Unmarshaller unmarshallerObj = context.createUnmarshaller();
+			 * AnnotationItem annotationItem = (AnnotationItem) unmarshallerObj.unmarshal(labels);
+			 * HashMap<String,ArrayList<String>> label = new HashMap<>();
+			 * 
+			 * for(AnnotationItem item: annotaionItem.getAnnotationItem()){
+			 * 		
+			 * }
+			 */
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(pfadNachOS(dateiname));
