@@ -1,6 +1,10 @@
 package application;
 	
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,6 +13,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -44,7 +49,7 @@ public class GUI extends Application {
 			AnchorPane idpane = new AnchorPane();
 			
 			Label idfrage = new Label("Bitte geben Sie ihre Nutzer-ID ein:");
-			TextField id = new TextField();
+			TextField idtext = new TextField();
 			Button idok = new Button("OK");
 			Button neueid = new Button("ID erstellen");
 			
@@ -66,14 +71,42 @@ public class GUI extends Application {
 			primaryStage.setScene(idabfrage);
 			primaryStage.show();
 			
+			//Creating the mouse event handler 
+			EventHandler<MouseEvent> idErstellen = new EventHandler<MouseEvent>() { 
+			   @Override 
+			   public void handle(MouseEvent e) { 
+				   String nutzerid = Klassifikator.generiereNutzer();
+				   String[] texts = Input.texteLesen();
+				   HashMap<String,ArrayList<String>> labels = Input.labelLesen2();
+				   Klassifikator k1 = new Klassifikator(nutzerid, labels, texts);
+				   abfrage(k1);
+			   } 
+			};   
+			//Adding event Filter 
+			neueid.addEventFilter(MouseEvent.MOUSE_CLICKED, idErstellen);
+			
+			EventHandler<MouseEvent> idLesen = new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent e) {
+					String nutzerID = idtext.getText();
+					String[] texts = Input.labellesen(nutzerID);
+					HashMap<String,ArrayList<String>> labels = Input.textlesen(nutzerID);
+						Klassifikator k1 = new Klassifikator(nutzerID, labels, texts);
+					   abfrage(k1);
+				}
+			};
+			idok.addEventFilter(MouseEvent.MOUSE_CLICKED, idLesen);
+			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void abfrage(Stage secondStage) {
+	public void abfrage(Klassifikator klass) {
 		try {
+			Stage secondStage = new Stage();
+			
 			int x = 800;
 			int y = 500;
 			
@@ -84,7 +117,7 @@ public class GUI extends Application {
 			
 			//Input-Aufruf
 			
-			Klassifikator klasse = new Klassifikator(); //inputs als parameter uebergeben
+			Klassifikator klasse = klass; //inputs als parameter uebergeben
 			ProgressBar fortschritt = new ProgressBar(0);
 			Label idanzeige = new Label("Nutzer-ID: "+Steuerung.nutzerID);
 			Text text = new Text(klasse.getText());
@@ -107,15 +140,14 @@ public class GUI extends Application {
 			textanz.setContent(text);
 			
 			
-			Scene klass = new Scene(klasspane,x,y);
+			Scene klassi = new Scene(klasspane,x,y);
 			klasspane.getChildren().addAll(daten, textanz, ranking, labelok);
 			
-			klass.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
-			secondStage.setScene(klass);
+			secondStage.setScene(klassi);
 			secondStage.show();
-			
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -124,8 +156,9 @@ public class GUI extends Application {
 		try {
 			
 			AnchorPane gameoverpane=new AnchorPane();
-			double prozent=klasse.te ;
-			Label timeout= new Label("Ihre Zeit ist leider abgelaufen. \n Sie haben bereits " +prozent+ "% klassifiziert.");
+			//prozent noch ueberarbeiten!!
+			double prozent=klasse.texte.length/klasse.idgroesse;
+			Label timeout= new Label("Ihre Zeit ist für heute abgelaufen. \n Sie haben bereits " +prozent+ "% klassifiziert.");
 			Button schliessen = new Button("Schliessen");
 			
 			AnchorPane.setLeftAnchor(timeout, 10.0);
@@ -165,7 +198,7 @@ public class GUI extends Application {
 			fourthStage.setScene(beenden);
 			fourthStage.show();
 			
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}

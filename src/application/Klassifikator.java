@@ -27,11 +27,11 @@ import javafx.scene.text.Text;
  */
 public class Klassifikator {
 	
-	private String[] label;
+	private HashMap<String,ArrayList<String>> label;
 	protected String[] texte;
 	private ArrayList<Integer> textids;
 	private HashMap<Integer,boolean[]> ergebnisse;
-	private int idgroesse;
+	int idgroesse;							
 	private String nutzerID;
 	
 	/**
@@ -40,7 +40,7 @@ public class Klassifikator {
 	 * @return Klassifikator
 	 */
 	public Klassifikator() {
-		this.label = new String[0];
+		this.label = new HashMap<String,ArrayList<String>>();
 		this.texte = new String[0];
 		this.textids = new ArrayList<Integer>();
 		this.ergebnisse = new HashMap<Integer,boolean[]>();
@@ -56,7 +56,7 @@ public class Klassifikator {
 	 * @param String[] label, String[] texte
 	 * @return Klassifikator
 	 */
-	public Klassifikator(String nutzerID, String[] label, String[] texte) {
+	public Klassifikator(String nutzerID, HashMap<String,ArrayList<String>> label, String[] texte) {
 		this.label = label;
 		this.texte = texte;
 		this.textids = new ArrayList<Integer>();
@@ -103,7 +103,7 @@ public class Klassifikator {
 		return texte[i];
 	}
 	
-	public String generiereNutzer() {
+	public static String generiereNutzer() {
 		final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 		StringBuilder builder = new StringBuilder();
 		int count = 16;
