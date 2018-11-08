@@ -80,7 +80,8 @@ public class GUI extends Application {
 				   String[] texts = Input.texteLesen();
 				   HashMap<String,ArrayList<String>> labels = Input.labelLesen();
 				   Klassifikator k1 = new Klassifikator(nutzerid, labels, texts);
-				   abfrage(k1);
+				   primaryStage.close();
+				   hauptStage(k1);
 			   } 
 			};   
 			//Adding event Filter 
@@ -95,18 +96,64 @@ public class GUI extends Application {
 					//HashMap<String,ArrayList<String>> labels = Input.textlesen(nutzerID);
 					HashMap<String,ArrayList<String>> labels = new HashMap<String,ArrayList<String>>();
 					Klassifikator k1 = new Klassifikator(nutzerID, labels, texts);
-					abfrage(k1);
+					primaryStage.close();
+					hauptStage(k1);
 				}
 			};
 			idok.addEventFilter(MouseEvent.MOUSE_CLICKED, idLesen);
 			
+
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	
+	public Stage hauptStage(Klassifikator klasse) {
+		
+		
+		Stage secondStage = new Stage();
+			
+		int x = 800;
+		int y = 500;
+			
+		VBox klasspane= new VBox();
+		HBox daten = new HBox();
+		GridPane ranking = new GridPane();
+		ScrollPane textanz = new ScrollPane();
+			
+		//Input-Aufruf
+		
+		ProgressBar fortschritt = new ProgressBar(0);
+		Label idanzeige = new Label("Nutzer-ID: "+Steuerung.nutzerID);
+		Text text = new Text(klasse.getText());
+		Button labelok = new Button("OK");
+			
+		//Wie kann man jeden button/label anders benennen, um sie
+		//sp�ter bei Event ansprechen zu k�nnen???
+		int zeile=1;
+		for(String key : Input.labelLesen().keySet()) {
+			Label label0 = new Label(key);
+			GridPane.setConstraints(label0, 1, zeile);
+			for(int i=0; i<Input.labelLesen().get(key).size();i++){
+				RadioButton rbutton0 = new RadioButton(Input.labelLesen().get(key).get(i));
+				GridPane.setConstraints(rbutton0, i+2, zeile);
+			}
+			zeile++;
+		}
+		
+		daten.getChildren().addAll(idanzeige, fortschritt);
+		textanz.setContent(text);
+		
+			
+		Scene klassi = new Scene(klasspane,x,y);
+		klasspane.getChildren().addAll(daten, textanz, ranking, labelok);
+		
+		klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		
+		secondStage.setScene(klassi);
+		return secondStage;
+	}
 	
 	public void ende(Stage thirdStage, Klassifikator klasse) {
 		try {
