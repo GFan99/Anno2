@@ -53,17 +53,17 @@ public class GUI extends Application {
 			Button idok = new Button("OK");
 			Button neueid = new Button("ID erstellen");
 			
-			id.setPrefWidth(280.0);;
+			idtext.setPrefWidth(280.0);;
 			
 			AnchorPane.setTopAnchor(idfrage, 10.0);
 			AnchorPane.setLeftAnchor(idfrage, 10.0);
-			AnchorPane.setTopAnchor(id, 40.0);
-			AnchorPane.setLeftAnchor(id, 10.0);
+			AnchorPane.setTopAnchor(idtext, 40.0);
+			AnchorPane.setLeftAnchor(idtext, 10.0);
 			AnchorPane.setTopAnchor(idok, 80.0);
 			AnchorPane.setLeftAnchor(idok, 25.0);
 			AnchorPane.setTopAnchor(neueid, 80.0);
 			AnchorPane.setLeftAnchor(neueid, 80.0);
-			idpane.getChildren().addAll(idfrage, id, idok, neueid);
+			idpane.getChildren().addAll(idfrage, idtext, idok, neueid);
 			
 			Scene idabfrage = new Scene(idpane,300,150);
 			idabfrage.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -76,8 +76,9 @@ public class GUI extends Application {
 			   @Override 
 			   public void handle(MouseEvent e) { 
 				   String nutzerid = Klassifikator.generiereNutzer();
+				   System.out.println(nutzerid);
 				   String[] texts = Input.texteLesen();
-				   HashMap<String,ArrayList<String>> labels = Input.labelLesen2();
+				   HashMap<String,ArrayList<String>> labels = Input.labelLesen();
 				   Klassifikator k1 = new Klassifikator(nutzerid, labels, texts);
 				   abfrage(k1);
 			   } 
@@ -89,10 +90,12 @@ public class GUI extends Application {
 				@Override
 				public void handle(MouseEvent e) {
 					String nutzerID = idtext.getText();
-					String[] texts = Input.labellesen(nutzerID);
-					HashMap<String,ArrayList<String>> labels = Input.textlesen(nutzerID);
-						Klassifikator k1 = new Klassifikator(nutzerID, labels, texts);
-					   abfrage(k1);
+					//String[] texts = Input.labellesen(nutzerID);
+					String[] texts = new String[0];
+					//HashMap<String,ArrayList<String>> labels = Input.textlesen(nutzerID);
+					HashMap<String,ArrayList<String>> labels = new HashMap<String,ArrayList<String>>();
+					Klassifikator k1 = new Klassifikator(nutzerID, labels, texts);
+					abfrage(k1);
 				}
 			};
 			idok.addEventFilter(MouseEvent.MOUSE_CLICKED, idLesen);
@@ -103,54 +106,7 @@ public class GUI extends Application {
 		}
 	}
 	
-	public void abfrage(Klassifikator klass) {
-		try {
-			Stage secondStage = new Stage();
-			
-			int x = 800;
-			int y = 500;
-			
-			VBox klasspane= new VBox();
-			HBox daten = new HBox();
-			GridPane ranking = new GridPane();
-			ScrollPane textanz = new ScrollPane();
-			
-			//Input-Aufruf
-			
-			Klassifikator klasse = klass; //inputs als parameter uebergeben
-			ProgressBar fortschritt = new ProgressBar(0);
-			Label idanzeige = new Label("Nutzer-ID: "+Steuerung.nutzerID);
-			Text text = new Text(klasse.getText());
-			Button labelok = new Button("OK");
-			
-			//Wie kann man jeden button/label anders benennen, um sie
-			//sp�ter bei Event ansprechen zu k�nnen???
-			int zeile=1;
-			for(String key : Input.labelLesen2().keySet()) {
-				Label label0 = new Label(key);
-				GridPane.setConstraints(label0, 1, zeile);
-				for(int i=0; i<Input.labelLesen2().get(key).size();i++){
-					RadioButton rbutton0 = new RadioButton(Input.labelLesen2().get(key).get(i));
-					GridPane.setConstraints(rbutton0, i+2, zeile);
-				}
-				zeile++;
-			}
-			
-			daten.getChildren().addAll(idanzeige, fortschritt);
-			textanz.setContent(text);
-			
-			
-			Scene klassi = new Scene(klasspane,x,y);
-			klasspane.getChildren().addAll(daten, textanz, ranking, labelok);
-			
-			klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
-			secondStage.setScene(klassi);
-			secondStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 	
 	public void ende(Stage thirdStage, Klassifikator klasse) {
 		try {
