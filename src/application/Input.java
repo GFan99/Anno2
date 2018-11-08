@@ -40,21 +40,11 @@ public class Input {
 	 * @param
 	 * @return String[]
 	 */
-	public static String[] labelLesen(){
+	/**public static String[] labelLesen(){
 		try {
 			
 			String dateiname ="labels.xml";
-			/**
-			 * File labels = Input.pfadNachOS(dateiname);
-			 * JAXBContext context = JABXContext.newInstance(AnnotationItem.class);
-			 * Unmarshaller unmarshallerObj = context.createUnmarshaller();
-			 * AnnotationItem annotationItem = (AnnotationItem) unmarshallerObj.unmarshal(labels);
-			 * HashMap<String,ArrayList<String>> label = new HashMap<>();
-			 * 
-			 * for(AnnotationItem item: annotaionItem.getAnnotationItem()){
-			 * 		
-			 * }
-			 */
+			
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(pfadNachOS(dateiname));
@@ -79,12 +69,24 @@ public class Input {
 			return leer;
 		 }
 		
-	}
+	}**/
 	
-	public static HashMap<String,ArrayList<String>> labelLesen2(){
+	public static HashMap<String,ArrayList<String>> labelLesen(){
 		try {
 			
 			String dateiname ="labels.xml";
+			/**
+			 * File labels = Input.pfadNachOS(dateiname);
+			 * JAXBContext context = JABXContext.newInstance(DataEntity.class);
+			 * Unmarshaller unmarshallerObj = context.createUnmarshaller();
+			 * DataEntity dataEntity = (DataEntity) unmarshallerObj.unmarshal(labels);
+			 * HashMap<String,ArrayList<String>> label = new HashMap<>();
+			 * 
+			 * for(DataEntity data: dataEntity.getDataEntity()){
+			 * 		AnnotationItem item=data.getAnnotations();
+			 * 		
+			 * }
+			 */
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(pfadNachOS(dateiname));
@@ -99,13 +101,13 @@ public class Input {
 			 
 			 if (node.getNodeType() == Node.ELEMENT_NODE) {
 			    Element eElement = (Element) node;
-			    label[i]=eElement.getElementsByTagName("name").item(0).getTextContent();
+			    //label[i]=eElement.getElementsByTagName("name").item(0).getTextContent();
 			 }
 			}
 			return label;
 		 } catch (Exception e) {
 			e.printStackTrace();
-			HashMap<String,ArrayList<String>> leer=new HashMap<>;
+			HashMap<String,ArrayList<String>> leer=new HashMap<String,ArrayList<String>>();
 			return leer;
 		 }
 		
@@ -116,7 +118,7 @@ public class Input {
 	 * @param
 	 * @return String[]
 	 */
-	public String[] texteLesen(){
+	public static String[] texteLesen(){
 		try {
 			String dateiname="texte.xml";
 			
