@@ -122,6 +122,19 @@ public class Input {
 		try {
 			String dateiname="texte.xml";
 			
+			/**
+			 * File labels = Input.pfadNachOS(dateiname);
+			 * JAXBContext context = JABXContext.newInstance(DataEntity.class);
+			 * Unmarshaller unmarshallerObj = context.createUnmarshaller();
+			 * DataEntity dataEntity = (DataEntity) unmarshallerObj.unmarshal(labels);
+			 * HashMap<String,ArrayList<String>> label = new HashMap<>();
+			 * 
+			 * for(DataEntity data: dataEntity.getDataEntity()){
+			 * 		;
+			 * 		
+			 * }
+			 */
+			
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(pfadNachOS(dateiname));
