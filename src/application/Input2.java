@@ -1,36 +1,15 @@
 package application;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
-import javax.xml.parsers.*;
+//EXTRA METHODE FÜR EIN OER MEHRERE MÖGLICKEITEN ODER MAP ERWEITERN?????
 
-import org.w3c.dom.*;
-
-/**
- * Dies wird die Klasse Input.
- * Input dient dazu die bereitgestellte XML-Datei zu lesen und daraus die zu bearbeitenden Texte
- * mit den gewuenschten Labeln abzuleiten.
- * Sie hat Zugriff auf die Klasse Klassifikator, damit sie dort in das label[] - Array die Namen
- * der Label und in das text[] - Array die zu bearbeitenden Texte eintragen kann.
- * Input ist die erste Klasse, die von Steuerung angesprochen wird, da sie fuer das Laden der Da-
- * ten zustaendig ist, mit denen das Programm dann arbeiten soll.
- * Zusaetzlich kann sie die Dateien lesen, die erstellt werden, falls das Programm vor abarbeiten
- * aller Texte beendet wird. Dies dient dazu, dass der Nutzer mit dem Klassifizieren/Labeln dort
- * weitermachen kann, wo er zuvor aufgehoert hat, ohne einen Text doppelt zu bearbeiten.
- * 
- * 
- * Texte als txt aus Ordner lesen
- * xml mittels dom einlesen
- * ja nein veilleicht in schema festlegen
- * 
- *
- * @author susannabeck
- * @version 0.1
- */
-public class Input {
-	
+public class Input2 {
 	public static File pfadNachOS(String dateiname, String ordnername) {
 		String osName = System.getProperty("os.name");
 		if (osName.indexOf("Windows") != -1) {
@@ -88,25 +67,53 @@ public class Input {
 	public static HashMap<String,ArrayList<String>> labelLesen(){
 		try {
 			
-			String dateiname ="labels.xml";
-			String ordnername = "XML";
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(pfadNachOS(dateiname, ordnername));
-			NodeList nList = doc.getElementsByTagName("element");
+			String dateiname ="labels.txt";
+			String ordnername = "Eingabe";
 			
+			File labels = Input.pfadNachOS(dateiname, ordnername);
 			HashMap<String,ArrayList<String>> label = new HashMap<>();
+			ArrayList<String> beschriftung=new ArrayList<>();
+			String bezeichnung="";
 			
-			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
-			for (int i = 0; i < nList.getLength(); i++)
-			{
-			 Node node = nList.item(i);
-			 
-			 if (node.getNodeType() == Node.ELEMENT_NODE) {
-			    Element eElement = (Element) node;
-			    //label[i]=eElement.getElementsByTagName("name").item(0).getTextContent();
-			 }
+			BufferedReader br = new BufferedReader(new FileReader(labels));
+			String line = br.readLine();
+			int zeile=1;
+			while (line != "ENDE") {
+				if(zeile%4==1) {
+					bezeichnung=line;
+				}
+				else if(zeile%4==2) {
+					if (line=="5rating") {
+						beschriftung.add("trifft nicht zu");
+						beschriftung.add("trifft eher nicht zu");
+						beschriftung.add("ich weiß nicht");
+						beschriftung.add("trifft teilweise zu");
+						beschriftung.add("trifft zu");
+					}
+					else if (line=="3rating zutreffen") {
+						beschriftung.add("trifft nicht zu");
+						beschriftung.add("ich weiß nicht");
+						beschriftung.add("trifft zu");
+					}
+					else if (line=="3rating ja") {
+						beschriftung.add("nein");
+						beschriftung.add("vielleicht");
+						beschriftung.add("ja"); 
+					}
+					else {
+						beschriftung=new ArrayList<String>(Arrays.asList(line.split(",")));
+					}					
+						
+				}
+				else if(zeile%4==3) {
+					label.put(bezeichnung, beschriftung);
+					beschriftung.clear();
+				}
+				line = br.readLine();
 			}
+			br.close();
+			
+			  
 			return label;
 		 } catch (Exception e) {
 			e.printStackTrace();
@@ -146,6 +153,4 @@ public class Input {
 		 }
 		
 	}
-
-
 }
