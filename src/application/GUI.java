@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextAreaBuilder;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -43,18 +45,22 @@ import javafx.scene.text.Text;
  * @version 0.1
  */
 public class GUI extends Application {
+	
+	private static boolean neueIDerstellen =true;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			//erstellen des Pane und der Komponenten der "IDStage"
 			AnchorPane idpane = new AnchorPane();
-			
 			Label idfrage = new Label("Bitte geben Sie ihre Nutzer-ID ein:");
 			TextField idtext = new TextField();
 			Button idok = new Button("OK");
 			Button neueid = new Button("ID erstellen");
+			//VorzugsBreite fuer Textfeld setzen, damit gesamte ID sichtbar eingegeben werden kann
+			idtext.setPrefWidth(260.0);
 			
-			idtext.setPrefWidth(280.0);;
-			
+			//Positionierung der Objekte der IDStage und Zuordnung zum Pane
 			AnchorPane.setTopAnchor(idfrage, 10.0);
 			AnchorPane.setLeftAnchor(idfrage, 10.0);
 			AnchorPane.setTopAnchor(idtext, 40.0);
@@ -65,43 +71,60 @@ public class GUI extends Application {
 			AnchorPane.setLeftAnchor(neueid, 80.0);
 			idpane.getChildren().addAll(idfrage, idtext, idok, neueid);
 			
+			//Erstellen der Scene aus dem Pane und Zuweisung eines Stylesheets
 			Scene idabfrage = new Scene(idpane,300,150);
 			idabfrage.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
+			//primaryStage erhaelt Scene und damit alle anderen Objekte --> zeigen der Stage
 			primaryStage.setScene(idabfrage);
 			primaryStage.show();
 			
-			//Creating the mouse event handler 
+			//MouseEventHandler fuer Butten "neueid" 
 			EventHandler<MouseEvent> idErstellen = new EventHandler<MouseEvent>() { 
 			   @Override 
 			   public void handle(MouseEvent e) { 
-				   String nutzerid = Klassifikator.generiereNutzer();
-				   System.out.println(nutzerid);
-				   String[] texts = Input.texteLesen();
-				   HashMap<String,ArrayList<String>> labels = Input.labelLesen();
-				   Klassifikator k1 = new Klassifikator(nutzerid, labels, texts);
-				   primaryStage.close();
-				   hauptStage(k1);
+				   GUI.neueIDerstellen = true;
 			   } 
 			};   
-			//Adding event Filter 
+			//EventFilter dazu 
 			neueid.addEventFilter(MouseEvent.MOUSE_CLICKED, idErstellen);
 			
+			//MouseEventHandler fuer Butten "idok" 
 			EventHandler<MouseEvent> idLesen = new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent e) {
-					String nutzerID = idtext.getText();
-					//String[] texts = Input.labellesen(nutzerID);
-					String[] texts = new String[0];
-					//HashMap<String,ArrayList<String>> labels = Input.textlesen(nutzerID);
-					HashMap<String,ArrayList<String>> labels = new HashMap<String,ArrayList<String>>();
-					Klassifikator k1 = new Klassifikator(nutzerID, labels, texts);
-					primaryStage.close();
-					hauptStage(k1);
+					GUI.neueIDerstellen = false;
+					
 				}
 			};
+			//EventFilter dazu 
 			idok.addEventFilter(MouseEvent.MOUSE_CLICKED, idLesen);
 			
+			//Erstellen des klassifikators aus der Eingabe des Nutzers
+			String nutzerid;
+			String[] texts;
+			HashMap<String,ArrayList<String>> labels;
+			Klassifikator k1;
+			
+			if(GUI.neueIDerstellen) {
+				nutzerid = Klassifikator.generiereNutzer();
+				System.out.println("Neue ID generiert: "+nutzerid);
+				texts = Input.texteLesen();
+				labels = Input.labelLesen();					
+			}
+			else {
+				nutzerid = idtext.getText();
+				//String[] texts = Input.labellesen(nutzerID);
+				texts = new String[0];
+				//HashMap<String,ArrayList<String>> labels = Input.textlesen(nutzerID);
+				labels = new HashMap<String,ArrayList<String>>();
+			}
+			k1 = new Klassifikator(nutzerid, labels, texts);
+			primaryStage.close();
+			
+			//Erstelle neue Stage mithilfe des erzeugten Klassifikators
+			Stage mainStage = erstelleHauptStage(k1);
+			mainStage.show();
 
 			
 		} catch(Exception e) {
@@ -109,45 +132,94 @@ public class GUI extends Application {
 		}
 	}
 	
-	public Stage hauptStage(Klassifikator klasse) {
+	public Stage erstelleHauptStage(Klassifikator klasse) {
 		
-		
-		Stage secondStage = new Stage();
-			
+		/* 
+		 * statischer Teil 
+		 */
+		Stage secondStage = new Stage();	
 		int x = 800;
 		int y = 500;
-			
+		
+		/**
+		 * VBox besteht aus 4 untereinanderliegenden Teilen
+		 * Teil 1:	allgemeine Angaben --> ID, Fortschrite, Timer
+		 * Teil 2:	scrollable textarea
+		 * Teil 3:	Labelwertungssystem
+		 * Teil 4:	schriftgroessen buttons + abschicken button
+		 */	
 		VBox klasspane= new VBox();
-		HBox daten = new HBox();
-		GridPane ranking = new GridPane();
-		ScrollPane textanz = new ScrollPane();
-			
-		//Input-Aufruf
+		/** Leiste für Teil 1 */
+		HBox teil1Daten = new HBox();
+		/** Teil 2 - scrollable textarea */
+		ScrollPane teil2Texthalter = new ScrollPane();
+		/** Teil 3 - Wertungssystem (tabellenfoerimge Anordnung) */
+		GridPane teil3Ranking = new GridPane();
+		/** Teil 4 - Buttons werden links und rechts angezeigt */
+		BorderPane teil4GroesseAbsenden = new BorderPane();
+
+		String nutzerstring = klasse.getNutzerID();
 		
+		
+		//Teil1 - obere Zeile der Anzeige
+		Label idanzeige = new Label("Nutzer-ID: "+nutzerstring);
 		ProgressBar fortschritt = new ProgressBar(0);
-		Label idanzeige = new Label("Nutzer-ID: "+Steuerung.nutzerID);
-		Text text = new Text(klasse.getText());
-		Button labelok = new Button("OK");
+		Label zeitanzeige = new Label("Counter"); //anpassen, so dass Zeit angezeigt wird
+		
+		teil1Daten.getChildren().addAll(idanzeige, fortschritt);
+		
+		//Teil2 - scrollabe TextArea
+		TextArea teil2Textarea = new TextArea();
+		teil2Texthalter.setContent(teil2Textarea);
+		teil2Texthalter.setFitToWidth(true);
+		teil2Texthalter.setPrefWidth(400);
+		teil2Texthalter.setPrefHeight(180);
+		String text = klasse.getText();
+		teil2Textarea.setText(text);
+		
+		//teil 3 siehe dynamisch
+		
+		//Teil 4 - Absenden und Schriftgroeße
+		HBox schriftgroesse = new HBox();
+		Label schrift = new Label("Schriftgröße");
+		Button schriftplus = new Button("+");
+		Button schriftminus = new Button("-");
+		Button labelabsenden = new Button("Absenden");
+		schriftgroesse.getChildren().addAll(schrift, schriftplus, schriftminus);
+		
+		teil4GroesseAbsenden.setLeft(schriftgroesse);
+		teil4GroesseAbsenden.setRight(labelabsenden);
+		
+		//kommt bei Klick auf absenden 
+		String neuertext = klasse.getText();
+		teil2Textarea.setText(neuertext);
+		
+		
+		
+		
 			
+		
+		
+		
+		
+		/*
+		 *  dynamischer Teil 
+		 */
+		
 		//Wie kann man jeden button/label anders benennen, um sie
-		//sp�ter bei Event ansprechen zu k�nnen???
-		int zeile=1;
-		for(String key : Input.labelLesen().keySet()) {
-			Label label0 = new Label(key);
-			GridPane.setConstraints(label0, 1, zeile);
-			for(int i=0; i<Input.labelLesen().get(key).size();i++){
-				RadioButton rbutton0 = new RadioButton(Input.labelLesen().get(key).get(i));
-				GridPane.setConstraints(rbutton0, i+2, zeile);
-			}
-			zeile++;
-		}
-		
-		daten.getChildren().addAll(idanzeige, fortschritt);
-		textanz.setContent(text);
-		
-			
+				//sp�ter bei Event ansprechen zu k�nnen???
+				int zeile=1;
+				for(String key : Input.labelLesen().keySet()) {
+					Label label0 = new Label(key);
+					GridPane.setConstraints(label0, 1, zeile);
+					for(int i=0; i<Input.labelLesen().get(key).size();i++){
+						RadioButton rbutton0 = new RadioButton(Input.labelLesen().get(key).get(i));
+						GridPane.setConstraints(rbutton0, i+2, zeile);
+					}
+					zeile++;
+				}	
 		Scene klassi = new Scene(klasspane,x,y);
-		klasspane.getChildren().addAll(daten, textanz, ranking, labelok);
+		//klasspane.getChildren().addAll(daten, textanz, ranking, labelok);
 		
 		klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
@@ -155,7 +227,7 @@ public class GUI extends Application {
 		return secondStage;
 	}
 	
-	public void ende(Stage thirdStage, Klassifikator klasse) {
+	public void erstelleZeitendeStage(Stage thirdStage, Klassifikator klasse) {
 		try {
 			
 			AnchorPane gameoverpane=new AnchorPane();
@@ -182,7 +254,7 @@ public class GUI extends Application {
 		}
 	}
 	
-	public void fertig(Stage fourthStage) {
+	public void erstelleFertigStage(Stage fourthStage) {
 		try {
 			
 			AnchorPane endpain=new AnchorPane();
