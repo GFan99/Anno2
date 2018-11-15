@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-//EXTRA METHODE F‹R EIN OER MEHRERE M÷GLICKEITEN ODER MAP ERWEITERN?????
 
 public class Input2 {
 	public static File pfadNachOS(String dateiname, String ordnername) {
@@ -33,36 +32,38 @@ public class Input2 {
 	 * @param
 	 * @return String[]
 	 */
-	/**public static String[] labelLesen(){
+	public static Boolean[] labelEigenschaft(HashMap<String,ArrayList<String>> list){
 		try {
 			
-			String dateiname ="labels.xml";
+			String dateiname ="labels.txt";
+			String ordnername = "Eingabe";
 			
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(pfadNachOS(dateiname));
-			NodeList nList = doc.getElementsByTagName("label");
+			File labels = Input.pfadNachOS(dateiname, ordnername);
+			Boolean[] eigenschaften=new Boolean[list.size()];
 			
-			String[] label = new String[nList.getLength()];
-			
-			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
-			for (int i = 0; i < nList.getLength(); i++)
-			{
-			 Node node = nList.item(i);
-			 
-			 if (node.getNodeType() == Node.ELEMENT_NODE) {
-			    Element eElement = (Element) node;
-			    label[i]=eElement.getElementsByTagName("name").item(0).getTextContent();
-			 }
+			BufferedReader br = new BufferedReader(new FileReader(labels));
+			String line = br.readLine();
+			int zeile=1;
+			int i=0;
+			while (line != "ENDE") {
+				if(zeile%4==3) {
+					if (line=="j") {
+						eigenschaften[i]=true;
+					}
+					else {
+						eigenschaften[i]=false;
+					}
+					i++;
+				}
 			}
-			return label;
-		 } catch (Exception e) {
+			return eigenschaften;
+		} catch (Exception e) {
 			e.printStackTrace();
-			String[] leer=new String[0];
+			Boolean[] leer=new Boolean[0];
 			return leer;
-		 }
+		}
 		
-	}**/
+	}
 	
 	public static HashMap<String,ArrayList<String>> labelLesen(){
 		try {
@@ -83,25 +84,25 @@ public class Input2 {
 					bezeichnung=line;
 				}
 				else if(zeile%4==2) {
-					if (line=="5rating") {
+					if (line=="5Rating") {
 						beschriftung.add("trifft nicht zu");
 						beschriftung.add("trifft eher nicht zu");
 						beschriftung.add("ich weiﬂ nicht");
 						beschriftung.add("trifft teilweise zu");
 						beschriftung.add("trifft zu");
 					}
-					else if (line=="3rating zutreffen") {
+					else if (line=="3Rating zutreffen") {
 						beschriftung.add("trifft nicht zu");
 						beschriftung.add("ich weiﬂ nicht");
 						beschriftung.add("trifft zu");
 					}
-					else if (line=="3rating ja") {
+					else if (line=="3Rating ja") {
 						beschriftung.add("nein");
 						beschriftung.add("vielleicht");
 						beschriftung.add("ja"); 
 					}
 					else {
-						beschriftung=new ArrayList<String>(Arrays.asList(line.split(",")));
+						beschriftung=new ArrayList<String>(Arrays.asList(line.split(";")));
 					}					
 						
 				}

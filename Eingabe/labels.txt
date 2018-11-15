@@ -1,0 +1,21 @@
+Musikbezug?
+5Rating	
+n
+
+was ist es für ein Tier?
+Säugetier;Vogel;Meise;Pferd
+j
+
+Auf was bezieht sich Text?
+Musik;Essen;keine Ahnung
+n
+
+Eventbezug?
+3Rating zutreffen
+n
+
+Gibt es etwas zu essen?
+3Rating ja
+n
+
+ENDE
