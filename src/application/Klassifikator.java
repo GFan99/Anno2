@@ -45,7 +45,7 @@ public class Klassifikator {
 		this.textids = new ArrayList<Integer>();
 		this.ergebnisse = new HashMap<Integer,boolean[]>();
 		this.idgroesse = 0;
-		this.nutzerID = "";
+		this.setNutzerID("");
 	}
 	
 	/**
@@ -65,7 +65,7 @@ public class Klassifikator {
 			textids.add(i);
 		}	
 		this.ergebnisse = new HashMap<Integer,boolean[]>();
-		this.nutzerID = nutzerID;
+		this.setNutzerID(nutzerID);
 	}
 	
 	/**
@@ -117,6 +117,20 @@ public class Klassifikator {
 	
 	public String[] getTexte() {
 		return this.texte;
+	}
+
+	/**
+	 * @return the nutzerID
+	 */
+	public String getNutzerID() {
+		return nutzerID;
+	}
+
+	/**
+	 * @param nutzerID the nutzerID to set
+	 */
+	public void setNutzerID(String nutzerID) {
+		this.nutzerID = nutzerID;
 	}
 
 }
