@@ -32,14 +32,14 @@ public class Input2 {
 	 * @param
 	 * @return String[]
 	 */
-	public static Boolean[] labelEigenschaft(HashMap<String,ArrayList<String>> list){
+	public static boolean[] labelEigenschaft(HashMap<String,ArrayList<String>> list){
 		try {
 			
 			String dateiname ="labels.txt";
 			String ordnername = "Eingabe";
 			
 			File labels = Input.pfadNachOS(dateiname, ordnername);
-			Boolean[] eigenschaften=new Boolean[list.size()];
+			boolean[] eigenschaften=new boolean[list.size()];
 			
 			BufferedReader br = new BufferedReader(new FileReader(labels));
 			String line = br.readLine();
@@ -59,7 +59,7 @@ public class Input2 {
 			return eigenschaften;
 		} catch (Exception e) {
 			e.printStackTrace();
-			Boolean[] leer=new Boolean[0];
+			boolean[] leer=new boolean[0];
 			return leer;
 		}
 		
@@ -87,13 +87,13 @@ public class Input2 {
 					if (line=="5Rating") {
 						beschriftung.add("trifft nicht zu");
 						beschriftung.add("trifft eher nicht zu");
-						beschriftung.add("ich weiß nicht");
+						beschriftung.add("ich weiï¿½ nicht");
 						beschriftung.add("trifft teilweise zu");
 						beschriftung.add("trifft zu");
 					}
 					else if (line=="3Rating zutreffen") {
 						beschriftung.add("trifft nicht zu");
-						beschriftung.add("ich weiß nicht");
+						beschriftung.add("ich weiï¿½ nicht");
 						beschriftung.add("trifft zu");
 					}
 					else if (line=="3Rating ja") {
