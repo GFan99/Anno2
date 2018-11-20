@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.11.07 um 10:21:16 AM CET 
+// Generiert: 2018.11.19 um 01:22:49 PM CET 
 //
 
 
@@ -10,6 +10,7 @@ package de.bioforscher.fosil.dataformatter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -23,8 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="isEvent" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="isMusic" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="label" type="{http://www.bioforscher.de/fosil/DataFormatter}Label"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,44 +35,35 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AnnotationItem", propOrder = {
-    "isEvent",
-    "isMusic"
+    "label"
 })
 public class AnnotationItem {
 
-    protected boolean isEvent;
-    protected boolean isMusic;
+    @XmlElement(required = true)
+    protected Label label;
 
     /**
-     * Ruft den Wert der isEvent-Eigenschaft ab.
+     * Ruft den Wert der label-Eigenschaft ab.
      * 
+     * @return
+     *     possible object is
+     *     {@link Label }
+     *     
      */
-    public boolean isIsEvent() {
-        return isEvent;
+    public Label getLabel() {
+        return label;
     }
 
     /**
-     * Legt den Wert der isEvent-Eigenschaft fest.
+     * Legt den Wert der label-Eigenschaft fest.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Label }
+     *     
      */
-    public void setIsEvent(boolean value) {
-        this.isEvent = value;
-    }
-
-    /**
-     * Ruft den Wert der isMusic-Eigenschaft ab.
-     * 
-     */
-    public boolean isIsMusic() {
-        return isMusic;
-    }
-
-    /**
-     * Legt den Wert der isMusic-Eigenschaft fest.
-     * 
-     */
-    public void setIsMusic(boolean value) {
-        this.isMusic = value;
+    public void setLabel(Label value) {
+        this.label = value;
     }
 
 }

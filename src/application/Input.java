@@ -4,9 +4,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.xml.namespace.QName;
 import javax.xml.parsers.*;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.*;
+
+import com.sun.org.apache.xerces.internal.xs.XSModel;
 
 /**
  * Dies wird die Klasse Input.
@@ -49,41 +54,6 @@ public class Input {
 			
 		}
 	
-	/**
-	 * Eine Methode, um die XML-Datei mit den Labels einzulesen und als String[]-Array zurueckzugeben.
-	 * @param
-	 * @return String[]
-	 */
-	/**public static String[] labelLesen(){
-		try {
-			
-			String dateiname ="labels.xml";
-			
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(pfadNachOS(dateiname));
-			NodeList nList = doc.getElementsByTagName("label");
-			
-			String[] label = new String[nList.getLength()];
-			
-			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
-			for (int i = 0; i < nList.getLength(); i++)
-			{
-			 Node node = nList.item(i);
-			 
-			 if (node.getNodeType() == Node.ELEMENT_NODE) {
-			    Element eElement = (Element) node;
-			    label[i]=eElement.getElementsByTagName("name").item(0).getTextContent();
-			 }
-			}
-			return label;
-		 } catch (Exception e) {
-			e.printStackTrace();
-			String[] leer=new String[0];
-			return leer;
-		 }
-		
-	}**/
 	
 	public static HashMap<String,ArrayList<String>> labelLesen(){
 		try {
@@ -146,6 +116,62 @@ public class Input {
 		 }
 		
 	}
+	
+	public static Document loadXsdDocument(String dateiname, String ordnername) {
+		
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setValidating(false);
+        factory.setIgnoringElementContentWhitespace(true);
+        factory.setIgnoringComments(true);
+        Document doc = null;
+ 
+        try {
+            final DocumentBuilder builder = factory.newDocumentBuilder();
+            final File inputFile = pfadNachOS(dateiname, ordnername);
+            doc = builder.parse(inputFile);
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+ 
+        return doc;
+    }
 
+	public static File xsdToXml() {
+		String dateiname ="Eingabe.xsd";
+		String ordnername = "XSD";
+		Document doc = loadXsdDocument(dateiname, ordnername);
+		 
+        //Find the docs root element and use it to find the targetNamespace
+		 Element rootElem = doc.getDocumentElement();
+		String targetNamespace = null;
+		if (rootElem != null && rootElem.getNodeName().equals("xs:schema")) {
+			targetNamespace = rootElem.getAttribute("targetNamespace");
+		}
+
+
+        //Parse the file into an XSModel object
+		XSModel xsModel = new XSParser().parse();
+
+        //Define defaults for the XML generation
+		XSInstance instance = new XSInstance();
+		instance.minimumElementsGenerated = 1;
+		instance.maximumElementsGenerated = 1;
+		instance.generateDefaultAttributes = true;
+		instance.generateOptionalAttributes = true;
+		instance.maximumRecursionDepth = 0;
+		instance.generateAllChoices = true;
+		instance.showContentModel = true;
+		instance.generateOptionalElements = true;
+
+        //Build the sample xml doc
+        //Replace first param to XMLDoc with a file input stream to write to file
+		QName rootElement = new QName(targetNamespace, "HighSchoolTranscript");
+		XMLDocument sampleXml = new XMLDocument(new StreamResult(System.out), true, 4, null);
+		instance.generate(xsModel, rootElement, sampleXml);
+		return File;
+	} catch (TransformerConfigurationException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
 }

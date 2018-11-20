@@ -28,11 +28,20 @@
 	<!-- To decide items should be defined here -->
 	<complexType name="AnnotationItem">
 		<sequence>
-			<!-- Is event related -->
-			<element name="isEvent" type="boolean"></element>
+			<!-- classification label -->
+			<element name="label" type="ns:Label"></element>
 
-			<!-- Is music related -->
-			<element name="isMusic" type="boolean"></element>
 		</sequence>
+	</complexType>
+
+	<!-- one or multiple answers possible -->
+	<complexType name="Label">
+		<choice>
+			<!-- only one answer possible(rating) -->
+			<element name="class_rating" type="integer"></element>
+			
+			<!-- more answers possible or answer is a term(terms) -->
+			<element name="class_terms" type="string"></element>
+		</choice>
 	</complexType>
 </schema>

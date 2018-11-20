@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:element xmlns:ns="http://www.bioforscher.de/fosil/DataFormatter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bioforscher.de/fosil/DataFormatter DataFormatter_neu.xsd ">
+  <ns:source>ns:source</ns:source>
+  <ns:textID>ns:textID</ns:textID>
+  <ns:text>ns:text</ns:text>
+  <ns:annotations>
+    <ns:label>
+      <ns:class_rating>0</ns:class_rating>
+    </ns:label>
+  </ns:annotations>
+  <ns:raterID>ns:raterID</ns:raterID>
+</ns:element>

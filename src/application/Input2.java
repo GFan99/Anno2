@@ -85,21 +85,21 @@ public class Input2 {
 				}
 				else if(zeile%4==2) {
 					if (line=="5Rating") {
-						beschriftung.add("trifft nicht zu");
-						beschriftung.add("trifft eher nicht zu");
-						beschriftung.add("ich weiﬂ nicht");
-						beschriftung.add("trifft teilweise zu");
-						beschriftung.add("trifft zu");
+						beschriftung.add("Trifft nicht zu");
+						beschriftung.add("Trifft eher nicht zu");
+						beschriftung.add("Ich weiﬂ nicht");
+						beschriftung.add("Trifft teilweise zu");
+						beschriftung.add("Trifft zu");
 					}
 					else if (line=="3Rating zutreffen") {
-						beschriftung.add("trifft nicht zu");
-						beschriftung.add("ich weiﬂ nicht");
-						beschriftung.add("trifft zu");
+						beschriftung.add("Trifft nicht zu");
+						beschriftung.add("Ich weiﬂ nicht");
+						beschriftung.add("Trifft zu");
 					}
 					else if (line=="3Rating ja") {
-						beschriftung.add("nein");
-						beschriftung.add("vielleicht");
-						beschriftung.add("ja"); 
+						beschriftung.add("Nein");
+						beschriftung.add("Vielleicht");
+						beschriftung.add("Ja"); 
 					}
 					else {
 						beschriftung=new ArrayList<String>(Arrays.asList(line.split(";")));
