@@ -38,7 +38,7 @@ public class Input2 {
 			String dateiname ="labels.txt";
 			String ordnername = "Eingabe";
 			
-			File labels = Input.pfadNachOS(dateiname, ordnername);
+			File labels = Input2.pfadNachOS(dateiname, ordnername);
 			boolean[] eigenschaften=new boolean[list.size()];
 			
 			BufferedReader br = new BufferedReader(new FileReader(labels));
@@ -71,7 +71,7 @@ public class Input2 {
 			String dateiname ="labels.txt";
 			String ordnername = "Eingabe";
 			
-			File labels = Input.pfadNachOS(dateiname, ordnername);
+			File labels = Input2.pfadNachOS(dateiname, ordnername);
 			HashMap<String,ArrayList<String>> label = new HashMap<>();
 			ArrayList<String> beschriftung=new ArrayList<>();
 			String bezeichnung="";
