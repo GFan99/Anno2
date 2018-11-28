@@ -117,8 +117,8 @@ public class GUI extends Application {
 			if(GUI.neueIDerstellen) {
 				nutzerid = Klassifikator.generiereNutzer();
 				System.out.println("Neue ID generiert: "+nutzerid);
-				texts = Input.texteLesen();
-				labels = Input.labelLesen();					
+				texts = Input2.texteLesen();
+				labels = Input2.labelLesen();					
 			}
 			else {
 				nutzerid = idtext.getText();
@@ -517,11 +517,11 @@ public class GUI extends Application {
 		//Wie kann man jeden button/label anders benennen, um sie
 				//sp?ter bei Event ansprechen zu k?nnen???
 				int zeile=1;
-				for(String key : Input.labelLesen().keySet()) {
+				for(String key : Input2.labelLesen().keySet()) {
 					Label label0 = new Label(key);
 					GridPane.setConstraints(label0, 1, zeile);
-					for(int i=0; i<Input.labelLesen().get(key).size();i++){
-						RadioButton rbutton0 = new RadioButton(Input.labelLesen().get(key).get(i));
+					for(int i=0; i<Input2.labelLesen().get(key).size();i++){
+						RadioButton rbutton0 = new RadioButton(Input2.labelLesen().get(key).get(i));
 						GridPane.setConstraints(rbutton0, i+2, zeile);
 					}
 					zeile++;
