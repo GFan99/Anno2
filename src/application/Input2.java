@@ -22,7 +22,7 @@ public class Input2 {
 			if (dateiname!="") {
 				dateiname="/"+dateiname;
 			}
-			return new File("../"+ordnername+dateiname);
+			return new File("./"+ordnername+dateiname);
 		}
 			
 		}
@@ -87,13 +87,13 @@ public class Input2 {
 					if (line=="5Rating") {
 						beschriftung.add("Trifft nicht zu");
 						beschriftung.add("Trifft eher nicht zu");
-						beschriftung.add("Ich weiß nicht");
+						beschriftung.add("Ich weiï¿½ nicht");
 						beschriftung.add("Trifft teilweise zu");
 						beschriftung.add("Trifft zu");
 					}
 					else if (line=="3Rating zutreffen") {
 						beschriftung.add("Trifft nicht zu");
-						beschriftung.add("Ich weiß nicht");
+						beschriftung.add("Ich weiï¿½ nicht");
 						beschriftung.add("Trifft zu");
 					}
 					else if (line=="3Rating ja") {
@@ -133,6 +133,7 @@ public class Input2 {
 		try {
 			String dateiname="";
 			String ordnername="Texte";
+			System.out.println(pfadNachOS(dateiname,ordnername));
 			File[] dateien =pfadNachOS(dateiname,ordnername).listFiles();
 			String[] texte= new String[dateien.length];
 			
