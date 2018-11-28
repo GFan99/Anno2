@@ -7,6 +7,8 @@ import javax.xml.parsers.*;
 
 import org.w3c.dom.*;
 
+import de.bioforscher.fosil.dataformatter.DataEntity;
+
 /**
  * Dies wird die Klasse Output.
  * Sie ist zustaendig fuer alle Speichervorgaenge des Programms.
@@ -21,31 +23,20 @@ public class Output {
 	
 	public void speichern(HashMap<Integer,boolean[]> erg, String[] texte) {
 		
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.newDocument();
-			
-			//ausgabe ist Wurzelelement
-			Element ausgabe = doc.createElement("ausgabe");
-			 for (int i=0; i<erg.size();i++) {
-				 Element text = doc.createElement("text"+i);
-				 text.appendChild(ausgabe);
-				 Element inhalt = doc.createElement("inhalt");
-				 inhalt.appendChild(text);
-				 Text inhalt2 = doc.createTextNode(texte[i]);
-				 inhalt2.appendChild(inhalt);
+		DataEntity dataEntity= new DataEntity();
+		dataEntity.setRaterID(value);
+		dataEntity.setText(value);
+		dataEntity.setTextID(value);
+		dataEntity.setAnnotations(value);
+		
 				 
 				 
-			 }
 			
 			
 			
 			
 			
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
+		
 		
 	}
 	

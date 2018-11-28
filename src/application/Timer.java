@@ -15,7 +15,7 @@ public class Timer {
     private Timeline timeline;
     private Label timerLabel = new Label();
     private Integer timeInSec = timeInMin*60;
-    Button button = new Button();
+    private Button button = new Button();
     
     public void timer(int zeitInMin) {
     	timerLabel.setText(timeInMin.toString()+":00");
