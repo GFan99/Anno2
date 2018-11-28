@@ -92,6 +92,7 @@ public class GUI extends Application {
 			   @Override 
 			   public void handle(MouseEvent e) { 
 				   GUI.neueIDerstellen = true;
+				   primaryStage.close();
 			   } 
 			};   
 			//EventFilter dazu 
@@ -102,7 +103,7 @@ public class GUI extends Application {
 				@Override
 				public void handle(MouseEvent e) {
 					GUI.neueIDerstellen = false;
-					
+					primaryStage.close();
 				}
 			};
 			//EventFilter dazu 
@@ -128,7 +129,7 @@ public class GUI extends Application {
 				labels = new HashMap<String,ArrayList<String>>();
 			}
 			klasse = new Klassifikator(nutzerid, labels, texts);
-			primaryStage.close();
+			
 			
 			//------------------------------------------------------------------------------------------
 			//           zweites Fenster
