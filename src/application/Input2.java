@@ -134,7 +134,7 @@ public class Input2 {
 			String dateiname="";
 			String ordnername="Texte";
 			File[] dateien =pfadNachOS(dateiname,ordnername).listFiles();
-			String[] texte= new String[dateien.length-1];
+			String[] texte= new String[dateien.length];
 			
 			for (int i=0; i<dateien.length; i++) {
 				BufferedReader br = new BufferedReader(new FileReader(dateien[i]));
