@@ -68,6 +68,7 @@ public class GUI extends Application {
 			Button neueid = new Button("ID erstellen");
 			//VorzugsBreite fuer Textfeld setzen, damit gesamte ID sichtbar eingegeben werden kann
 			idtext.setPrefWidth(260.0);
+			Label fehlermeldung = new Label();
 			
 			//Positionierung der Objekte der IDStage und Zuordnung zum Pane
 			AnchorPane.setTopAnchor(idfrage, 10.0);
@@ -78,7 +79,9 @@ public class GUI extends Application {
 			AnchorPane.setLeftAnchor(idok, 25.0);
 			AnchorPane.setTopAnchor(neueid, 80.0);
 			AnchorPane.setLeftAnchor(neueid, 80.0);
-			idpane.getChildren().addAll(idfrage, idtext, idok, neueid);
+			AnchorPane.setTopAnchor(fehlermeldung, 110.0);
+			AnchorPane.setLeftAnchor(fehlermeldung, 10.0);
+			idpane.getChildren().addAll(idfrage, idtext, idok, neueid, fehlermeldung);
 			
 			//Erstellen der Scene aus dem Pane und Zuweisung eines Stylesheets
 			Scene idabfrage = new Scene(idpane,300,150);
@@ -93,90 +96,54 @@ public class GUI extends Application {
 			   @Override 
 			   public void handle(MouseEvent e) { 
 				   primaryStage.close();
-				   
-				 //Erstellen des klassifikators aus der Eingabe des Nutzers
-					String nutzerid;
-					String[][] texts;
-					HashMap<String,ArrayList<String>> labels;	//Labelname als Key, Auswahlmoegl. als Value
-					Klassifikator klasse;
-					
-					nutzerid = Klassifikator.generiereNutzer();
+				   	//Erstellen des klassifikators aus der Eingabe des Nutzers
+					String nutzerid = Klassifikator.generiereNutzer();
 					System.out.println("Neue ID generiert: "+nutzerid);
-					texts = Input2.texteLesen();
-					labels = Input2.labelLesen();					
+					String[][] texts = Input2.texteLesen();
+					HashMap<String,ArrayList<String>> labels = Input2.labelLesen();	//Labelname als Key, Auswahlmoegl. als Value
 					
-					klasse = new Klassifikator(nutzerid, labels, texts);
+					Klassifikator klasse = new Klassifikator(nutzerid, labels, texts);
+					primaryStage.close();
+					
+					new Hauptstage(klasse);
+
 			   } 
-			};   
-			//EventFilter dazu 
-			neueid.addEventFilter(MouseEvent.MOUSE_CLICKED, idErstellen);
+			};  neueid.addEventFilter(MouseEvent.MOUSE_CLICKED, idErstellen);   //EventFilter dazu 
 			
 			//MouseEventHandler fuer Butten "idok" 
 			EventHandler<MouseEvent> idLesen = new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent e) {
+					fehlermeldung.setText("");
 					String id = idtext.getText();
 					String[] vorhandeneIDs = Input2.vorhandeneIDs();
+					
 					if (Arrays.asList(vorhandeneIDs).contains(id)) {
-						
-					}
-					
-					primaryStage.close();
-					
-					//Erstellen des klassifikators aus der Eingabe des Nutzers
-					String nutzerid;
-					String[][] texts;
-					HashMap<String,ArrayList<String>> labels;	//Labelname als Key, Auswahlmoegl. als Value
-					Klassifikator klasse;
-					
-					if(GUI.neueIDerstellen) {
-						nutzerid = Klassifikator.generiereNutzer();
-						System.out.println("Neue ID generiert: "+nutzerid);
-						texts = Input2.texteLesen();
-						labels = Input2.labelLesen();					
+						String[][] texts = Input2.texteLesen(id);
+						HashMap<String,ArrayList<String>> labels = Input2.labelLesen();    //Labelname als Key, Auswahlmoegl. als Value
+						Klassifikator klasse = new Klassifikator(id,labels,texts);	
+						primaryStage.close();
+						new Hauptstage(klasse);
 					}
 					else {
-						nutzerid = idtext.getText();
-						//String[] texts = Input.labelLesen(nutzerID);
-						texts = new String[0][0];
-						//HashMap<String,ArrayList<String>> labels = Input.texteLesen(nutzerID);
-						labels = new HashMap<String,ArrayList<String>>();
+						fehlermeldung.setText("Bitte überprüfen Sie Ihre Eingabe. Diese ID existiert nicht!");
 					}
-					klasse = new Klassifikator(nutzerid, labels, texts);
 				}
-			};
-            			//EventFilter dazu 
-			idok.addEventFilter(MouseEvent.MOUSE_CLICKED, idLesen);
-			
-			
-			
-			
-			//------------------------------------------------------------------------------------------
-			//           zweites Fenster
-			//------------------------------------------------------------------------------------------
-			
-			//Erstelle neue Stage mithilfe des erzeugten Klassifikators
-			/*
-			 * statischer Teil 
-			 */
-			/**
-			 * hier alles ausgeschnitten
-			 */
-			//secondStage.show();
-			
-			
-
+			};  idok.addEventFilter(MouseEvent.MOUSE_CLICKED, idLesen);	  //EventFilter dazu
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	
+	/*
+	
 	public Stage erstelleHauptStage(Klassifikator klasse) {
 		
-		/* 
+		 
 		 * statischer Teil 
-		 */
+		
 		Stage secondStage = new Stage();	
 		int x = 800;
 		int y = 500;
@@ -187,15 +154,15 @@ public class GUI extends Application {
 		 * Teil 2:	scrollable textarea
 		 * Teil 3:	Labelwertungssystem
 		 * Teil 4:	schriftgroessen buttons + abschicken button
-		 */	
+		 *	
 		VBox klasspane= new VBox();
-		/** Leiste für Teil 1 */
+		/** Leiste für Teil 1 *
 		HBox teil1Daten = new HBox();
-		/** Teil 2 - scrollable textarea */
+		/** Teil 2 - scrollable textarea *
 		ScrollPane teil2Texthalter = new ScrollPane();
-		/** Teil 3 - Wertungssystem (tabellenfoerimge Anordnung) */
+		/** Teil 3 - Wertungssystem (tabellenfoerimge Anordnung) *
 		GridPane teil3Ranking = new GridPane();
-		/** Teil 4 - Buttons werden links und rechts angezeigt */
+		/** Teil 4 - Buttons werden links und rechts angezeigt *
 		BorderPane teil4GroesseAbsenden = new BorderPane();
 
 		String nutzerstring = klasse.getNutzerID();
@@ -230,21 +197,9 @@ public class GUI extends Application {
 		teil4GroesseAbsenden.setLeft(schriftgroesse);
 		teil4GroesseAbsenden.setRight(labelabsenden);
 		
-		//kommt bei Klick auf absenden 
-		String neuertext = klasse.getText();
-		teil2Textarea.setText(neuertext);
-		
-		
-		
-		
-			
-		
-		
-		
-		
 		/*
 		 *  dynamischer Teil 
-		 */
+		 *
 		
 		//Wie kann man jeden button/label anders benennen, um sie
 				//sp?ter bei Event ansprechen zu k?nnen???
@@ -267,59 +222,7 @@ public class GUI extends Application {
 		return secondStage;
 	}
 	
-
-	
-	
-	public void erstelleZeitendeStage(Stage thirdStage, Klassifikator klasse) {
-		try {
-			
-			AnchorPane gameoverpane=new AnchorPane();
-			//prozent noch ueberarbeiten!!
-			double prozent=klasse.texte.length/klasse.idgroesse;
-			Label timeout= new Label("Ihre Zeit ist für heute abgelaufen. \n Sie haben bereits " +prozent+ "% klassifiziert.");
-			Button schliessen = new Button("Schliessen");
-			
-			AnchorPane.setLeftAnchor(timeout, 10.0);
-			AnchorPane.setTopAnchor(timeout, 10.0);
-			AnchorPane.setLeftAnchor(schliessen, 10.0);
-			AnchorPane.setTopAnchor(schliessen, 40.0);
-			gameoverpane.getChildren().addAll(timeout, schliessen);
-			
-			Scene beenden =new Scene(gameoverpane,400,250);
-			beenden.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
-			
-			thirdStage.setScene(beenden);
-			thirdStage.show();
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void erstelleFertigStage(Stage fourthStage) {
-		try {
-			
-			AnchorPane endpain=new AnchorPane();
-			Label fertig = new Label("Sie haben alle Texte klassifiziert.");
-			Button schliessen = new Button("Schliessen");
-
-			AnchorPane.setLeftAnchor(fertig, 10.0);
-			AnchorPane.setTopAnchor(fertig, 10.0);
-			AnchorPane.setLeftAnchor(schliessen, 10.0);
-			AnchorPane.setTopAnchor(schliessen, 40.0);
-			endpain.getChildren().addAll(endpain);
-			
-			Scene beenden =new Scene(endpain,400,250);
-			beenden.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
-			fourthStage.setScene(beenden);
-			fourthStage.show();
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+	*/
 	
 	public static void main(String[] args) {
 		launch(args);
