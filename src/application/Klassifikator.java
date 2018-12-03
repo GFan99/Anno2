@@ -28,7 +28,7 @@ import javafx.scene.text.Text;
 public class Klassifikator {
 	
 	private HashMap<String,ArrayList<String>> label;
-	protected String[] texte;
+	protected String[][] texte;
 	private ArrayList<Integer> textids;
 	private HashMap<Integer,boolean[]> ergebnisse;
 	int idgroesse;							
@@ -41,7 +41,7 @@ public class Klassifikator {
 	 */
 	public Klassifikator() {
 		this.label = new HashMap<String,ArrayList<String>>();
-		this.texte = new String[0];
+		this.texte = new String[0][0];
 		this.textids = new ArrayList<Integer>();
 		this.ergebnisse = new HashMap<Integer,boolean[]>();
 		this.idgroesse = 0;
@@ -56,7 +56,7 @@ public class Klassifikator {
 	 * @param String[] label, String[] texte
 	 * @return Klassifikator
 	 */
-	public Klassifikator(String nutzerID, HashMap<String,ArrayList<String>> label, String[] texte) {
+	public Klassifikator(String nutzerID, HashMap<String,ArrayList<String>> label, String[][] texte) {
 		this.label = label;
 		this.texte = texte;
 		this.textids = new ArrayList<Integer>();
@@ -100,7 +100,7 @@ public class Klassifikator {
 	
 	public String getText() {
 		int i = this.waehleText();
-		return texte[i];
+		return texte[i][1];
 	}
 	
 	public static String generiereNutzer() {
@@ -115,7 +115,7 @@ public class Klassifikator {
 		//datenbank erstllen, abgleichen, neu generierenx
 	}
 	
-	public String[] getTexte() {
+	public String[][] getTexte() {
 		return this.texte;
 	}
 
