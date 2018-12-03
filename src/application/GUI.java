@@ -50,9 +50,7 @@ import javafx.scene.text.Text;
  * @version 0.1
  */
 public class GUI extends Application {
-	
-	private static boolean neueIDerstellen =true;
-	
+		
 	@Override
 	public void start(Stage primaryStage) {
 		try {
