@@ -168,7 +168,12 @@ public class Input2 {
 		
 	}
 	
-	public String[] vorhandeneIDs() {
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static String[] vorhandeneIDs() {
 		String dateiname="";
 		String ordnername="Ausgabe";
 		File[] dateien =pfadNachOS(dateiname,ordnername).listFiles();
