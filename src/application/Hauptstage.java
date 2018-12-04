@@ -20,11 +20,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Hauptstage extends Stage {
 
+	Klassifikator klassif;
+	
 	//Teil1
 	Label idanzeige;
 	ProgressBar fortschritt;
@@ -42,7 +45,8 @@ public class Hauptstage extends Stage {
 	boolean[] mehrfachwahl;
 	ArrayList<String> labelarray;
 	HashMap<String,ArrayList<String>> labels; //Labelname als Key, Auswahlmoegl. als Value
-	boolean[] c0, c1, c2, c3, c4;
+	boolean[] b0, b1, b2, b3, b4;
+	RadioButton rb0x, rb1x, rb2x, rb3x, rb4x;
 	
 	//Teil4
 	HBox schriftgroesse;
@@ -50,9 +54,12 @@ public class Hauptstage extends Stage {
 	Button schriftplus;
 	Button schriftminus;
 	Button labelabsenden;
+	Label fehlermeldungHaupt;
+	int sgroesse;
 	
 	public Hauptstage(Klassifikator klasse) {
 		super();
+		this.klassif=klasse;
 		Scene scene = this.erstelleScene(klasse, klasse.getLabel());
 		this.setScene(scene);
 		start();
@@ -92,6 +99,8 @@ public class Hauptstage extends Stage {
 		
 		//Teil2 - scrollabe TextArea
 		teil2Textarea = new TextArea();
+		teil2Textarea.setEditable(false);
+		teil2Textarea.setFont(new Font("Times",sgroesse));
 		teil2Texthalter.setContent(teil2Textarea);
 		teil2Texthalter.setFitToWidth(true);
 		teil2Texthalter.setPrefWidth(400);
@@ -140,9 +149,13 @@ public class Hauptstage extends Stage {
 						}
 						else {
 							radioodercheck[i]='r';
+							rb0x = new RadioButton();
+							rb0x.setSelected(true);
+							rb0x.setToggleGroup(rbgroup0);
 							rbs0 = new RadioButton[labels.get(i).size()];
 							for(int j = 0; j<cbs0.length;j++) {
 								rbs0[j]=new RadioButton(labels.get(i).get(j));
+								rbs0[j].setUserData(labels.get(i).get(j));
 								rbs0[j].setToggleGroup(rbgroup0);
 							}
 						}
@@ -158,9 +171,13 @@ public class Hauptstage extends Stage {
 						}
 						else {
 							radioodercheck[i]='r';
+							rb1x = new RadioButton();
+							rb1x.setSelected(true);
+							rb1x.setToggleGroup(rbgroup1);
 							rbs1 = new RadioButton[labels.get(i).size()];
 							for(int j = 0; j<cbs1.length;j++) {
 								rbs1[j]=new RadioButton(labels.get(i).get(j));
+								rbs1[j].setUserData(labels.get(i).get(j));
 								rbs1[j].setToggleGroup(rbgroup1);
 							}
 						}
@@ -176,9 +193,13 @@ public class Hauptstage extends Stage {
 						}
 						else {
 							radioodercheck[i]='r';
+							rb2x = new RadioButton();
+							rb2x.setSelected(true);
+							rb2x.setToggleGroup(rbgroup2);
 							rbs2 = new RadioButton[labels.get(i).size()];
 							for(int j = 0; j<cbs2.length;j++) {
 								rbs2[j]=new RadioButton(labels.get(i).get(j));
+								rbs2[j].setUserData(labels.get(i).get(j));
 								rbs2[j].setToggleGroup(rbgroup2);
 							}
 						}
@@ -194,9 +215,13 @@ public class Hauptstage extends Stage {
 						}
 						else {
 							radioodercheck[i]='r';
+							rb3x = new RadioButton();
+							rb3x.setSelected(true);
+							rb3x.setToggleGroup(rbgroup3);
 							rbs3 = new RadioButton[labels.get(i).size()];
 							for(int j = 0; j<cbs3.length;j++) {
 								rbs3[j]=new RadioButton(labels.get(i).get(j));
+								rbs3[j].setUserData(labels.get(i).get(j));
 								rbs3[j].setToggleGroup(rbgroup3);
 							}
 						}
@@ -212,9 +237,13 @@ public class Hauptstage extends Stage {
 						}
 						else {
 							radioodercheck[i]='r';
+							rb4x = new RadioButton();
+							rb4x.setSelected(true);
+							rb4x.setToggleGroup(rbgroup4);
 							rbs4 = new RadioButton[labels.get(i).size()];
 							for(int j = 0; j<cbs4.length;j++) {
 								rbs4[j]=new RadioButton(labels.get(i).get(j));
+								rbs4[j].setUserData(labels.get(i).get(j));
 								rbs4[j].setToggleGroup(rbgroup4);
 							}
 						}
@@ -336,8 +365,11 @@ public class Hauptstage extends Stage {
 		schriftminus = new Button("-");
 		labelabsenden = new Button("Absenden");
 		schriftgroesse.getChildren().addAll(schrift, schriftplus, schriftminus);
+		fehlermeldungHaupt = new Label("");
+		
 		
 		teil4GroesseAbsenden.setLeft(schriftgroesse);
+		teil4GroesseAbsenden.setCenter(fehlermeldungHaupt);
 		teil4GroesseAbsenden.setRight(labelabsenden);
 		
 					
@@ -357,66 +389,199 @@ public class Hauptstage extends Stage {
 		EventHandler<MouseEvent> schriftgroesseplus = new EventHandler<MouseEvent>() { 
 		   @Override 
 		   public void handle(MouseEvent e) { 
-			   
+			   sgroesse = sgroesse+2;
+			   teil2Textarea.setFont(new Font("Arial", sgroesse));			   
 		   } 
 		};
+		schriftplus.addEventFilter(MouseEvent.MOUSE_CLICKED, schriftgroesseplus);
+		
 		EventHandler<MouseEvent> schriftgroesseminus = new EventHandler<MouseEvent>() { 
-			   @Override 
-			   public void handle(MouseEvent e) { 
-				   
-			   } 
+			@Override 
+			public void handle(MouseEvent e) { 
+			   sgroesse = sgroesse-2;
+			   teil2Textarea.setFont(new Font("Arial", sgroesse));
+			} 
 		};
-		EventHandler<MouseEvent> schliessen = new EventHandler<MouseEvent>() { 
+		schriftminus.addEventFilter(MouseEvent.MOUSE_CLICKED, schriftgroesseminus);
+		
+		this.setOnCloseRequest(event -> {
+		    System.out.println("Stage is closing");
+		    Output.abbruchSave(klassif);
+		});
+		
+		EventHandler<MouseEvent> pruefenuabsenden = new EventHandler<MouseEvent>() { 
 			   @Override 
 			   public void handle(MouseEvent e) { 
-				   
-			   } 
-		};
-		/* EventHandler<MouseEvent> pruefenuabsenden = new EventHandler<MouseEvent>() { 
-			   @Override 
-			   public void handle(MouseEvent e) { 
-				   if(check()) {
-					 //kommt bei Klick auf absenden 
-						//String neuertext = klasse.getText();
-						//teil2Textarea.setText(neuertext);
+				   if(check()) { //check zeigt dass je label (min) 1 Option ausgewählt ist
+					   //auslesen der gewählten label-optionen
+					   ArrayList<String> ergebnis = new ArrayList();
 					   for (int i = 0; i<labelarray.size();i++) {
 							switch (i) {
 								case 0: if (radioodercheck[i]=='c') {
-											c0[i] = cbs0[i].isSelected();
+											b0 = new boolean[cbs0.length];
+											for (int j = 0; j<cbs0.length; j++) {
+												b0[j] = cbs0[j].isSelected();
+											}
+											String erg = "";
+											for (int k = 0; k<b0.length; k++) {
+												if (b0[k]) {
+													erg = erg+(cbs0[k].getText());
+												}
+											}
+											ergebnis.add(erg);
 										}
 										else {
-											radioodercheck[i]='r';
-											rbs0 = new RadioButton[labels.get(i).size()];
-											for(int j = 0; j<cbs0.length;j++) {
-												rbs0[j]=new RadioButton(labels.get(i).get(j));
-												rbs0[j].setToggleGroup(rbgroup0);
+											//radioodercheck[i]='r';
+											ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
+										}
+										break;
+								case 1: if (radioodercheck[i]=='c') {
+											b0 = new boolean[cbs0.length];
+											for (int j = 0; j<cbs0.length; j++) {
+												b0[j] = cbs0[j].isSelected();
+											}
+											String erg = "";
+											for (int k = 0; k<b0.length; k++) {
+												if (b0[k]) {
+													erg = erg+(cbs0[k].getText());
+												}
+											}
+											ergebnis.add(erg);
+										}
+										else {
+											//radioodercheck[i]='r';
+											ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
+										}
+										break;
+								case 2: if (radioodercheck[i]=='c') {
+											b0 = new boolean[cbs0.length];
+											for (int j = 0; j<cbs0.length; j++) {
+												b0[j] = cbs0[j].isSelected();
+											}
+											String erg = "";
+											for (int k = 0; k<b0.length; k++) {
+												if (b0[k]) {
+													erg = erg+(cbs0[k].getText());
+												}
+											}
+											ergebnis.add(erg);
+										}
+										else {	if (radioodercheck[i]=='r') {
+													ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
+												}
+												else {
+													break;
+												}
+										}
+										break;
+								case 3: if (radioodercheck[i]=='c') {
+											b0 = new boolean[cbs0.length];
+											for (int j = 0; j<cbs0.length; j++) {
+												b0[j] = cbs0[j].isSelected();
+											}
+											String erg = "";
+											for (int k = 0; k<b0.length; k++) {
+												if (b0[k]) {
+													erg = erg+(cbs0[k].getText());
+												}
+											}
+											ergebnis.add(erg);
+										}
+										else {	if (radioodercheck[i]=='r') {
+													ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
+												}
+												else {
+													break;
+												}
+										}
+										break;
+								case 4: if (radioodercheck[i]=='c') {
+											b0 = new boolean[cbs0.length];
+											for (int j = 0; j<cbs0.length; j++) {
+												b0[j] = cbs0[j].isSelected();
+											}
+											String erg = "";
+											for (int k = 0; k<b0.length; k++) {
+												if (b0[k]) {
+													erg = erg+(cbs0[k].getText());
+												}
+											}
+											ergebnis.add(erg);
+										}
+										else {	if (radioodercheck[i]=='r') {
+													ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
+												}
+												else {
+													break;
+												}
+										}
+										break;
+								default:	break;
+										
+							}
+						}
+					   //schreiben der Werte in Output-Datei
+					   Output.schreibeWerte(klassif,teil2Textarea.getText(),ergebnis);
+					   //neuen Text laden und anzeigen
+					   String neuertext = klassif.getText();
+					   teil2Textarea.setText(neuertext);
+					   //neuinitialisierung der checkboxen und radiobuttons
+					   for (int i = 0; i<labelarray.size();i++) {
+							switch (i) {
+								case 0: if (radioodercheck[i]=='c') {
+											for (int j = 0; j<cbs0.length; j++) {
+												cbs0[j].setSelected(false);
 											}
 										}
-										break;
-								case 1: if (mehrfachwahl[i]) {
-											
-										}
 										else {
-											
+											//radioodercheck[i]='r';
+											rb0x.setSelected(true);;
 										}
 										break;
-								case 2: if (mehrfachwahl[i]) {
-										
+								case 1: if (radioodercheck[i]=='c') {
+											for (int j = 0; j<cbs1.length; j++) {
+												cbs1[j].setSelected(false);
+											}
 										}
 										else {
-											
+											//radioodercheck[i]='r';
+											rb1x.setSelected(true);;
 										}
 										break;
-								case 3: if (mehrfachwahl[i]) {
-									
+								case 2: if (radioodercheck[i]=='c') {
+											for (int j = 0; j<cbs2.length; j++) {
+												cbs2[j].setSelected(false);
+											}
 										}
 										else {
-											
+											if (radioodercheck[i]=='r') {
+												rb2x.setSelected(true);
+											}
+											else break;
 										}
 										break;
-								case 4: if (mehrfachwahl[i]) {
+								case 3: if (radioodercheck[i]=='c') {
+											for (int j = 0; j<cbs3.length; j++) {
+												cbs3[j].setSelected(false);
+											}
 										}
 										else {
+											if (radioodercheck[i]=='r') {
+												rb3x.setSelected(true);
+											}
+											else break;
+										}
+										break;
+								case 4: if (radioodercheck[i]=='c') {
+											for (int j = 0; j<cbs4.length; j++) {
+												cbs4[j].setSelected(false);
+											}
+										}
+										else {
+											if (radioodercheck[i]=='r') {
+												rb4x.setSelected(true);
+											}
+											else break;
 										}
 										break;
 								default:	break;
@@ -425,16 +590,111 @@ public class Hauptstage extends Stage {
 						}
 				   }
 				   else {
-					   
+					   fehlermeldungHaupt.setText("Bitte prüfen Sie, dass sie jedes Label zugeordnet haben!");
 				   }
 			   } 
-		};
-		*/
-	}
+		}; 
+		labelabsenden.addEventFilter(MouseEvent.MOUSE_CLICKED, pruefenuabsenden);
+	} 
 	
 	//prueft ob zu jedem Label (min.) 1 Moeglichkeit ausgewaehlt wurde -> true, wenn nicht false
 	public boolean check() {
-		
-		return true;
+		boolean check = true;
+		for (int i = 0; i<labelarray.size();i++) {
+			switch (i) {
+				case 0:
+					if (radioodercheck[i]=='c') {
+						for (int j = 0; j<cbs0.length; j++) {
+							if(!b0[j]) {
+								check =false;
+								break;
+							}
+						}
+					}
+					else {
+						if (rbgroup0.getSelectedToggle()==rb0x) {
+							check=false;
+							break;
+						}
+					}
+					break;
+				case 1: 
+					if (radioodercheck[i]=='c') {
+						for (int j = 0; j<cbs1.length; j++) {
+							if(!b1[j]) {
+								check =false;
+								break;
+							}
+						}
+					}
+					else {
+						if (rbgroup1.getSelectedToggle()==rb1x) {
+							check=false;
+							break;
+						}
+					}
+					break;
+				case 2:
+					if (radioodercheck[i]=='c') {
+						for (int j = 0; j<cbs2.length; j++) {
+							if(!b2[j]) {
+								check =false;
+								break;
+							}
+						}
+					}
+					else {
+						if (radioodercheck[i]=='r') {
+							if (rbgroup2.getSelectedToggle()==rb2x) {
+								check=false;
+								break;
+							}
+						}
+						else break;						
+					}
+					break;
+				case 3:
+					if (radioodercheck[i]=='c') {
+						for (int j = 0; j<cbs3.length; j++) {
+							if(!b3[j]) {
+								check =false;
+								break;
+							}
+						}
+					}
+					else {
+						if (radioodercheck[i]=='r') {
+							if (rbgroup3.getSelectedToggle()==rb3x) {
+								check=false;
+								break;
+							}
+						}
+						else break;						
+					}
+					break;
+				case 4: 
+					if (radioodercheck[i]=='c') {
+						for (int j = 0; j<cbs4.length; j++) {
+							if(!b4[j]) {
+								check =false;
+								break;
+							}
+						}
+					}
+					else {
+						if (radioodercheck[i]=='r') {
+							if (rbgroup4.getSelectedToggle()==rb4x) {
+								check=false;
+								break;
+							}
+						}
+						else break;						
+					}
+					break;
+				default:
+					break;
+			}
+		}	   
+		return check;
 	}
 }
