@@ -90,7 +90,7 @@ public class Input2 {
 			BufferedReader br = new BufferedReader(new FileReader(labels));
 			String line = br.readLine();
 			int zeile=1;
-			while (line != "ENDE") {
+			while (line.replaceAll(, "") != "ENDE") {
 				if(zeile%4==1) {
 					bezeichnung=line;
 				}
@@ -122,9 +122,12 @@ public class Input2 {
 					beschriftung.clear();
 				}
 				line = br.readLine();
+				zeile++;
+				System.out.println(zeile);
 			}
+			System.out.println("Test1");
 			br.close();
-			
+			System.out.println("Test2");
 			  
 			return label;
 		 } catch (Exception e) {
@@ -185,7 +188,7 @@ public class Input2 {
 		return vorhandeneIDs;
 	}
 	
-	public String[][] texteLesen(String id) {
+	public static String[][] texteLesen(String id) {
 		//texte Lesen aufrufen und aus dem Array vorhandene texte entfernen mittels ID
 		
 		try {
