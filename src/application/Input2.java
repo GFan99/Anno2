@@ -185,7 +185,7 @@ public class Input2 {
 		return vorhandeneIDs;
 	}
 	
-	public String[][] texteLesen(String id) {
+	public static String[][] texteLesen(String id) {
 		//texte Lesen aufrufen und aus dem Array vorhandene texte entfernen mittels ID
 		
 		try {
