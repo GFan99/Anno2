@@ -65,7 +65,7 @@ public class Klassifikator {
 			textids.add(i);
 		}	
 		this.ergebnisse = new HashMap<Integer,boolean[]>();
-		this.setNutzerID(nutzerID);
+		this.nutzerID = nutzerID;
 	}
 	
 	/**
@@ -132,5 +132,8 @@ public class Klassifikator {
 	public void setNutzerID(String nutzerID) {
 		this.nutzerID = nutzerID;
 	}
-
+	
+	public HashMap<String,ArrayList<String>> getLabel() {
+		return label;
+	}
 }
