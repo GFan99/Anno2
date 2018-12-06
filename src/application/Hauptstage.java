@@ -201,14 +201,15 @@ public class Hauptstage extends Stage {
 					   //schreiben der Werte in Output-Datei
 					   Output.schreibeWerte(klassif,teil2Textarea.getText(),ergebnis);
 					   //neuen Text laden und anzeigen
-					   String neuertext = klassif.getText();
-					   if (neuertext == "") {
+					   String[] neuertext = klassif.getText();
+					   String neuertext2 = neuertext[1];
+					   if (neuertext2 == "") {
 						   close();
 						   Output.schreibexml();
 						   new FertigStage();
 						   return;
 					   }
-					   teil2Textarea.setText(neuertext);
+					   teil2Textarea.setText(neuertext2);
 					   //neuinitialisierung der checkboxen und radiobuttons
 					   for (int i = 0; i<labelarray.size();i++) {
 							switch (i) {
@@ -741,14 +742,15 @@ public class Hauptstage extends Stage {
 					   //schreiben der Werte in Output-Datei
 					   Output.schreibeWerte(klassif,teil2Textarea.getText(),ergebnis);
 					   //neuen Text laden und anzeigen
-					   String neuertext = klassif.getText();
-					   if (neuertext == "") {
+					   String[] neuertext = klassif.getText();
+					   String neuertext2 = neuertext[1];
+					   if (neuertext2 == "") {
 						   close();
 						   Output.schreibexml();
 						   new FertigStage();
 						   return;
 					   }
-					   teil2Textarea.setText(neuertext);
+					   teil2Textarea.setText(neuertext2);
 					   //neuinitialisierung der checkboxen und radiobuttons
 					   for (int i = 0; i<labelarray.size();i++) {
 							switch (i) {
