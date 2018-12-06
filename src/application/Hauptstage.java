@@ -142,9 +142,9 @@ public class Hauptstage extends Stage {
 						labellabelliste.add(label0);
 						if (mehrfachwahl[i]) {
 							radioodercheck[i]='c';
-							cbs0 = new CheckBox[labels.get(i).size()];
+							cbs0 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs0.length;j++) {
-								cbs0[j]=new CheckBox(labels.get(i).get(j));
+								cbs0[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
 							}
 						}
 						else {
@@ -164,9 +164,9 @@ public class Hauptstage extends Stage {
 						labellabelliste.add(label1);
 						if (mehrfachwahl[i]) {
 							radioodercheck[i]='c';
-							cbs1 = new CheckBox[labels.get(i).size()];
+							cbs1 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs1.length;j++) {
-								cbs1[j]=new CheckBox(labels.get(i).get(j));
+								cbs1[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
 							}
 						}
 						else {
@@ -186,10 +186,10 @@ public class Hauptstage extends Stage {
 						labellabelliste.add(label2);
 						if (mehrfachwahl[i]) {
 							radioodercheck[i]='c';
-							cbs2 = new CheckBox[labels.get(i).size()];
-								for(int j = 0; j<cbs2.length;j++) {
-									cbs2[j]=new CheckBox(labels.get(i).get(j));		
-								}
+							cbs2 = new CheckBox[labels.get(labelarray.get(i)).size()];
+							for(int j = 0; j<cbs2.length;j++) {
+								cbs2[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));		
+							}
 						}
 						else {
 							radioodercheck[i]='r';
@@ -208,9 +208,9 @@ public class Hauptstage extends Stage {
 						labellabelliste.add(label3);
 						if (mehrfachwahl[i]) {
 							radioodercheck[i]='c';
-							cbs3 = new CheckBox[labels.get(i).size()];
+							cbs3 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs3.length;j++) {
-								cbs3[j]=new CheckBox(labels.get(i).get(j));
+								cbs3[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
 							}
 						}
 						else {
@@ -230,9 +230,9 @@ public class Hauptstage extends Stage {
 						labellabelliste.add(label4);
 						if (mehrfachwahl[i]) {
 							radioodercheck[i]='c';
-							cbs4 = new CheckBox[labels.get(i).size()];
+							cbs4 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs4.length;j++) {
-								cbs4[j]=new CheckBox(labels.get(i).get(j));
+								cbs4[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
 							}
 						}
 						else {
