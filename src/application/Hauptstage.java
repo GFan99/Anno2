@@ -134,7 +134,7 @@ public class Hauptstage extends Stage {
 		for (Iterator<String> it = labelliste.iterator(); it.hasNext();) {
 			labelarray.add(it.next());
 		}
-		mehrfachwahl = Input3.labelEigenschaft(labels);
+		mehrfachwahl = Input3.labelEigenschaft();
 		ArrayList<Label> labellabelliste = new ArrayList<Label>();
 		for (int i = 0; i<labelarray.size();i++) {
 			switch (i) {
@@ -524,6 +524,12 @@ public class Hauptstage extends Stage {
 					   Output.schreibeWerte(klassif,teil2Textarea.getText(),ergebnis);
 					   //neuen Text laden und anzeigen
 					   String neuertext = klassif.getText();
+					   if (neuertext == "") {
+						   close();
+						   Output.schreibexml();
+						   new FertigStage();
+						   return;
+					   }
 					   teil2Textarea.setText(neuertext);
 					   //neuinitialisierung der checkboxen und radiobuttons
 					   for (int i = 0; i<labelarray.size();i++) {
