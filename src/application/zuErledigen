@@ -3,10 +3,14 @@ Input2:
 	
 	
 GUI:
-	texteLesen zu zweidimensionalem Array aendern
-	fuer Output muss getMethode fuer NutzerID vorhanden sein
+	Timer einstellen
 	
 
 Klassifikator:
 	texteLesen zu zweidimensionalem Array aendern
+	schreibe Ergebnisse in Klassifikator.ergebnisse
+	ergebnisse zu String[] statt boolean[]
 	ZA: Hash aus Benutzername von HS-Login bilden
+	
+Input3:
+	beschriftung einlesen

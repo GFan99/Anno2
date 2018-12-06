@@ -21,6 +21,7 @@ import de.bioforscher.fosil.dataformatter.DataEntity;
  */
 public class Output {
 	
+	
 	public void speichern(HashMap<Integer,boolean[]> erg, String[] texte) {
 		
 		DataEntity dataEntity= new DataEntity();
@@ -50,7 +51,7 @@ public class Output {
 	}
 
 	public static void schreibeWerte(Klassifikator klassif, String text, ArrayList<String> ergebnis) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
