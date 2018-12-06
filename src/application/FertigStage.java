@@ -1,21 +1,24 @@
 package application;
 
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class FertigStage {
+public class FertigStage extends Stage {
 
 	public FertigStage() {
-		// TODO Auto-generated constructor stub
+		super();
+		erstelleFertigStage();
 	}
 	
-	public void erstelleFertigStage(Stage fourthStage) {
+	public void erstelleFertigStage() {
 		try {
 			
-			AnchorPane endpain=new AnchorPane();
+			AnchorPane endpane=new AnchorPane();
 			Label fertig = new Label("Sie haben alle Texte klassifiziert.");
 			Button schliessen = new Button("Schliessen");
 
@@ -23,13 +26,26 @@ public class FertigStage {
 			AnchorPane.setTopAnchor(fertig, 10.0);
 			AnchorPane.setLeftAnchor(schliessen, 10.0);
 			AnchorPane.setTopAnchor(schliessen, 40.0);
-			endpain.getChildren().addAll(endpain);
+			endpane.getChildren().addAll(endpane);
 			
-			Scene beenden =new Scene(endpain,400,250);
+			Scene beenden =new Scene(endpane,400,250);
 			beenden.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
-			fourthStage.setScene(beenden);
-			fourthStage.show();
+			this.setScene(beenden);
+			this.show();
+			
+			EventHandler<MouseEvent> ende = new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent e) {
+					close();
+				}
+			};
+			schliessen.addEventFilter(MouseEvent.MOUSE_CLICKED, ende);	  //EventFilter dazu
+			
+			this.setOnCloseRequest(event -> {
+			    System.out.println("Stage is closing");
+			    Output.kontrollspeichern();
+			});
 			
 		} catch(Exception e) {
 			e.printStackTrace();
