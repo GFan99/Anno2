@@ -594,7 +594,7 @@ public class Hauptstage extends Stage {
 					
 			
 		Scene klassi = new Scene(klasspane,x,y);
-		//klasspane.getChildren().addAll(daten, textanz, ranking, labelok);
+		klasspane.getChildren().addAll(teil1Daten, teil2Texthalter, teil3Ranking, teil4GroesseAbsenden);
 		
 		klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
