@@ -97,8 +97,8 @@ public class GUI extends Application {
 				   	//Erstellen des klassifikators aus der Eingabe des Nutzers
 					String nutzerid = Klassifikator.generiereNutzer();
 					System.out.println("Neue ID generiert: "+nutzerid);
-					String[][] texts = Input2.texteLesen();
-					HashMap<String,ArrayList<String>> labels = Input2.labelLesen();	//Labelname als Key, Auswahlmoegl. als Value
+					String[][] texts = Input3.texteLesen();
+					HashMap<String,ArrayList<String>> labels = Input3.labelLesen();	//Labelname als Key, Auswahlmoegl. als Value
 					
 					Klassifikator klasse = new Klassifikator(nutzerid, labels, texts);
 					primaryStage.close();
@@ -114,11 +114,11 @@ public class GUI extends Application {
 				public void handle(MouseEvent e) {
 					fehlermeldung.setText("");
 					String id = idtext.getText();
-					String[] vorhandeneIDs = Input2.vorhandeneIDs();
+					String[] vorhandeneIDs = Input3.vorhandeneIDs();
 					
 					if (Arrays.asList(vorhandeneIDs).contains(id)) {
-						String[][] texts = Input2.texteLesen(id);
-						HashMap<String,ArrayList<String>> labels = Input2.labelLesen();    //Labelname als Key, Auswahlmoegl. als Value
+						String[][] texts = Input3.texteLesen(id);
+						HashMap<String,ArrayList<String>> labels = Input3.labelLesen();    //Labelname als Key, Auswahlmoegl. als Value
 						Klassifikator klasse = new Klassifikator(id,labels,texts);	
 						primaryStage.close();
 						new Hauptstage(klasse);
@@ -202,11 +202,11 @@ public class GUI extends Application {
 		//Wie kann man jeden button/label anders benennen, um sie
 				//sp?ter bei Event ansprechen zu k?nnen???
 				int zeile=1;
-				for(String key : Input2.labelLesen().keySet()) {
+				for(String key : Input3.labelLesen().keySet()) {
 					Label label0 = new Label(key);
 					GridPane.setConstraints(label0, 1, zeile);
-					for(int i=0; i<Input2.labelLesen().get(key).size();i++){
-						RadioButton rbutton0 = new RadioButton(Input2.labelLesen().get(key).get(i));
+					for(int i=0; i<Input3.labelLesen().get(key).size();i++){
+						RadioButton rbutton0 = new RadioButton(Input3.labelLesen().get(key).get(i));
 						GridPane.setConstraints(rbutton0, i+2, zeile);
 					}
 					zeile++;
