@@ -134,7 +134,7 @@ public class Hauptstage extends Stage {
 		for (Iterator<String> it = labelliste.iterator(); it.hasNext();) {
 			labelarray.add(it.next());
 		}
-		mehrfachwahl = Input2.labelEigenschaft(labels);
+		mehrfachwahl = Input3.labelEigenschaft(labels);
 		ArrayList<Label> labellabelliste = new ArrayList<Label>();
 		for (int i = 0; i<labelarray.size();i++) {
 			switch (i) {
