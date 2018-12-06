@@ -98,9 +98,19 @@ public class Klassifikator {
 		return sort;
 	}
 	
-	public String getText() {
+	public String[] getText() {
 		int i = this.waehleText();
-		return texte[i][1];
+		if (i!=-1) {
+			String[] rueck = new String[2];
+			rueck[0]=""+i+"";
+			rueck[1]=texte[i][1];
+			return rueck;
+		}
+		else {
+			String[] rueck2 = {"",""};
+			return rueck2;
+		}
+		
 	}
 	
 	public static String generiereNutzer() {
