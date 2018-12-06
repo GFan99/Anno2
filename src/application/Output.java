@@ -44,4 +44,14 @@ public class Output {
 		
 	}
 
+	public static void abbruchSave(Klassifikator klassif) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void schreibeWerte(Klassifikator klassif, String text, ArrayList<String> ergebnis) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -56,7 +56,7 @@ public class Input2 {
 			String line = br.readLine();
 			int zeile=1;
 			int i=0;
-			while (line != "ENDE") {
+			while (zeile != 22) {
 				if(zeile%4==3) {
 					if (line=="j") {
 						eigenschaften[i]=true;
@@ -65,8 +65,12 @@ public class Input2 {
 						eigenschaften[i]=false;
 					}
 					i++;
+					
 				}
+				zeile++;
+				System.out.println(zeile);
 			}
+			System.out.println("eigenschaften");
 			return eigenschaften;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,16 +89,20 @@ public class Input2 {
 			File labels = Input2.pfadNachOS(dateiname, ordnername);
 			HashMap<String,ArrayList<String>> label = new HashMap<>();
 			ArrayList<String> beschriftung=new ArrayList<>();
-			String bezeichnung="";
+			String bezeichnung="";		
 			
 			BufferedReader br = new BufferedReader(new FileReader(labels));
 			String line = br.readLine();
 			int zeile=1;
-			while (line.replaceAll(, "") != "ENDE") {
-				if(zeile%4==1) {
+			int rest=0;	
+			while (zeile !=22) {
+				line.replace("\t", "");
+				rest=zeile%4;
+				if(rest==1) {
 					bezeichnung=line;
 				}
-				else if(zeile%4==2) {
+				else if(rest==2) {
+					line.replace("[ ]", "");
 					if (line=="5Rating") {
 						beschriftung.add("Trifft nicht zu");
 						beschriftung.add("Trifft eher nicht zu");
@@ -117,7 +125,7 @@ public class Input2 {
 					}					
 						
 				}
-				else if(zeile%4==3) {
+				else if(rest==3) {
 					label.put(bezeichnung, beschriftung);
 					beschriftung.clear();
 				}
@@ -127,7 +135,7 @@ public class Input2 {
 			}
 			System.out.println("Test1");
 			br.close();
-			System.out.println("Test2");
+			System.out.println(label);
 			  
 			return label;
 		 } catch (Exception e) {
