@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -19,6 +20,13 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class Input3 {
+	
+	/**
+	 * Eine Methode, um den Dateipfad zurückzugeben in Abhängikeit von dem Betriebssystem
+	 * @param dateiname
+	 * @param ordnername
+	 * @return
+	 */
 	public static File pfadNachOS(String dateiname, String ordnername) {
 		String osName = System.getProperty("os.name");
 		if (osName.indexOf("Windows") != -1) {
@@ -38,7 +46,9 @@ public class Input3 {
 		}
 	
 	/**
-	 * Eine Methode, um die XML-Datei mit den Labels einzulesen und als String[]-Array zurueckzugeben.
+	 * Eine Methode, um die Eigenschaft der Labels aus der XML-Datei auszulesen und
+	 * als boolean[] zurückzugeben.
+	 * (Dürfen mehrere Möglichkeiten angeklickt werden?)
 	 * @param
 	 * @return String[]
 	 */
@@ -51,7 +61,7 @@ public class Input3 {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(pfadNachOS(dateiname, ordnername));
-			NodeList nList = doc.getElementsByTagName("element");
+			NodeList nList = doc.getElementsByTagName("label");
 			
 			boolean[] eigenschaften=new boolean[nList.getLength()];
 						
@@ -62,9 +72,10 @@ public class Input3 {
 			 
 			 if (node.getNodeType() == Node.ELEMENT_NODE) {
 			    Element eElement = (Element) node;
-			    eigenschaften[i]=Boolean.valueOf(eElement.getAttribute("multiple"));
+			    eigenschaften[i]=Boolean.valueOf(eElement.getAttributeNode("multiple").getValue());
 			 }
 			}
+			System.out.println("eigenschaften");
 			return eigenschaften;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,6 +85,12 @@ public class Input3 {
 		
 	}
 	
+	
+	/**
+	 * Eine Metho//lalalade, um die Label und deren Beschriftung aus der XML-Datei auszulesen 
+	 * und als HashMap zurückzugeben
+	 * @return
+	 */
 	public static HashMap<String,ArrayList<String>> labelLesen(){
 		try {
 			
@@ -83,13 +100,13 @@ public class Input3 {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(pfadNachOS(dateiname, ordnername));
-			NodeList nList = doc.getElementsByTagName("element");
+			NodeList nList = doc.getElementsByTagName("label");
 			
 			HashMap<String,ArrayList<String>> label = new HashMap<>();
 			ArrayList<String> beschriftung=new ArrayList<>();
 
 			
-			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
+			//die Namen der Labels und deren Beschriftung werden nacheinander in das String[]-Array geschrieben
 			for (int i = 0; i < nList.getLength(); i++)
 			{
 			 Node node = nList.item(i);
@@ -97,7 +114,9 @@ public class Input3 {
 			 if (node.getNodeType() == Node.ELEMENT_NODE) {
 			    Element eElement = (Element) node;
 			    String key=eElement.getAttribute("name");
-			    String bezeichnung=eElement.getAttribute("bezeichnung");
+			    Attr attribute=eElement.getAttributeNode("beschreibung");
+			    String bezeichnung = attribute.getValue();
+			    System.out.println(bezeichnung=="5Rating");
 			    if (bezeichnung=="5Rating") {
 					beschriftung.add("Trifft nicht zu");
 					beschriftung.add("Trifft eher nicht zu");
@@ -116,7 +135,7 @@ public class Input3 {
 					beschriftung.add("Ja"); 
 				}
 				else {
-					beschriftung=new ArrayList<String>(Arrays.asList(eElement.getAttribute("bezeichnung").split(";")));
+					beschriftung=new ArrayList<String>(Arrays.asList(bezeichnung.split(";")));
 				}
 			    label.put(key, beschriftung);
 			 }
@@ -132,7 +151,7 @@ public class Input3 {
 	}
 	
 	/**
-	 * Eine Methode, um die XML-Datei mit den Texten einzulesen und als String[]-Array zurueckzugeben.
+	 * Eine Methode, um den Ordner mit den Texten einzulesen und als String[]-Array zurueckzugeben.
 	 * @param
 	 * @return String[]
 	 */
@@ -166,7 +185,8 @@ public class Input3 {
 	
 	
 	/**
-	 * 
+	 * Eine Methode, welche ein String-Array mit allen bereits vorhandenen Nutzer-IDs
+	 * zurückzugeben, indem der Dateiname der bereits vorhanden XML-Dateien ausgelesen wird.
 	 * @return
 	 */
 	public static String[] vorhandeneIDs() {
@@ -181,7 +201,13 @@ public class Input3 {
 		return vorhandeneIDs;
 	}
 	
-	public String[][] texteLesen(String id) {
+	/**
+	 * Eine Methode, die ein zweidimensionales String-Array zurückgibt mit den noch zu
+	 * labelnden Texten in Abhängigkeit von der Nutzer-ID.
+	 * @param id
+	 * @return
+	 */
+	public static String[][] texteLesen(String id) {
 		//texte Lesen aufrufen und aus dem Array vorhandene texte entfernen mittels ID
 		
 		try {
