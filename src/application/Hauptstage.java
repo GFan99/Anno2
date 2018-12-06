@@ -152,7 +152,7 @@ public class Hauptstage extends Stage {
 							rb0x = new RadioButton();
 							rb0x.setSelected(true);
 							rb0x.setToggleGroup(rbgroup0);
-							rbs0 = new RadioButton[labels.get(i).size()];
+							rbs0 = new RadioButton[labels.get(label0).size()];
 							for(int j = 0; j<rbs0.length;j++) {
 								rbs0[j]=new RadioButton(labels.get(i).get(j));
 								rbs0[j].setUserData(labels.get(i).get(j));
