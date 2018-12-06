@@ -154,8 +154,8 @@ public class Hauptstage extends Stage {
 							rb0x.setToggleGroup(rbgroup0);
 							rbs0 = new RadioButton[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<rbs0.length;j++) {
-								rbs0[j]=new RadioButton(labels.get(i).get(j));
-								rbs0[j].setUserData(labels.get(i).get(j));
+								rbs0[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
+								rbs0[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs0[j].setToggleGroup(rbgroup0);
 							}
 						}
@@ -174,10 +174,10 @@ public class Hauptstage extends Stage {
 							rb1x = new RadioButton();
 							rb1x.setSelected(true);
 							rb1x.setToggleGroup(rbgroup1);
-							rbs1 = new RadioButton[labels.get(i).size()];
+							rbs1 = new RadioButton[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<rbs1.length;j++) {
-								rbs1[j]=new RadioButton(labels.get(i).get(j));
-								rbs1[j].setUserData(labels.get(i).get(j));
+								rbs1[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
+								rbs1[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs1[j].setToggleGroup(rbgroup1);
 							}
 						}
@@ -196,10 +196,10 @@ public class Hauptstage extends Stage {
 							rb2x = new RadioButton();
 							rb2x.setSelected(true);
 							rb2x.setToggleGroup(rbgroup2);
-							rbs2 = new RadioButton[labels.get(i).size()];
+							rbs2 = new RadioButton[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<rbs2.length;j++) {
-								rbs2[j]=new RadioButton(labels.get(i).get(j));
-								rbs2[j].setUserData(labels.get(i).get(j));
+								rbs2[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
+								rbs2[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs2[j].setToggleGroup(rbgroup2);
 							}
 						}
@@ -218,10 +218,10 @@ public class Hauptstage extends Stage {
 							rb3x = new RadioButton();
 							rb3x.setSelected(true);
 							rb3x.setToggleGroup(rbgroup3);
-							rbs3 = new RadioButton[labels.get(i).size()];
+							rbs3 = new RadioButton[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<rbs3.length;j++) {
-								rbs3[j]=new RadioButton(labels.get(i).get(j));
-								rbs3[j].setUserData(labels.get(i).get(j));
+								rbs3[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
+								rbs3[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs3[j].setToggleGroup(rbgroup3);
 							}
 						}
@@ -240,10 +240,10 @@ public class Hauptstage extends Stage {
 							rb4x = new RadioButton();
 							rb4x.setSelected(true);
 							rb4x.setToggleGroup(rbgroup4);
-							rbs4 = new RadioButton[labels.get(i).size()];
+							rbs4 = new RadioButton[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<rbs4.length;j++) {
-								rbs4[j]=new RadioButton(labels.get(i).get(j));
-								rbs4[j].setUserData(labels.get(i).get(j));
+								rbs4[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
+								rbs4[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs4[j].setToggleGroup(rbgroup4);
 							}
 						}
