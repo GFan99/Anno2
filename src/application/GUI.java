@@ -124,7 +124,7 @@ public class GUI extends Application {
 						new Hauptstage(klasse);
 					}
 					else {
-						fehlermeldung.setText("Bitte überprüfen Sie Ihre Eingabe. \n Diese ID existiert nicht!");
+						fehlermeldung.setText("Bitte überprüfen Sie Ihre Eingabe. \nDiese ID existiert nicht!");
 					}
 				}
 			};  idok.addEventFilter(MouseEvent.MOUSE_CLICKED, idLesen);	  //EventFilter dazu
