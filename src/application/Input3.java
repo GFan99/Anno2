@@ -274,7 +274,7 @@ public class Input3 {
 		
 	}**/
 	
-	public static ArrayList<String> leseklassifizierte(String id) {
+	public static ArrayList<Integer> leseklassifizierte(String id) {
 		try {
 			
 			String dateiname=id;
@@ -284,7 +284,7 @@ public class Input3 {
 			Document doc = builder.parse(pfadNachOS(dateiname, ordnername));
 			NodeList nList = doc.getElementsByTagName("element");
 			
-			ArrayList<String> vorhandeneTexte = new ArrayList<String>();
+			ArrayList<Integer> vorhandeneTexte = new ArrayList<Integer>();
 			
 			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
 			for (int i = 0; i < nList.getLength(); i++)
@@ -293,25 +293,27 @@ public class Input3 {
 			 
 			 if (node.getNodeType() == Node.ELEMENT_NODE) {
 			    Element eElement = (Element) node;
-			    vorhandeneTexte.add(eElement.getElementsByTagName("textID").item(0).getTextContent());
+			    String inhalt=eElement.getElementsByTagName("textID").item(0).getTextContent();
+			    vorhandeneTexte.add(Integer.parseInt(inhalt));
 			 }
 			}
 			 
 			 return vorhandeneTexte;
+			 
 			} catch (ParserConfigurationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				ArrayList<String> leer = new ArrayList<String>();;
+				ArrayList<Integer> leer = new ArrayList<Integer>();;
 				return leer;
 			} catch (SAXException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				ArrayList<String> leer = new ArrayList<String>();
+				ArrayList<Integer> leer = new ArrayList<Integer>();
 				return leer;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				ArrayList<String> leer = new ArrayList<String>();
+				ArrayList<Integer> leer = new ArrayList<Integer>();
 				return leer;
 			}
 	}
