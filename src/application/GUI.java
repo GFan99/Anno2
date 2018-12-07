@@ -73,17 +73,17 @@ public class GUI extends Application {
 			testtexte[1][0]="1";
 			testtexte[1][1]="keks";
 			
-			ArrayList<String> testerg = new ArrayList<String>();
-			testerg.add("ja");
+			String testerg = "ja";
+			String testerg2 = "Vogel;Meise";
 			
-			ArrayList<String> testerg2 = new ArrayList<String>();
-			testerg2.add("Vogel");
-			testerg2.add("Meise");
+			ArrayList<String> testergx = new ArrayList<String>();
+			testergx.add(testerg);
+			testergx.add(testerg2);
 			
 			Klassifikator ktest = new Klassifikator("abcnutzer",testmap, testtexte);
 			
-			Output.schreibeWerte(ktest, "keks", testerg);
-			Output.schreibeWerte(ktest, "lalala ich bin ein vogel", testerg2);
+			Output.schreibeWerte(ktest, "keks", testergx);
+			Output.schreibeWerte(ktest, "lalala ich bin ein vogel", testergx);
 			
 			
 			
