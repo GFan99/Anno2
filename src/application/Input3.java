@@ -116,30 +116,34 @@ public class Input3 {
 			    String key=eElement.getAttribute("name");
 			    Attr attribute=eElement.getAttributeNode("beschreibung");
 			    String bezeichnung = attribute.getValue();
-			    System.out.println(bezeichnung=="5Rating");
-			    if (bezeichnung=="5Rating") {
+			    if (bezeichnung.equals("5Rating")) {
 					beschriftung.add("Trifft nicht zu");
 					beschriftung.add("Trifft eher nicht zu");
 					beschriftung.add("Ich weiss nicht");
 					beschriftung.add("Trifft teilweise zu");
 					beschriftung.add("Trifft zu");
 				}
-				else if (bezeichnung=="3Rating zutreffen") {
+				else if (bezeichnung.equals("3Rating zutreffen")) {
+								
 					beschriftung.add("Trifft nicht zu");
 					beschriftung.add("Ich weiss nicht");
 					beschriftung.add("Trifft zu");
-				}
-				else if (bezeichnung=="3Rating ja") {
+					}
+				else if (bezeichnung.equals("3Rating ja")){
 					beschriftung.add("Nein");
 					beschriftung.add("Vielleicht");
 					beschriftung.add("Ja"); 
-				}
+					}
 				else {
 					beschriftung=new ArrayList<String>(Arrays.asList(bezeichnung.split(";")));
-				}
+						}
 			    label.put(key, beschriftung);
-			 }
-			}
+			    beschriftung = new ArrayList<String>();
+			    
+					}
+			    
+			   	}
+			 
 					  
 			return label;
 		 } catch (Exception e) {
@@ -167,7 +171,7 @@ public class Input3 {
 				BufferedReader br = new BufferedReader(new FileReader(dateien[i]));
 				String line = br.readLine();
 				while (line != null) {
-					texte[i][1]=texte[i]+line;
+					texte[i][1]=texte[i][1]+"\n"+line;
 					texte[i][0]=String.valueOf(i);
 					line = br.readLine();
 					}
