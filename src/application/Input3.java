@@ -131,7 +131,7 @@ public class Input3 {
 					}
 				else if (bezeichnung.equals("3Rating ja")){
 					beschriftung.add("Nein");
-					beschriftung.add("Vielleicht");
+					beschriftung.add("Ich weiss nicht");
 					beschriftung.add("Ja"); 
 					}
 				else {

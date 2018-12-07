@@ -4,7 +4,7 @@
   <ns:textID>ns:textID</ns:textID>
   <ns:text>ns:text</ns:text>
   <ns:annotations>
-    <ns:label>
+    <ns:label name="">
       <ns:class_rating>0</ns:class_rating>
     </ns:label>
   </ns:annotations>
