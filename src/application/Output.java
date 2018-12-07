@@ -2,6 +2,7 @@ package application;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,8 +92,8 @@ public class Output {
 				
 				AnnotationItem annoItem=new AnnotationItem();
 				HashMap<String,ArrayList<String>> labelmap =klassif.getLabel();
-				String[] labelname=new String[ergebnis.size()];
-				int[] anzButton=new int[ergebnis.size()];
+				String[] labelname=new String[labelmap.size()];
+				int[] anzButton=new int[labelmap.size()];
 				int k=0;
 				
 				//Bezeichnung der Label in Liste schreiben und wie viele Buttons Label hat(fuer spaetere Auswertung)
@@ -130,9 +131,11 @@ public class Output {
 				}
 				
 			    //calling the marshall method
-			    marshallObj.marshal(dataEntityneu, new FileOutputStream(Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe").getAbsolutePath()));
+				 OutputStream os = new FileOutputStream(Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe"));
+			     marshallObj.marshal( dataEntityneu, os );
+			     os.close();
 		    	}
-		    else {
+		   /** else {
 		    	//creating the JAXB context
 			    JAXBContext jContext = JAXBContext.newInstance(DataEntity.class);
 			    //creating the unmarshall object
@@ -155,7 +158,7 @@ public class Output {
 				dataEntityneu.setAnnotations(value);
 			    //calling the marshall method
 			    marshallObj.marshal(dataEntityneu, new FileOutputStream(Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe").getAbsolutePath()));
-		    }
+		    }**/
 		    
 		} catch(Exception e) {
 		    e.printStackTrace();

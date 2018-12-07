@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataEntity xmlns="http://www.bioforscher.de/fosil/DataFormatter">
+    <textID></textID>
+    <text>keks</text>
+    <annotations>
+        <label name="Tier?">
+            <class_rating>1</class_rating>
+        </label>
+    </annotations>
+    <raterID>abcnutzer</raterID>
+</dataEntity>

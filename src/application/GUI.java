@@ -69,8 +69,8 @@ public class GUI extends Application {
 			testmap.put("magst du?",wert2);
 			String[][] testtexte = new String[2][2];
 			testtexte[0][0]="0";
-			testtexte[1][0]="lalala ich bin ein vogel";
-			testtexte[0][1]="1";
+			testtexte[0][1]="lalala ich bin ein vogel";
+			testtexte[1][0]="1";
 			testtexte[1][1]="keks";
 			
 			ArrayList<String> testerg = new ArrayList<String>();
