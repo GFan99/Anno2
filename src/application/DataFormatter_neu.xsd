@@ -43,5 +43,8 @@
 			<!-- more answers possible or answer is a term(terms) -->
 			<element name="class_terms" type="string"></element>
 		</choice>
+		
+		<!-- name-attribute for Label -->
+		<attribute name="name" type="string"></attribute>
 	</complexType>
 </schema>
