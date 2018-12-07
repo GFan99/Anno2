@@ -54,6 +54,39 @@ public class GUI extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			
+			//Test-Bereich:
+			HashMap<String,ArrayList<String>> testmap = new HashMap<String,ArrayList<String>>();
+			ArrayList<String> wert1 = new ArrayList<String>();
+			wert1.add("Vogel");
+			wert1.add("Meise");
+			wert1.add("Pferd");
+			ArrayList<String> wert2 = new ArrayList<String>();
+			wert2.add("ja");
+			wert2.add("nein");
+			wert2.add("vielleicht");
+			testmap.put("Tier?", wert1);
+			testmap.put("magst du?",wert2);
+			String[][] testtexte = new String[2][2];
+			testtexte[0][0]="0";
+			testtexte[1][0]="lalala ich bin ein vogel";
+			testtexte[0][1]="1";
+			testtexte[1][1]="keks";
+			
+			ArrayList<String> testerg = new ArrayList<String>();
+			testerg.add("ja");
+			
+			ArrayList<String> testerg2 = new ArrayList<String>();
+			testerg2.add("Vogel");
+			testerg2.add("Meise");
+			
+			Klassifikator ktest = new Klassifikator("abcnutzer",testmap, testtexte);
+			
+			Output.schreibeWerte(ktest, "keks", testerg);
+			Output.schreibeWerte(ktest, "lalala ich bin ein vogel", testerg2);
+			
+			
+			
 			//------------------------------------------------------------------------------------------
 			//           erstes Fenster
 			//------------------------------------------------------------------------------------------
