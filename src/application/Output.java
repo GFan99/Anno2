@@ -55,4 +55,7 @@ public class Output {
 		
 	}
 
+	public static void schreibexml() {
+		
+	}
 }
