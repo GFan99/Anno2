@@ -29,7 +29,7 @@ public class Klassifikator {
 	
 	private HashMap<String,ArrayList<String>> label;
 	protected String[][] texte;
-	private ArrayList<Integer> textids;
+	public ArrayList<Integer> textids;
 	private HashMap<Integer,boolean[]> ergebnisse;
 	int idgroesse;							
 	private String nutzerID;
