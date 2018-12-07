@@ -151,7 +151,7 @@ public class GUI extends Application {
 					
 					if (Arrays.asList(vorhandeneIDs).contains(id)) {
 						String[][] texts = Input3.texteLesen();
-						ArrayList<String> schonklassi = Input3.leseklassifizierte(id);
+						ArrayList<Integer> schonklassi = Input3.leseklassifizierte(id);
 						HashMap<String,ArrayList<String>> labels = Input3.labelLesen();    //Labelname als Key, Auswahlmoegl. als Value
 						Klassifikator klasse = new Klassifikator(id,labels,texts);	
 						while (schonklassi.size()!=0) {
