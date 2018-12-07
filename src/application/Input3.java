@@ -211,7 +211,7 @@ public class Input3 {
 	 * @param id
 	 * @return
 	 */
-	public static String[][] texteLesen(String id) {
+	/**public static String[][] texteLesen(String id) {
 		//texte Lesen aufrufen und aus dem Array vorhandene texte entfernen mittels ID
 		
 		try {
@@ -272,5 +272,47 @@ public class Input3 {
 			return leer;
 		}
 		
+	}**/
+	
+	public static ArrayList<String> leseklassifizierte(String id) {
+		try {
+			
+			String dateiname=id;
+			String ordnername="Ausgabe";
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(pfadNachOS(dateiname, ordnername));
+			NodeList nList = doc.getElementsByTagName("element");
+			
+			ArrayList<String> vorhandeneTexte = new ArrayList<String>();
+			
+			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
+			for (int i = 0; i < nList.getLength(); i++)
+			{
+			 Node node = nList.item(i);
+			 
+			 if (node.getNodeType() == Node.ELEMENT_NODE) {
+			    Element eElement = (Element) node;
+			    vorhandeneTexte.add(eElement.getElementsByTagName("textID").item(0).getTextContent());
+			 }
+			}
+			 
+			 return vorhandeneTexte;
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				ArrayList<String> leer = new ArrayList<String>();;
+				return leer;
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				ArrayList<String> leer = new ArrayList<String>();
+				return leer;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				ArrayList<String> leer = new ArrayList<String>();
+				return leer;
+			}
 	}
 }
