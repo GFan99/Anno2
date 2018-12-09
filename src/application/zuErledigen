@@ -3,14 +3,25 @@ Input2:
 	
 	
 GUI:
-	Timer einstellen
+	done - Timer einstellen
+	timesup() in Hauptstage fertigstellen
+	FertigStage
+	ZeitEndeStage
+	Labelanzeige debuggen u ueberarbeiten
+	
+	ZA: Label "Schriftgröße" vertikal zentrieren zu + und - Buttons
+	ZA: Buttons im ID-Fenster anordnen (-> an Textfeld angleichen), Textfeld kuerzen
 	
 
 Klassifikator:
-	texteLesen zu zweidimensionalem Array aendern
+	done - texteLesen zu zweidimensionalem Array aendern
 	schreibe Ergebnisse in Klassifikator.ergebnisse
-	ergebnisse zu String[] statt boolean[]
+	done - ergebnisse zu String[] statt boolean[]
+	
 	ZA: Hash aus Benutzername von HS-Login bilden
 	
 Input3:
 	beschriftung einlesen
+	
+Output:
+	XMLs korrekt schreiben
