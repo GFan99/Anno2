@@ -19,6 +19,7 @@ public class ZeitEndeStage {
 			//prozent noch ueberarbeiten!!
 			double prozent=klasse.texte.length/klasse.idgroesse;
 			Label timeout= new Label("Ihre Zeit ist für heute abgelaufen. \n Sie haben bereits " +prozent+ "% klassifiziert.");
+			Label autoschliessen = new Label("Dieses Fenster schliesst sich in 20 Sekunden automatisch.");
 			Button schliessen = new Button("Schliessen");
 			
 			AnchorPane.setLeftAnchor(timeout, 10.0);
