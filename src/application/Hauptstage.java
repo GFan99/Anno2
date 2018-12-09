@@ -5,7 +5,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.swing.GroupLayout.Alignment;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -19,10 +25,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 public class Hauptstage extends Stage {
 
@@ -32,6 +43,9 @@ public class Hauptstage extends Stage {
 	Label idanzeige;
 	ProgressBar fortschritt;
 	Label zeitanzeige;
+	Label timerlabel;
+	Timeline timeline;
+	int timeinsec;
 	
 	//Teil2
 	TextArea teil2Textarea;
@@ -57,18 +71,23 @@ public class Hauptstage extends Stage {
 	Label fehlermeldungHaupt;
 	int sgroesse;
 	
+	boolean timesup;
+
+	
 	public Hauptstage(Klassifikator klasse) {
 		super();
 		this.klassif=klasse;
-		Scene scene = this.erstelleScene(klasse, klasse.getLabel());
+		Scene scene = this.erstelleScene(klassif.getLabel());
 		this.setScene(scene);
 		this.show();
 		 
 		EventHandler<MouseEvent> schriftgroesseplus = new EventHandler<MouseEvent>() { 
 		   @Override 
 		   public void handle(MouseEvent e) { 
-			   sgroesse = sgroesse+2;
-			   teil2Textarea.setFont(new Font("Arial", sgroesse));			   
+			   if (sgroesse <=24) {
+				   sgroesse = sgroesse+2;
+				   teil2Textarea.setFont(new Font("Arial", sgroesse));
+			   }
 		   } 
 		};
 		schriftplus.addEventFilter(MouseEvent.MOUSE_CLICKED, schriftgroesseplus);
@@ -76,8 +95,10 @@ public class Hauptstage extends Stage {
 		EventHandler<MouseEvent> schriftgroesseminus = new EventHandler<MouseEvent>() { 
 			@Override 
 			public void handle(MouseEvent e) { 
-			   sgroesse = sgroesse-2;
-			   teil2Textarea.setFont(new Font("Arial", sgroesse));
+			   if (sgroesse >=10) {
+				   sgroesse = sgroesse-2;
+				   teil2Textarea.setFont(new Font("Arial", sgroesse));
+			   }
 			} 
 		};
 		schriftminus.addEventFilter(MouseEvent.MOUSE_CLICKED, schriftgroesseminus);
@@ -210,6 +231,8 @@ public class Hauptstage extends Stage {
 						   return;
 					   }
 					   teil2Textarea.setText(neuertext2);
+					   //nichtfunktionierendeidee:
+					   teil2Textarea.impl_updatePeer();
 					   //neuinitialisierung der checkboxen und radiobuttons
 					   for (int i = 0; i<labelarray.size();i++) {
 							switch (i) {
@@ -284,9 +307,47 @@ public class Hauptstage extends Stage {
 	}
 
 	//initalisiert die Scene, die die Darstellung der Stage bestimmt
-	public  Scene erstelleScene(Klassifikator klasse, HashMap<String,ArrayList<String>> labels) {   
+	public  Scene erstelleScene(HashMap<String,ArrayList<String>> labels) {   
 		int x = 800;
 		int y = 500;
+		
+		// two spacers to push the visible elements up a little
+		Region vboxspacer0 = new Region();
+		vboxspacer0.setPrefHeight(40);
+		VBox.setVgrow(vboxspacer0, Priority.ALWAYS);
+		Region vboxspacer1 = new Region();
+		vboxspacer1.setPrefHeight(40);
+		VBox.setVgrow(vboxspacer1, Priority.ALWAYS);
+		Region vboxspacer2 = new Region();
+		vboxspacer2.setPrefHeight(40);
+		VBox.setVgrow(vboxspacer2, Priority.ALWAYS);
+		Region vboxspacer3 = new Region();
+		vboxspacer3.setPrefHeight(40);
+		VBox.setVgrow(vboxspacer3, Priority.ALWAYS);
+		Region vboxspacer4 = new Region();
+		vboxspacer4.setPrefHeight(40);
+		VBox.setVgrow(vboxspacer4, Priority.ALWAYS);
+		
+		Region hboxspacer0 = new Region();
+		hboxspacer0.setPrefWidth(40);
+		VBox.setVgrow(hboxspacer0, Priority.ALWAYS);
+		Region hboxspacer1 = new Region();
+		hboxspacer1.setPrefWidth(40);
+		VBox.setVgrow(hboxspacer1, Priority.ALWAYS);
+		Region hboxspacerx = new Region();
+		hboxspacerx.setPrefWidth(93.5);
+		VBox.setVgrow(hboxspacerx, Priority.ALWAYS);
+		Region hboxspacery = new Region();
+		hboxspacery.setPrefWidth(93.5);
+		VBox.setVgrow(hboxspacery, Priority.ALWAYS);
+		
+		Region hboxspaceri = new Region();
+		hboxspaceri.setPrefWidth(5);
+		VBox.setVgrow(hboxspaceri, Priority.ALWAYS);
+		Region hboxspacerj = new Region();
+		hboxspacerj.setPrefWidth(2);
+		VBox.setVgrow(hboxspacerj, Priority.ALWAYS);
+		
 		
 		/**
 		 * VBox besteht aus 4 untereinanderliegenden Teilen
@@ -296,6 +357,7 @@ public class Hauptstage extends Stage {
 		 * Teil 4:	schriftgroessen buttons + abschicken button
 		 */	
 		VBox klasspane= new VBox();
+		HBox spacehalter = new HBox();
 		/** Leiste für Teil 1 */
 		HBox teil1Daten = new HBox();
 		/** Teil 2 - scrollable textarea */
@@ -305,15 +367,98 @@ public class Hauptstage extends Stage {
 		/** Teil 4 - Buttons werden links und rechts angezeigt */
 		BorderPane teil4GroesseAbsenden = new BorderPane();
 
-		String nutzerstring = klasse.getNutzerID();
+		String nutzerstring = klassif.getNutzerID();
 		
 		
 		//Teil1 - obere Zeile der Anzeige
 		Label idanzeige = new Label("Nutzer-ID: "+nutzerstring);
 		ProgressBar fortschritt = new ProgressBar(0);
-		Label zeitanzeige = new Label("Counter"); //anpassen, so dass Zeit angezeigt wird
+		fortschritt.setPrefWidth(300);
+		//fortschritt.setProgress(0.01);
+		if ((klassif.texte.length - klassif.textids.size())/klassif.texte.length > 0) {
+			fortschritt.setProgress((klassif.texte.length - klassif.textids.size())/klassif.texte.length);
+		}
+		else fortschritt.setProgress(0.01);
 		
-		teil1Daten.getChildren().addAll(idanzeige, fortschritt);
+		Label zeitanzeige = new Label("Verbleibende Zeit: "); 	//anpassen, so dass Zeit angezeigt wird
+		
+		Label timerlabel = new Label("");
+		int timeinmin = 60;										//Zeit fuer Timer wird hier eingestellt
+		timerlabel.setText(timeinmin+":00");
+		
+		setOnShowing(new EventHandler<WindowEvent>() {
+		    @Override
+		    public void handle(WindowEvent event) {
+		    	timerlabel.setText(timeinmin+":00");
+				timerlabel.setVisible(true);
+				if (timeline != null) {
+					timeline.stop();
+				}
+				timeinsec = timeinmin*60;
+	    	 
+				// update timerLabel
+				int min = timeinsec/60;
+				int sec = timeinsec%60;
+				if (sec > 9) {
+					timerlabel.setText(min+":"+sec);
+				}
+				else timerlabel.setText(min+":0"+sec);
+				timerlabel.setVisible(true);
+				timeline = new Timeline();
+				timeline.setCycleCount(Timeline.INDEFINITE);
+	    		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),new EventHandler<ActionEvent>() {
+	    			public void handle(ActionEvent e) {
+	    				timeinsec--;
+	    				int min=timeinsec/60;
+	    				int sec = timeinsec%60;
+	    				timerlabel.setText(min+":"+sec);
+	    				if (timeinsec <= 0) {
+	    					timesup();
+	    					timeline.stop();
+	    				}
+	    			}
+	    		}));
+	    		timeline.playFromStart();
+		    }
+		});
+		
+		/**
+		EventHandler<WindowEvent> timergodown=new EventHandler<WindowEvent>() {
+			public void handle(WindowEvent e) {
+				timerlabel.setText(timeinmin+":00");
+				timerlabel.setVisible(true);
+				if (timeline != null) {
+					timeline.stop();
+				}
+				timeinsec = timeinmin*60;
+	    	 
+				// update timerLabel
+				int min = timeinsec/60;
+				int sec = timeinsec%60;
+				timerlabel.setText(min+":"+sec);
+				timerlabel.setVisible(true);
+				timeline = new Timeline();
+				timeline.setCycleCount(Timeline.INDEFINITE);
+	    		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),new EventHandler<ActionEvent>() {
+	    			public void handle(ActionEvent e) {
+	    				timeinsec--;
+	    				int min=timeinsec/60;
+	    				int sec = timeinsec%60;
+	    				timerlabel.setText(min+":"+sec);
+	    				if (timeinsec <= 0) {
+	    					timeline.stop();
+	    				}
+	    			}
+	    		}));
+	    		timeline.playFromStart();
+			}
+	    };
+	    timerlabel.addEventFilter(WindowEvent.WINDOW_SHOWN,timergodown);
+		//starttimer(60);
+		//Timer timer = new Timer(60);
+		*/
+		
+		teil1Daten.getChildren().addAll(idanzeige, hboxspacerx, fortschritt, hboxspacery, timerlabel);
 		
 		//Teil2 - scrollabe TextArea
 		teil2Textarea = new TextArea();
@@ -321,11 +466,19 @@ public class Hauptstage extends Stage {
 		teil2Textarea.setFont(new Font("Times",sgroesse));
 		teil2Texthalter.setContent(teil2Textarea);
 		teil2Texthalter.setFitToWidth(true);
-		teil2Texthalter.setPrefWidth(400);
-		teil2Texthalter.setPrefHeight(180);
-		String[] t = klasse.getText();
+		teil2Texthalter.setPrefWidth(720);
+		teil2Texthalter.setPrefHeight(300);
+		teil2Texthalter.setMinSize(720, 300);
+		teil2Texthalter.setMaxSize(720, 300);
+		teil2Textarea.setPrefSize(700, 1500);
+		teil2Textarea.setMinSize(700, 299);
+		teil2Textarea.setMaxWidth(700);
+		teil2Textarea.setWrapText(true);
+		
+		String[] t = klassif.getText();
 		String text = t[1];
 		teil2Textarea.setText(text);
+		teil2Textarea.setVisible(true);
 		
 		//teil 3 
 		//HashMap<String,ArrayList<String>> labels mit Labelname als Key und Auswahlmoegl. als Value
@@ -582,8 +735,11 @@ public class Hauptstage extends Stage {
 		schrift = new Label("Schriftgröße");
 		schriftplus = new Button("+");
 		schriftminus = new Button("-");
+		//schrift.setMinHeight(schriftplus.getHeight());
+		//schrift.setTextOrigin(VPos.CENTER);
+		//schrift.setTextAlignment(VPos.CENTER);
 		labelabsenden = new Button("Absenden");
-		schriftgroesse.getChildren().addAll(schrift, schriftplus, schriftminus);
+		schriftgroesse.getChildren().addAll(schrift, hboxspaceri, schriftplus, hboxspacerj, schriftminus);
 		fehlermeldungHaupt = new Label("");
 		
 		
@@ -593,9 +749,11 @@ public class Hauptstage extends Stage {
 		
 					
 			
-		Scene klassi = new Scene(klasspane,x,y);
-		klasspane.getChildren().addAll(teil1Daten, teil2Texthalter, teil3Ranking, teil4GroesseAbsenden);
 		
+		klasspane.getChildren().addAll(vboxspacer0,teil1Daten, vboxspacer1, teil2Texthalter, vboxspacer2, teil3Ranking, vboxspacer3, teil4GroesseAbsenden, vboxspacer4);
+		spacehalter.getChildren().addAll(hboxspacer0, klasspane, hboxspacer1);
+		
+		Scene klassi = new Scene(spacehalter,x,y);
 		klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
 		return klassi;
@@ -741,6 +899,8 @@ public class Hauptstage extends Stage {
 						}
 					   //schreiben der Werte in Output-Datei
 					   Output.schreibeWerte(klassif,teil2Textarea.getText(),ergebnis);
+					   //ProgressBar updaten
+					   fortschritt.setProgress((klassif.texte.length - klassif.textids.size())/klassif.texte.length);
 					   //neuen Text laden und anzeigen
 					   String[] neuertext = klassif.getText();
 					   String neuertext2 = neuertext[1];
@@ -922,5 +1082,12 @@ public class Hauptstage extends Stage {
 			}
 		}	   
 		return check;
+	}
+	
+	public void timesup() {
+		provozierefehler - notdoneyet
+		close();
+		new ZeitEndeStage();
+		Output.abbruchSave(klassif);
 	}
 }
