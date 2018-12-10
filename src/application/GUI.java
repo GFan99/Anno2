@@ -56,6 +56,9 @@ public class GUI extends Application {
 		try {
 			
 			//Test-Bereich:
+			
+			new ZeitEndeStage(0.68);
+			
 			HashMap<String,ArrayList<String>> testmap = new HashMap<String,ArrayList<String>>();
 			ArrayList<String> wert1 = new ArrayList<String>();
 			wert1.add("Vogel");
@@ -84,7 +87,8 @@ public class GUI extends Application {
 			
 			Output.schreibeWerte(ktest, "keks", testergx);
 			Output.schreibeWerte(ktest, "lalala ich bin ein vogel", testergx);
-			
+		
+
 			
 			
 			//------------------------------------------------------------------------------------------
@@ -173,7 +177,7 @@ public class GUI extends Application {
 	
 	
 	/*
-	
+
 	public Stage erstelleHauptStage(Klassifikator klasse) {
 		
 		 
