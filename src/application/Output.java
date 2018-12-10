@@ -68,7 +68,7 @@ public class Output {
 			//getting the xml file to read
 		    File file = Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe");
 		    
-		    if (file.exists()==false) {
+		    //if (file.exists()==false) {
 		    	//creating the JAXB context
 			    JAXBContext jContextneu = JAXBContext.newInstance(DataEntity.class);
 			    //creating the marshaller object
@@ -82,15 +82,18 @@ public class Output {
 				
 				String[][] texte=klassif.getTexte();
 				String id="";
+				int length=texte.length;
 				
 				//TextID auslesen
-				for (int i = 0; i < texte.length; i++) {
-				     if (texte[i][1]==text) {
+				for (int i = 0; i <length; i++) {
+					String text1=texte[i][1];
+				     if (text1.equals(text)) {
 				    	 id=String.valueOf(i);
+				     }
 				}
 				dataEntityneu.setTextID(id);
 				
-				AnnotationItem annoItem=new AnnotationItem();
+				
 				HashMap<String,ArrayList<String>> labelmap =klassif.getLabel();
 				String[] labelname=new String[labelmap.size()];
 				int[] anzButton=new int[labelmap.size()];
@@ -103,38 +106,38 @@ public class Output {
 					k++;
 				}
 				
+				AnnotationItem[] items = new AnnotationItem[klassif.getLabel().size()];
+				
 				//für jedes Label annoItem und Label erstellen
-				for (i=0; i<klassif.getLabel().size();i++) {
+				for (int i=0; i<klassif.getLabel().size();i++) {
+					AnnotationItem annoItem=new AnnotationItem();
 					Label label=new Label();
 					label.setName(labelname[i]);
 					int anzahl= anzButton[i];
 					
 					//ergebnis auswerten und in Label schreiben
-					for (int j=0; j<ergebnis.size();j++) {
-						String erg=ergebnis.get(j);
-						//auswerten(String,String, int) aufrufen, wenn 100 zurückgegeben wird term schreiben
-						int wert=auswerten(erg,anzahl);
-						if (wert!=100) {
-							BigInteger bi=BigInteger.valueOf(wert);
-							label.setClassRating(bi);
-						}
-						else {
-							label.setClassTerms(erg);;
-						}
+					String erg=ergebnis.get(i);
+					
+					//auswerten(String,String, int) aufrufen, wenn 100 zurückgegeben wird term schreiben
+					int wert=auswerten(erg,anzahl);
+					if (wert!=100) {
+						BigInteger bi=BigInteger.valueOf(wert);
+						label.setClassRating(bi);
+					}
+					else {
+						label.setClassTerms(erg);;
+					}
 						
-							
-						}
 					annoItem.setLabel(label);
 					dataEntityneu.setAnnotations(annoItem);
 					}
 					
-				}
 				
 			    //calling the marshall method
 				 OutputStream os = new FileOutputStream(Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe"));
-			     marshallObj.marshal( dataEntityneu, os );
+			     marshallObj.marshal(dataEntityneu, os );
 			     os.close();
-		    	}
+		
 		   /** else {
 		    	//creating the JAXB context
 			    JAXBContext jContext = JAXBContext.newInstance(DataEntity.class);
