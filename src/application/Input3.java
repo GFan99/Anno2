@@ -21,6 +21,8 @@ import org.xml.sax.SAXException;
 
 public class Input3 {
 	
+	private static ArrayList<Labelobjekt> labelobjekte;
+	
 	/**
 	 * Eine Methode, um den Dateipfad zurückzugeben in Abhängikeit von dem Betriebssystem
 	 * @param dateiname
@@ -55,18 +57,23 @@ public class Input3 {
 	public static boolean[] labelEigenschaft(){
 		try {
 			
-			String dateiname ="labels.xml";
+			/**String dateiname ="labels.xml";
 			String ordnername = "Eingabe";
 			
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(pfadNachOS(dateiname, ordnername));
-			NodeList nList = doc.getElementsByTagName("label");
+			NodeList nList = doc.getElementsByTagName("label");**/
 			
-			boolean[] eigenschaften=new boolean[nList.getLength()];
+			boolean[] eigenschaften=new boolean[labelobjekte.size()];
+			
+			for(int i=0; i<labelobjekte.size();i++) {
+				Labelobjekt objekt=labelobjekte.get(i);
+				eigenschaften[i]=objekt.isEigenschaft();
+			}
 						
 			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
-			for (int i = 0; i < nList.getLength(); i++)
+			/**for (int i = 0; i < nList.getLength(); i++)
 			{
 			 Node node = nList.item(i);
 			 
@@ -74,7 +81,7 @@ public class Input3 {
 			    Element eElement = (Element) node;
 			    eigenschaften[i]=Boolean.valueOf(eElement.getAttributeNode("multiple").getValue());
 			 }
-			}
+			}**/
 			System.out.println("eigenschaften");
 			return eigenschaften;
 		} catch (Exception e) {
@@ -104,6 +111,7 @@ public class Input3 {
 			
 			HashMap<String,ArrayList<String>> label = new HashMap<>();
 			ArrayList<String> beschriftung=new ArrayList<>();
+			boolean[] eigenschaften=new boolean[nList.getLength()];
 
 			
 			//die Namen der Labels und deren Beschriftung werden nacheinander in das String[]-Array geschrieben
@@ -139,10 +147,17 @@ public class Input3 {
 						}
 			    label.put(key, beschriftung);
 			    beschriftung = new ArrayList<String>();
-			    
+			    eigenschaften[i]=Boolean.valueOf(eElement.getAttributeNode("multiple").getValue());
 					}
 			    
 			   	}
+			
+			int i=0;
+			for(String key : label.keySet()) {
+				Labelobjekt objekt=new Labelobjekt(key,label.get(key),eigenschaften[i]);
+				labelobjekte.add(objekt);
+				i++;
+			}
 			 
 					  
 			return label;
