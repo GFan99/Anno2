@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <dataEntity xmlns="http://www.bioforscher.de/fosil/DataFormatter">
-    <textID></textID>
-    <text>keks</text>
+    <textID>0</textID>
+    <text>lalala ich bin ein vogel</text>
     <annotations>
         <label name="Tier?">
-            <class_rating>1</class_rating>
+            <class_terms>Vogel;Meise</class_terms>
         </label>
     </annotations>
     <raterID>abcnutzer</raterID>
