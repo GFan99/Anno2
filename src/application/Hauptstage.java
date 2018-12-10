@@ -411,7 +411,10 @@ public class Hauptstage extends Stage {
 	    				timeinsec--;
 	    				int min=timeinsec/60;
 	    				int sec = timeinsec%60;
-	    				timerlabel.setText(min+":"+sec);
+	    				if (sec > 9) {
+	    					timerlabel.setText(min+":"+sec);
+	    				}
+	    				else timerlabel.setText(min+":0"+sec);
 	    				if (timeinsec <= 0) {
 	    					timesup();
 	    					timeline.stop();
