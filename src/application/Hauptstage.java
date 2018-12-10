@@ -517,18 +517,21 @@ public class Hauptstage extends Stage {
 							cbs0 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs0.length;j++) {
 								cbs0[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
+								cbs0[j].setVisible(true);
 							}
 						}
 						else {
 							radioodercheck[i]='r';
 							rb0x = new RadioButton();
 							rb0x.setSelected(true);
+							rb0x.setVisible(false);
 							rb0x.setToggleGroup(rbgroup0);
 							rbs0 = new RadioButton[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<rbs0.length;j++) {
 								rbs0[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs0[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs0[j].setToggleGroup(rbgroup0);
+								rbs0[j].setVisible(true);
 							}
 						}
 						break;
@@ -539,18 +542,21 @@ public class Hauptstage extends Stage {
 							cbs1 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs1.length;j++) {
 								cbs1[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
+								cbs1[j].setVisible(true);
 							}
 						}
 						else {
 							radioodercheck[i]='r';
 							rb1x = new RadioButton();
 							rb1x.setSelected(true);
+							rb1x.setVisible(false);
 							rb1x.setToggleGroup(rbgroup1);
 							rbs1 = new RadioButton[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<rbs1.length;j++) {
 								rbs1[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs1[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs1[j].setToggleGroup(rbgroup1);
+								rbs1[j].setVisible(true);
 							}
 						}
 						break;
@@ -560,19 +566,22 @@ public class Hauptstage extends Stage {
 							radioodercheck[i]='c';
 							cbs2 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs2.length;j++) {
-								cbs2[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));		
+								cbs2[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));	
+								cbs2[j].setVisible(true);
 							}
 						}
 						else {
 							radioodercheck[i]='r';
 							rb2x = new RadioButton();
 							rb2x.setSelected(true);
+							rb2x.setVisible(false);
 							rb2x.setToggleGroup(rbgroup2);
 							rbs2 = new RadioButton[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<rbs2.length;j++) {
 								rbs2[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs2[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs2[j].setToggleGroup(rbgroup2);
+								rbs2[j].setVisible(true);
 							}
 						}
 						break;
@@ -583,18 +592,21 @@ public class Hauptstage extends Stage {
 							cbs3 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs3.length;j++) {
 								cbs3[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
+								cbs3[j].setVisible(true);
 							}
 						}
 						else {
 							radioodercheck[i]='r';
 							rb3x = new RadioButton();
 							rb3x.setSelected(true);
+							rb3x.setVisible(false);
 							rb3x.setToggleGroup(rbgroup3);
 							rbs3 = new RadioButton[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<rbs3.length;j++) {
 								rbs3[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs3[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs3[j].setToggleGroup(rbgroup3);
+								rbs3[j].setVisible(true);
 							}
 						}
 						break;
@@ -605,18 +617,21 @@ public class Hauptstage extends Stage {
 							cbs4 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs4.length;j++) {
 								cbs4[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
+								cbs4[j].setVisible(true);
 							}
 						}
 						else {
 							radioodercheck[i]='r';
 							rb4x = new RadioButton();
 							rb4x.setSelected(true);
+							rb4x.setVisible(false);
 							rb4x.setToggleGroup(rbgroup4);
 							rbs4 = new RadioButton[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<rbs4.length;j++) {
 								rbs4[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs4[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs4[j].setToggleGroup(rbgroup4);
+								rbs4[j].setVisible(true);
 							}
 						}
 						break;
@@ -1085,9 +1100,9 @@ public class Hauptstage extends Stage {
 	}
 	
 	public void timesup() {
-		provozierefehler - notdoneyet
-		close();
-		new ZeitEndeStage();
+		//provozierefehler - notdoneyet
 		Output.abbruchSave(klassif);
+		close();
+		new ZeitEndeStage(fortschritt.getProgress());
 	}
 }
