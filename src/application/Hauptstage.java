@@ -646,7 +646,7 @@ public class Hauptstage extends Stage {
 		//Label ins GridPane einfügen
 		for(Integer i=0;i<labellabelliste.size();i++) {
 			GridPane.setColumnIndex(labellabelliste.get(i), 0);
-			GridPane.setRowIndex(labellabelliste.get(i), i+i);
+			GridPane.setRowIndex(labellabelliste.get(i), i);
 			teil3Ranking.getChildren().add(labellabelliste.get(i));
 		}
 		for(int i=0;i<radioodercheck.length;i++) {
@@ -655,15 +655,15 @@ public class Hauptstage extends Stage {
 				switch(radioodercheck[i]) {
 				case 'r':
 					for (int j=0;j<rbs0.length;j++) {
-						GridPane.setColumnIndex(rbs0[j], j+j+1);
-						GridPane.setRowIndex(rbs0[j], i+i);
+						GridPane.setColumnIndex(rbs0[j], j+1);
+						GridPane.setRowIndex(rbs0[j], i);
 						teil3Ranking.getChildren().add(rbs0[j]);
 					}
 					break;
 				case 'c':
 					for (int j=0;j<cbs0.length;j++) {
-						GridPane.setColumnIndex(cbs0[j], j+j+1);
-						GridPane.setRowIndex(cbs0[j], i+i);
+						GridPane.setColumnIndex(cbs0[j], j+1);
+						GridPane.setRowIndex(cbs0[j], i);
 						teil3Ranking.getChildren().add(cbs0[j]);
 					}
 					break;
@@ -674,15 +674,15 @@ public class Hauptstage extends Stage {
 				switch(radioodercheck[i]) {
 				case 'r':
 					for (int j=0;j<rbs1.length;j++) {
-						GridPane.setColumnIndex(rbs1[j], j+j+1);
-						GridPane.setRowIndex(rbs1[j], i+i);
+						GridPane.setColumnIndex(rbs1[j], j+1);
+						GridPane.setRowIndex(rbs1[j], i);
 						teil3Ranking.getChildren().add(rbs1[j]);
 					}
 					break;
 				case 'c':
 					for (int j=0;j<cbs1.length;j++) {
-						GridPane.setColumnIndex(cbs1[j], j+j+1);
-						GridPane.setRowIndex(cbs1[j], i+i);
+						GridPane.setColumnIndex(cbs1[j], j+1);
+						GridPane.setRowIndex(cbs1[j], i);
 						teil3Ranking.getChildren().add(cbs1[j]);
 					}
 					break;
@@ -693,15 +693,15 @@ public class Hauptstage extends Stage {
 				switch(radioodercheck[i]) {
 				case 'r':
 					for (int j=0;j<rbs2.length;j++) {
-						GridPane.setColumnIndex(rbs2[j], j+j+1);
-						GridPane.setRowIndex(rbs2[j], i+i);
+						GridPane.setColumnIndex(rbs2[j], j+1);
+						GridPane.setRowIndex(rbs2[j], i);
 						teil3Ranking.getChildren().add(rbs2[j]);
 					}
 					break;
 				case 'c':
 					for (int j=0;j<cbs2.length;j++) {
-						GridPane.setColumnIndex(cbs2[j], j+j+1);
-						GridPane.setRowIndex(cbs2[j], i+i);
+						GridPane.setColumnIndex(cbs2[j], j+1);
+						GridPane.setRowIndex(cbs2[j], i);
 						teil3Ranking.getChildren().add(cbs2[j]);
 					}
 					break;
@@ -712,15 +712,15 @@ public class Hauptstage extends Stage {
 				switch(radioodercheck[i]) {
 				case 'r':
 					for (int j=0;j<rbs3.length;j++) {
-						GridPane.setColumnIndex(rbs3[j], j+j+1);
-						GridPane.setRowIndex(rbs3[j], i+i);
+						GridPane.setColumnIndex(rbs3[j], j+1);
+						GridPane.setRowIndex(rbs3[j], i);
 						teil3Ranking.getChildren().add(rbs3[j]);
 					}
 					break;
 				case 'c':
 					for (int j=0;j<cbs3.length;j++) {
-						GridPane.setColumnIndex(cbs3[j], j+j+1);
-						GridPane.setRowIndex(cbs3[j], i+i);
+						GridPane.setColumnIndex(cbs3[j], j+1);
+						GridPane.setRowIndex(cbs3[j], i);
 						teil3Ranking.getChildren().add(cbs3[j]);
 					}
 					break;
@@ -731,15 +731,15 @@ public class Hauptstage extends Stage {
 				switch(radioodercheck[i]) {
 				case 'r':
 					for (int j=0;j<rbs4.length;j++) {
-						GridPane.setColumnIndex(rbs4[j], j+j+1);
-						GridPane.setRowIndex(rbs4[j], i+i);
+						GridPane.setColumnIndex(rbs4[j], j+1);
+						GridPane.setRowIndex(rbs4[j], i);
 						teil3Ranking.getChildren().add(rbs4[j]);
 					}
 					break;
 				case 'c':
 					for (int j=0;j<cbs4.length;j++) {
-						GridPane.setColumnIndex(cbs4[j], j+j+1);
-						GridPane.setRowIndex(cbs4[j], i+i);
+						GridPane.setColumnIndex(cbs4[j], j+1);
+						GridPane.setRowIndex(cbs4[j], i);
 						teil3Ranking.getChildren().add(cbs4[j]);
 					}
 					break;
@@ -749,6 +749,7 @@ public class Hauptstage extends Stage {
 			}
 		}
 		
+		/**
 		Region ghspacer0 = new Region();
 		ghspacer0.setPrefHeight(30);
 		GridPane.setHgrow(ghspacer0, Priority.ALWAYS);
@@ -792,7 +793,10 @@ public class Hauptstage extends Stage {
 		GridPane.setConstraints(gvspacer2, 0, 5);
 		GridPane.setConstraints(gvspacer3, 0, 7);
 		GridPane.setConstraints(gvspacer4, 0, 9);
+		*/
 		
+		teil3Ranking.setHgap(5);
+		teil3Ranking.setVgap(5);
 		teil3Ranking.setPrefWidth(900);
 		teil3Ranking.setMinWidth(900);
 		
