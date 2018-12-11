@@ -308,8 +308,8 @@ public class Hauptstage extends Stage {
 
 	//initalisiert die Scene, die die Darstellung der Stage bestimmt
 	public  Scene erstelleScene(HashMap<String,ArrayList<String>> labels) {   
-		int x = 800;
-		int y = 500;
+		int x = 1000;
+		int y = 600;
 		
 		// two spacers to push the visible elements up a little
 		Region vboxspacer0 = new Region();
@@ -330,23 +330,23 @@ public class Hauptstage extends Stage {
 		
 		Region hboxspacer0 = new Region();
 		hboxspacer0.setPrefWidth(40);
-		VBox.setVgrow(hboxspacer0, Priority.ALWAYS);
+		HBox.setHgrow(hboxspacer0, Priority.ALWAYS);
 		Region hboxspacer1 = new Region();
 		hboxspacer1.setPrefWidth(40);
-		VBox.setVgrow(hboxspacer1, Priority.ALWAYS);
+		HBox.setHgrow(hboxspacer1, Priority.ALWAYS);
 		Region hboxspacerx = new Region();
 		hboxspacerx.setPrefWidth(93.5);
-		VBox.setVgrow(hboxspacerx, Priority.ALWAYS);
+		HBox.setHgrow(hboxspacerx, Priority.ALWAYS);
 		Region hboxspacery = new Region();
 		hboxspacery.setPrefWidth(93.5);
-		VBox.setVgrow(hboxspacery, Priority.ALWAYS);
+		HBox.setHgrow(hboxspacery, Priority.ALWAYS);
 		
 		Region hboxspaceri = new Region();
 		hboxspaceri.setPrefWidth(5);
-		VBox.setVgrow(hboxspaceri, Priority.ALWAYS);
+		HBox.setHgrow(hboxspaceri, Priority.ALWAYS);
 		Region hboxspacerj = new Region();
 		hboxspacerj.setPrefWidth(2);
-		VBox.setVgrow(hboxspacerj, Priority.ALWAYS);
+		HBox.setHgrow(hboxspacerj, Priority.ALWAYS);
 		
 		
 		/**
@@ -389,6 +389,7 @@ public class Hauptstage extends Stage {
 		setOnShowing(new EventHandler<WindowEvent>() {
 		    @Override
 		    public void handle(WindowEvent event) {
+		    	schriftplus.fire();schriftplus.fire();schriftplus.fire();schriftplus.fire();schriftplus.fire();
 		    	timerlabel.setText(timeinmin+":00");
 				timerlabel.setVisible(true);
 				if (timeline != null) {
@@ -485,7 +486,7 @@ public class Hauptstage extends Stage {
 		
 		//teil 3 
 		//HashMap<String,ArrayList<String>> labels mit Labelname als Key und Auswahlmoegl. als Value
-		GridPane pane = new GridPane();
+		teil3Ranking = new GridPane();
 		rbs0 = new RadioButton[0];
 		rbs1 = new RadioButton[0];
 		rbs2 = new RadioButton[0];
@@ -645,8 +646,8 @@ public class Hauptstage extends Stage {
 		//Label ins GridPane einfügen
 		for(Integer i=0;i<labellabelliste.size();i++) {
 			GridPane.setColumnIndex(labellabelliste.get(i), 0);
-			GridPane.setRowIndex(labellabelliste.get(i), i);
-			pane.getChildren().add(labellabelliste.get(i));
+			GridPane.setRowIndex(labellabelliste.get(i), i+i);
+			teil3Ranking.getChildren().add(labellabelliste.get(i));
 		}
 		for(int i=0;i<radioodercheck.length;i++) {
 			switch(i) {
@@ -654,16 +655,16 @@ public class Hauptstage extends Stage {
 				switch(radioodercheck[i]) {
 				case 'r':
 					for (int j=0;j<rbs0.length;j++) {
-						GridPane.setColumnIndex(rbs0[j], j+1);
-						GridPane.setRowIndex(rbs0[j], 0);
-						pane.getChildren().add(rbs0[j]);
+						GridPane.setColumnIndex(rbs0[j], j+j+1);
+						GridPane.setRowIndex(rbs0[j], i+i);
+						teil3Ranking.getChildren().add(rbs0[j]);
 					}
 					break;
 				case 'c':
 					for (int j=0;j<cbs0.length;j++) {
-						GridPane.setColumnIndex(cbs0[j], j+1);
-						GridPane.setRowIndex(cbs0[j], 0);
-						pane.getChildren().add(cbs0[j]);
+						GridPane.setColumnIndex(cbs0[j], j+j+1);
+						GridPane.setRowIndex(cbs0[j], i+i);
+						teil3Ranking.getChildren().add(cbs0[j]);
 					}
 					break;
 				default: break;
@@ -673,16 +674,16 @@ public class Hauptstage extends Stage {
 				switch(radioodercheck[i]) {
 				case 'r':
 					for (int j=0;j<rbs1.length;j++) {
-						GridPane.setColumnIndex(rbs1[j], j+1);
-						GridPane.setRowIndex(rbs1[j], 0);
-						pane.getChildren().add(rbs1[j]);
+						GridPane.setColumnIndex(rbs1[j], j+j+1);
+						GridPane.setRowIndex(rbs1[j], i+i);
+						teil3Ranking.getChildren().add(rbs1[j]);
 					}
 					break;
 				case 'c':
 					for (int j=0;j<cbs1.length;j++) {
-						GridPane.setColumnIndex(cbs1[j], j+1);
-						GridPane.setRowIndex(cbs1[j], 0);
-						pane.getChildren().add(cbs1[j]);
+						GridPane.setColumnIndex(cbs1[j], j+j+1);
+						GridPane.setRowIndex(cbs1[j], i+i);
+						teil3Ranking.getChildren().add(cbs1[j]);
 					}
 					break;
 				default: break;
@@ -692,16 +693,16 @@ public class Hauptstage extends Stage {
 				switch(radioodercheck[i]) {
 				case 'r':
 					for (int j=0;j<rbs2.length;j++) {
-						GridPane.setColumnIndex(rbs2[j], j+1);
-						GridPane.setRowIndex(rbs2[j], 0);
-						pane.getChildren().add(rbs2[j]);
+						GridPane.setColumnIndex(rbs2[j], j+j+1);
+						GridPane.setRowIndex(rbs2[j], i+i);
+						teil3Ranking.getChildren().add(rbs2[j]);
 					}
 					break;
 				case 'c':
 					for (int j=0;j<cbs2.length;j++) {
-						GridPane.setColumnIndex(cbs2[j], j+1);
-						GridPane.setRowIndex(cbs2[j], 0);
-						pane.getChildren().add(cbs2[j]);
+						GridPane.setColumnIndex(cbs2[j], j+j+1);
+						GridPane.setRowIndex(cbs2[j], i+i);
+						teil3Ranking.getChildren().add(cbs2[j]);
 					}
 					break;
 				default: break;
@@ -711,16 +712,16 @@ public class Hauptstage extends Stage {
 				switch(radioodercheck[i]) {
 				case 'r':
 					for (int j=0;j<rbs3.length;j++) {
-						GridPane.setColumnIndex(rbs3[j], j+1);
-						GridPane.setRowIndex(rbs3[j], 0);
-						pane.getChildren().add(rbs3[j]);
+						GridPane.setColumnIndex(rbs3[j], j+j+1);
+						GridPane.setRowIndex(rbs3[j], i+i);
+						teil3Ranking.getChildren().add(rbs3[j]);
 					}
 					break;
 				case 'c':
 					for (int j=0;j<cbs3.length;j++) {
-						GridPane.setColumnIndex(cbs3[j], j+1);
-						GridPane.setRowIndex(cbs3[j], 0);
-						pane.getChildren().add(cbs3[j]);
+						GridPane.setColumnIndex(cbs3[j], j+j+1);
+						GridPane.setRowIndex(cbs3[j], i+i);
+						teil3Ranking.getChildren().add(cbs3[j]);
 					}
 					break;
 				default: break;
@@ -730,16 +731,16 @@ public class Hauptstage extends Stage {
 				switch(radioodercheck[i]) {
 				case 'r':
 					for (int j=0;j<rbs4.length;j++) {
-						GridPane.setColumnIndex(rbs4[j], j+1);
-						GridPane.setRowIndex(rbs4[j], 0);
-						pane.getChildren().add(rbs4[j]);
+						GridPane.setColumnIndex(rbs4[j], j+j+1);
+						GridPane.setRowIndex(rbs4[j], i+i);
+						teil3Ranking.getChildren().add(rbs4[j]);
 					}
 					break;
 				case 'c':
 					for (int j=0;j<cbs4.length;j++) {
-						GridPane.setColumnIndex(cbs4[j], j+1);
-						GridPane.setRowIndex(cbs4[j], 0);
-						pane.getChildren().add(cbs4[j]);
+						GridPane.setColumnIndex(cbs4[j], j+j+1);
+						GridPane.setRowIndex(cbs4[j], i+i);
+						teil3Ranking.getChildren().add(cbs4[j]);
 					}
 					break;
 				default: break;
@@ -747,6 +748,53 @@ public class Hauptstage extends Stage {
 				break;
 			}
 		}
+		
+		Region ghspacer0 = new Region();
+		ghspacer0.setPrefHeight(30);
+		GridPane.setHgrow(ghspacer0, Priority.ALWAYS);
+		Region ghspacer1 = new Region();
+		ghspacer1.setPrefHeight(30);
+		GridPane.setHgrow(ghspacer1, Priority.ALWAYS);
+		Region ghspacer2 = new Region();
+		ghspacer2.setPrefHeight(30);
+		GridPane.setHgrow(ghspacer2, Priority.ALWAYS);
+		Region ghspacer3 = new Region();
+		ghspacer3.setPrefHeight(30);
+		GridPane.setHgrow(ghspacer3, Priority.ALWAYS);
+		Region ghspacer4 = new Region();
+		ghspacer4.setPrefHeight(30);
+		GridPane.setHgrow(ghspacer4, Priority.ALWAYS);
+
+		Region gvspacer0 = new Region();
+		gvspacer0.setPrefHeight(50);
+		GridPane.setVgrow(gvspacer0, Priority.ALWAYS);
+		Region gvspacer1 = new Region();
+		gvspacer1.setPrefHeight(50);
+		GridPane.setVgrow(gvspacer1, Priority.ALWAYS);
+		Region gvspacer2 = new Region();
+		gvspacer2.setPrefHeight(50);
+		GridPane.setVgrow(gvspacer2, Priority.ALWAYS);
+		Region gvspacer3 = new Region();
+		gvspacer3.setPrefHeight(50);
+		GridPane.setVgrow(gvspacer3, Priority.ALWAYS);
+		Region gvspacer4 = new Region();
+		gvspacer4.setPrefHeight(50);
+		GridPane.setVgrow(gvspacer4, Priority.ALWAYS);
+		
+		GridPane.setConstraints(ghspacer0, 1, 0);
+		GridPane.setConstraints(ghspacer1, 3, 0);
+		GridPane.setConstraints(ghspacer2, 5, 0);
+		GridPane.setConstraints(ghspacer3, 7, 0);
+		GridPane.setConstraints(ghspacer4, 9, 0);
+		
+		GridPane.setConstraints(gvspacer0, 0, 1);
+		GridPane.setConstraints(gvspacer1, 0, 3);
+		GridPane.setConstraints(gvspacer2, 0, 5);
+		GridPane.setConstraints(gvspacer3, 0, 7);
+		GridPane.setConstraints(gvspacer4, 0, 9);
+		
+		teil3Ranking.setPrefWidth(900);
+		teil3Ranking.setMinWidth(900);
 		
 		//Teil 4 - Absenden und Schriftgroeße
 		schriftgroesse = new HBox();
@@ -760,14 +808,13 @@ public class Hauptstage extends Stage {
 		schriftgroesse.getChildren().addAll(schrift, hboxspaceri, schriftplus, hboxspacerj, schriftminus);
 		fehlermeldungHaupt = new Label("");
 		
-		
 		teil4GroesseAbsenden.setLeft(schriftgroesse);
 		teil4GroesseAbsenden.setCenter(fehlermeldungHaupt);
-		teil4GroesseAbsenden.setRight(labelabsenden);
-		
-					
+		teil4GroesseAbsenden.setRight(labelabsenden);			
 			
-		
+		klasspane.setPrefWidth(900);
+		klasspane.setMinWidth(900);
+		klasspane.setFillWidth(true);
 		klasspane.getChildren().addAll(vboxspacer0,teil1Daten, vboxspacer1, teil2Texthalter, vboxspacer2, teil3Ranking, vboxspacer3, teil4GroesseAbsenden, vboxspacer4);
 		spacehalter.getChildren().addAll(hboxspacer0, klasspane, hboxspacer1);
 		
@@ -1025,7 +1072,7 @@ public class Hauptstage extends Stage {
 				case 1: 
 					if (radioodercheck[i]=='c') {
 						for (int j = 0; j<cbs1.length; j++) {
-							if(!b1[j]) {
+							if(!b1[j]) {    hier NullPointerException bei Ausführung!
 								check =false;
 								break;
 							}

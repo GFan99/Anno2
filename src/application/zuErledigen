@@ -4,10 +4,12 @@ Input2:
 	
 GUI:
 	done - Timer einstellen
-	timesup() in Hauptstage fertigstellen
+	done - timesup() in Hauptstage fertigstellen
 	FertigStage
-	ZeitEndeStage
-	Labelanzeige debuggen u ueberarbeiten
+	done - ZeitEndeStage
+	done - Labelanzeige debuggen u ueberarbeiten
+	kontrollieren ob Fehler mit mehrfachwahl hier liegt
+	Ranking anordnung überarbeiten
 	
 	ZA: Label "Schriftgröße" vertikal zentrieren zu + und - Buttons
 	ZA: Buttons im ID-Fenster anordnen (-> an Textfeld angleichen), Textfeld kuerzen
@@ -22,6 +24,7 @@ Klassifikator:
 	
 Input3:
 	beschriftung einlesen
+	kontrollieren ob Fehler mit mehrfachwahl hier liegt
 	
 Output:
 	XMLs korrekt schreiben
