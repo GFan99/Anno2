@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,10 +24,10 @@ import org.xml.sax.SAXException;
 
 public class Input3 {
 	
-	private static ArrayList<Labelobjekt> labelobjekte;
+	private static ArrayList<Labelobjekt> labelobjekte= new ArrayList<>();
 	
 	/**
-	 * Eine Methode, um den Dateipfad zurückzugeben in Abhängikeit von dem Betriebssystem
+	 * Eine Methode, um den Dateipfad zurückzugeben in Abhängigkeit vom Betriebssystem
 	 * @param dateiname
 	 * @param ordnername
 	 * @return
@@ -98,7 +101,7 @@ public class Input3 {
 	 * und als HashMap zurückzugeben
 	 * @return
 	 */
-	public static HashMap<String,ArrayList<String>> labelLesen(){
+	public static LinkedHashMap<String,ArrayList<String>> labelLesen(){
 		try {
 			
 			String dateiname ="labels.xml";
@@ -109,7 +112,7 @@ public class Input3 {
 			Document doc = builder.parse(pfadNachOS(dateiname, ordnername));
 			NodeList nList = doc.getElementsByTagName("label");
 			
-			HashMap<String,ArrayList<String>> label = new HashMap<>();
+			LinkedHashMap<String,ArrayList<String>> label = new LinkedHashMap<>();
 			ArrayList<String> beschriftung=new ArrayList<>();
 			boolean[] eigenschaften=new boolean[nList.getLength()];
 
@@ -146,24 +149,31 @@ public class Input3 {
 					beschriftung=new ArrayList<String>(Arrays.asList(bezeichnung.split(";")));
 						}
 			    label.put(key, beschriftung);
-			    beschriftung = new ArrayList<String>();
 			    eigenschaften[i]=Boolean.valueOf(eElement.getAttributeNode("multiple").getValue());
+			    //Labelobjekt objekt=new Labelobjekt(key,beschriftung,eigenschaften[i]);
+				//labelobjekte.add(objekt);
+				beschriftung = new ArrayList<String>();
+			    
 					}
 			    
 			   	}
 			
 			int i=0;
-			for(String key : label.keySet()) {
-				Labelobjekt objekt=new Labelobjekt(key,label.get(key),eigenschaften[i]);
+			Set keys = label.keySet();
+			Iterator it = keys.iterator();
+			while(it.hasNext()) {
+				Object key = it.next();
+				Labelobjekt objekt=new Labelobjekt((String) key,label.get(key),eigenschaften[i]);
 				labelobjekte.add(objekt);
 				i++;
 			}
+			
 			 
 					  
 			return label;
 		 } catch (Exception e) {
 			e.printStackTrace();
-			HashMap<String,ArrayList<String>> leer=new HashMap<String,ArrayList<String>>();
+			LinkedHashMap<String,ArrayList<String>> leer=new LinkedHashMap<String,ArrayList<String>>();
 			return leer;
 		 }
 		

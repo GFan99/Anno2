@@ -1,7 +1,7 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Set;
 import javafx.scene.text.Text;
 
@@ -27,10 +27,10 @@ import javafx.scene.text.Text;
  */
 public class Klassifikator {
 	
-	private HashMap<String,ArrayList<String>> label;
+	private LinkedHashMap<String,ArrayList<String>> label;
 	protected String[][] texte;
 	public ArrayList<Integer> textids;
-	private HashMap<Integer,boolean[]> ergebnisse;
+	private LinkedHashMap<Integer,boolean[]> ergebnisse;
 	int idgroesse;							
 	private String nutzerID;
 	
@@ -40,10 +40,10 @@ public class Klassifikator {
 	 * @return Klassifikator
 	 */
 	public Klassifikator() {
-		this.label = new HashMap<String,ArrayList<String>>();
+		this.label = new LinkedHashMap<String,ArrayList<String>>();
 		this.texte = new String[0][0];
 		this.textids = new ArrayList<Integer>();
-		this.ergebnisse = new HashMap<Integer,boolean[]>();
+		this.ergebnisse = new LinkedHashMap<Integer,boolean[]>();
 		this.idgroesse = 0;
 		this.setNutzerID("");
 	}
@@ -56,7 +56,7 @@ public class Klassifikator {
 	 * @param String[] label, String[] texte
 	 * @return Klassifikator
 	 */
-	public Klassifikator(String nutzerID, HashMap<String,ArrayList<String>> label, String[][] texte) {
+	public Klassifikator(String nutzerID, LinkedHashMap<String,ArrayList<String>> label, String[][] texte) {
 		this.label = label;
 		this.texte = texte;
 		this.textids = new ArrayList<Integer>();
@@ -67,7 +67,7 @@ public class Klassifikator {
 		for (int i =0;i<idgroesse;i++) {
 			textids.add(i);
 		}	
-		this.ergebnisse = new HashMap<Integer,boolean[]>();
+		this.ergebnisse = new LinkedHashMap<Integer,boolean[]>();
 		this.nutzerID = nutzerID;
 	}
 	
@@ -93,8 +93,8 @@ public class Klassifikator {
 		this.ergebnisse.put(id, werte);
 	}
 	
-	public HashMap<Integer,boolean[]> sortieren(HashMap<Integer,boolean[]> map) {
-		HashMap<Integer,boolean[]> sort = new HashMap<Integer,boolean[]>();
+	public LinkedHashMap<Integer,boolean[]> sortieren(LinkedHashMap<Integer,boolean[]> map) {
+		LinkedHashMap<Integer,boolean[]> sort = new LinkedHashMap<Integer,boolean[]>();
 		for (int i = 0; i<map.size();i++) {
 			sort.put(i, map.get(i));
 		}
@@ -146,7 +146,7 @@ public class Klassifikator {
 		this.nutzerID = nutzerID;
 	}
 	
-	public HashMap<String,ArrayList<String>> getLabel() {
+	public LinkedHashMap<String,ArrayList<String>> getLabel() {
 		return label;
 	}
 }

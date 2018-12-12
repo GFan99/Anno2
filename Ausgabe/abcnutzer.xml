@@ -3,7 +3,7 @@
     <textID>0</textID>
     <text>lalala ich bin ein vogel</text>
     <annotations>
-        <label name="Tier?">
+        <label name="magst du?">
             <class_terms>Vogel;Meise</class_terms>
         </label>
     </annotations>

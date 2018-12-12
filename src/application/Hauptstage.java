@@ -1,7 +1,7 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -58,7 +58,7 @@ public class Hauptstage extends Stage {
 	char[] radioodercheck;
 	boolean[] mehrfachwahl;
 	ArrayList<String> labelarray;
-	HashMap<String,ArrayList<String>> labels; //Labelname als Key, Auswahlmoegl. als Value
+	LinkedHashMap<String,ArrayList<String>> labels; //Labelname als Key, Auswahlmoegl. als Value
 	boolean[] b0, b1, b2, b3, b4;
 	RadioButton rb0x, rb1x, rb2x, rb3x, rb4x;
 	
@@ -307,7 +307,7 @@ public class Hauptstage extends Stage {
 	}
 
 	//initalisiert die Scene, die die Darstellung der Stage bestimmt
-	public  Scene erstelleScene(HashMap<String,ArrayList<String>> labels) {   
+	public  Scene erstelleScene(LinkedHashMap<String,ArrayList<String>> labels) {   
 		int x = 1000;
 		int y = 600;
 		
@@ -485,7 +485,7 @@ public class Hauptstage extends Stage {
 		teil2Textarea.setVisible(true);
 		
 		//teil 3 
-		//HashMap<String,ArrayList<String>> labels mit Labelname als Key und Auswahlmoegl. als Value
+		//LinkedHashMap<String,ArrayList<String>> labels mit Labelname als Key und Auswahlmoegl. als Value
 		teil3Ranking = new GridPane();
 		rbs0 = new RadioButton[0];
 		rbs1 = new RadioButton[0];
@@ -1076,7 +1076,7 @@ public class Hauptstage extends Stage {
 				case 1: 
 					if (radioodercheck[i]=='c') {
 						for (int j = 0; j<cbs1.length; j++) {
-							if(!b1[j]) {    hier NullPointerException bei Ausführung!
+							if(!b1[j]) {   		 					//hier NullPointerException bei Ausführung!
 								check =false;
 								break;
 							}

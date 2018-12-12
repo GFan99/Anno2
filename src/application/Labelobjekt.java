@@ -11,8 +11,7 @@ public class Labelobjekt {
 	public Labelobjekt(String name, ArrayList<String> beschriftung, boolean eigenschaft) {
 		this.setName(name);
 		this.setBeschriftung(beschriftung);
-		this.setEigenschaft(eigenschaft);
-		
+		this.setEigenschaft(eigenschaft);	
 	}
 
 

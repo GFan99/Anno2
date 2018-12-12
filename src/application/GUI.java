@@ -2,7 +2,7 @@ package application;
 	
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -59,7 +59,7 @@ public class GUI extends Application {
 			
 			new ZeitEndeStage(0.68);
 			
-			HashMap<String,ArrayList<String>> testmap = new HashMap<String,ArrayList<String>>();
+			LinkedHashMap<String,ArrayList<String>> testmap = new LinkedHashMap<String,ArrayList<String>>();
 			ArrayList<String> wert1 = new ArrayList<String>();
 			wert1.add("Vogel");
 			wert1.add("Meise");
@@ -135,7 +135,7 @@ public class GUI extends Application {
 					String nutzerid = Klassifikator.generiereNutzer();
 					System.out.println("Neue ID generiert: "+nutzerid);
 					String[][] texts = Input3.texteLesen();
-					HashMap<String,ArrayList<String>> labels = Input3.labelLesen();	//Labelname als Key, Auswahlmoegl. als Value
+					LinkedHashMap<String,ArrayList<String>> labels = Input3.labelLesen();	//Labelname als Key, Auswahlmoegl. als Value
 					
 					Klassifikator klasse = new Klassifikator(nutzerid, labels, texts);
 					primaryStage.close();
@@ -156,7 +156,7 @@ public class GUI extends Application {
 					if (Arrays.asList(vorhandeneIDs).contains(id)) {
 						String[][] texts = Input3.texteLesen();
 						ArrayList<Integer> schonklassi = Input3.leseklassifizierte(id);
-						HashMap<String,ArrayList<String>> labels = Input3.labelLesen();    //Labelname als Key, Auswahlmoegl. als Value
+						LinkedHashMap<String,ArrayList<String>> labels = Input3.labelLesen();    //Labelname als Key, Auswahlmoegl. als Value
 						Klassifikator klasse = new Klassifikator(id,labels,texts);	
 						while (schonklassi.size()!=0) {
 							klasse.textids.remove(schonklassi.get(0));
