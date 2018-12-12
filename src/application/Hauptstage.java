@@ -60,6 +60,7 @@ public class Hauptstage extends Stage {
 	ArrayList<String> labelarray;
 	LinkedHashMap<String,ArrayList<String>> labels; //Labelname als Key, Auswahlmoegl. als Value
 	boolean[] b0, b1, b2, b3, b4;
+	int boolz0, boolz1, boolz2, boolz3, boolz4;
 	RadioButton rb0x, rb1x, rb2x, rb3x, rb4x;
 	
 	//Teil4
@@ -234,6 +235,7 @@ public class Hauptstage extends Stage {
 					   //nichtfunktionierendeidee:
 					   teil2Textarea.impl_updatePeer();
 					   //neuinitialisierung der checkboxen und radiobuttons
+					   fehlermeldungHaupt.setText("");
 					   for (int i = 0; i<labelarray.size();i++) {
 							switch (i) {
 								case 0: if (radioodercheck[i]=='c') {
@@ -308,7 +310,7 @@ public class Hauptstage extends Stage {
 
 	//initalisiert die Scene, die die Darstellung der Stage bestimmt
 	public  Scene erstelleScene(LinkedHashMap<String,ArrayList<String>> labels) {   
-		int x = 1000;
+		int x = 980;
 		int y = 600;
 		
 		// two spacers to push the visible elements up a little
@@ -322,7 +324,7 @@ public class Hauptstage extends Stage {
 		vboxspacer2.setPrefHeight(40);
 		VBox.setVgrow(vboxspacer2, Priority.ALWAYS);
 		Region vboxspacer3 = new Region();
-		vboxspacer3.setPrefHeight(40);
+		vboxspacer3.setPrefHeight(60);
 		VBox.setVgrow(vboxspacer3, Priority.ALWAYS);
 		Region vboxspacer4 = new Region();
 		vboxspacer4.setPrefHeight(40);
@@ -335,10 +337,10 @@ public class Hauptstage extends Stage {
 		hboxspacer1.setPrefWidth(40);
 		HBox.setHgrow(hboxspacer1, Priority.ALWAYS);
 		Region hboxspacerx = new Region();
-		hboxspacerx.setPrefWidth(93.5);
+		hboxspacerx.setPrefWidth(40);
 		HBox.setHgrow(hboxspacerx, Priority.ALWAYS);
 		Region hboxspacery = new Region();
-		hboxspacery.setPrefWidth(93.5);
+		hboxspacery.setPrefWidth(40);
 		HBox.setHgrow(hboxspacery, Priority.ALWAYS);
 		
 		Region hboxspaceri = new Region();
@@ -470,13 +472,13 @@ public class Hauptstage extends Stage {
 		teil2Textarea.setFont(new Font("Times",sgroesse));
 		teil2Texthalter.setContent(teil2Textarea);
 		teil2Texthalter.setFitToWidth(true);
-		teil2Texthalter.setPrefWidth(720);
+		teil2Texthalter.setPrefWidth(850);
 		teil2Texthalter.setPrefHeight(300);
-		teil2Texthalter.setMinSize(720, 300);
-		teil2Texthalter.setMaxSize(720, 300);
-		teil2Textarea.setPrefSize(700, 1500);
-		teil2Textarea.setMinSize(700, 299);
-		teil2Textarea.setMaxWidth(700);
+		teil2Texthalter.setMinSize(850, 300);
+		teil2Texthalter.setMaxSize(850, 300);
+		teil2Textarea.setPrefSize(830, 1500);
+		teil2Textarea.setMinSize(830, 299);
+		teil2Textarea.setMaxWidth(830);
 		teil2Textarea.setWrapText(true);
 		
 		String[] t = klassif.getText();
@@ -795,7 +797,7 @@ public class Hauptstage extends Stage {
 		GridPane.setConstraints(gvspacer4, 0, 9);
 		*/
 		
-		teil3Ranking.setHgap(5);
+		teil3Ranking.setHgap(20);
 		teil3Ranking.setVgap(5);
 		teil3Ranking.setPrefWidth(900);
 		teil3Ranking.setMinWidth(900);
@@ -818,7 +820,7 @@ public class Hauptstage extends Stage {
 			
 		klasspane.setPrefWidth(900);
 		klasspane.setMinWidth(900);
-		klasspane.setFillWidth(true);
+		//klasspane.setFillWidth(true);
 		klasspane.getChildren().addAll(vboxspacer0,teil1Daten, vboxspacer1, teil2Texthalter, vboxspacer2, teil3Ranking, vboxspacer3, teil4GroesseAbsenden, vboxspacer4);
 		spacehalter.getChildren().addAll(hboxspacer0, klasspane, hboxspacer1);
 		
@@ -1059,11 +1061,15 @@ public class Hauptstage extends Stage {
 			switch (i) {
 				case 0:
 					if (radioodercheck[i]=='c') {
+						boolz0 = 0;
 						for (int j = 0; j<cbs0.length; j++) {
-							if(!b0[j]) {
-								check =false;
-								break;
-							}
+							if(cbs0[j].isSelected()) {
+								boolz0++;
+							}	
+						}
+						if(boolz0==0) {
+							check=false;
+							break;
 						}
 					}
 					else {
@@ -1075,27 +1081,38 @@ public class Hauptstage extends Stage {
 					break;
 				case 1: 
 					if (radioodercheck[i]=='c') {
+						boolz1 = 0;
 						for (int j = 0; j<cbs1.length; j++) {
-							if(!b1[j]) {   		 					//hier NullPointerException bei Ausführung!
-								check =false;
-								break;
-							}
+							if(cbs1[j].isSelected()) {
+								boolz1++;
+							}	
 						}
-					}
-					else {
-						if (rbgroup1.getSelectedToggle()==rb1x) {
+						if(boolz1==0) {
 							check=false;
 							break;
 						}
 					}
+					else {
+						if (radioodercheck[i]=='r') {
+							if (rbgroup1.getSelectedToggle()==rb1x) {
+								check=false;
+								break;
+							}
+						}
+						else break;						
+					}
 					break;
 				case 2:
 					if (radioodercheck[i]=='c') {
+						boolz2 = 0;
 						for (int j = 0; j<cbs2.length; j++) {
-							if(!b2[j]) {
-								check =false;
-								break;
-							}
+							if(cbs2[j].isSelected()) {
+								boolz2++;
+							}	
+						}
+						if(boolz2==0) {
+							check=false;
+							break;
 						}
 					}
 					else {
@@ -1110,11 +1127,15 @@ public class Hauptstage extends Stage {
 					break;
 				case 3:
 					if (radioodercheck[i]=='c') {
+						boolz3 = 0;
 						for (int j = 0; j<cbs3.length; j++) {
-							if(!b3[j]) {
-								check =false;
-								break;
-							}
+							if(cbs3[j].isSelected()) {
+								boolz3++;
+							}	
+						}
+						if(boolz3==0) {
+							check=false;
+							break;
 						}
 					}
 					else {
@@ -1129,11 +1150,15 @@ public class Hauptstage extends Stage {
 					break;
 				case 4: 
 					if (radioodercheck[i]=='c') {
+						boolz4 = 0;
 						for (int j = 0; j<cbs4.length; j++) {
-							if(!b4[j]) {
-								check =false;
-								break;
-							}
+							if(cbs4[j].isSelected()) {
+								boolz4++;
+							}	
+						}
+						if(boolz4==0) {
+							check=false;
+							break;
 						}
 					}
 					else {
