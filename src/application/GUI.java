@@ -57,7 +57,7 @@ public class GUI extends Application {
 			
 			//Test-Bereich:
 			
-			new ZeitEndeStage(0.68);
+			//new ZeitEndeStage(0.68);
 			
 			LinkedHashMap<String,ArrayList<String>> testmap = new LinkedHashMap<String,ArrayList<String>>();
 			ArrayList<String> wert1 = new ArrayList<String>();
