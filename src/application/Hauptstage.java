@@ -131,7 +131,7 @@ public class Hauptstage extends Stage {
 													//laberlaber
 												}
 											}
-											erg=erg.substring(0,erg.length()-2);
+											erg=erg.substring(0,erg.length()-1);
 											ergebnis.add(erg);
 										}
 										else {
@@ -151,7 +151,7 @@ public class Hauptstage extends Stage {
 													erg=erg+";";
 												}
 											}
-											erg=erg.substring(0,erg.length()-2);
+											erg=erg.substring(0,erg.length()-1);
 											ergebnis.add(erg);
 										}
 										else {	if (radioodercheck[i]=='r') {
@@ -174,7 +174,7 @@ public class Hauptstage extends Stage {
 													erg=erg+";";
 												}
 											}
-											erg=erg.substring(0,erg.length()-2);
+											erg=erg.substring(0,erg.length()-1);
 											ergebnis.add(erg);
 										}
 										else {	if (radioodercheck[i]=='r') {
@@ -197,7 +197,7 @@ public class Hauptstage extends Stage {
 													erg=erg+";";
 												}
 											}
-											erg=erg.substring(0,erg.length()-2);
+											erg=erg.substring(0,erg.length()-1);
 											ergebnis.add(erg);
 										}
 										else {	if (radioodercheck[i]=='r') {
@@ -220,7 +220,7 @@ public class Hauptstage extends Stage {
 													erg=erg+";";
 												}
 											}
-											erg=erg.substring(0,erg.length()-2);
+											erg=erg.substring(0,erg.length()-1);
 											ergebnis.add(erg);
 										}
 										else {	if (radioodercheck[i]=='r') {
