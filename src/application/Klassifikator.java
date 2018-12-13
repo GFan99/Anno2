@@ -106,7 +106,7 @@ public class Klassifikator {
 		if (i!=-1) {
 			String[] rueck = new String[2];
 			rueck[0]=""+i+"";
-			rueck[1]=texte[i][1];
+			rueck[1]=texte[i][1].substring(5);
 			return rueck;
 		}
 		else {
