@@ -5,10 +5,10 @@ Input2:
 GUI:
 	done - Timer einstellen
 	done - timesup() in Hauptstage fertigstellen
-	FertigStage
+	done - FertigStage
 	done - ZeitEndeStage
 	done - Labelanzeige debuggen u ueberarbeiten
-	kontrollieren ob Fehler mit mehrfachwahl hier liegt
+	done - kontrollieren ob Fehler mit mehrfachwahl hier liegt
 	Ranking anordnung überarbeiten
 	
 	ZA: Label "Schriftgröße" vertikal zentrieren zu + und - Buttons
@@ -17,7 +17,7 @@ GUI:
 
 Klassifikator:
 	done - texteLesen zu zweidimensionalem Array aendern
-	schreibe Ergebnisse in Klassifikator.ergebnisse
+	gestrichen - schreibe Ergebnisse in Klassifikator.ergebnisse
 	done - ergebnisse zu String[] statt boolean[]
 	
 	ZA: Hash aus Benutzername von HS-Login bilden
