@@ -88,7 +88,7 @@ public class Hauptstage extends Stage {
 		   public void handle(MouseEvent e) { 
 			   if (sgroesse <=24) {
 				   sgroesse = sgroesse+2;
-				   teil2Textarea.setFont(new Font("Arial", sgroesse));
+				   teil2Textarea.setFont(new Font("Times", sgroesse));
 			   }
 		   } 
 		};
@@ -99,7 +99,7 @@ public class Hauptstage extends Stage {
 			public void handle(MouseEvent e) { 
 			   if (sgroesse >=10) {
 				   sgroesse = sgroesse-2;
-				   teil2Textarea.setFont(new Font("Arial", sgroesse));
+				   teil2Textarea.setFont(new Font("Times", sgroesse));
 			   }
 			} 
 		};
@@ -127,8 +127,11 @@ public class Hauptstage extends Stage {
 											for (int k = 0; k<b0.length; k++) {
 												if (b0[k]) {
 													erg = erg+(cbs0[k].getText());
+													erg=erg+";";
+													//laberlaber
 												}
 											}
+											erg=erg.substring(0,erg.length()-2);
 											ergebnis.add(erg);
 										}
 										else {
@@ -137,38 +140,45 @@ public class Hauptstage extends Stage {
 										}
 										break;
 								case 1: if (radioodercheck[i]=='c') {
-											b0 = new boolean[cbs0.length];
-											for (int j = 0; j<cbs0.length; j++) {
-												b0[j] = cbs0[j].isSelected();
+											b1 = new boolean[cbs1.length];
+											for (int j = 0; j<cbs1.length; j++) {
+												b1[j] = cbs1[j].isSelected();
 											}
 											String erg = "";
-											for (int k = 0; k<b0.length; k++) {
-												if (b0[k]) {
-													erg = erg+(cbs0[k].getText());
+											for (int k = 0; k<b1.length; k++) {
+												if (b1[k]) {
+													erg = erg+(cbs1[k].getText());
+													erg=erg+";";
 												}
 											}
-											ergebnis.add(erg);
-										}
-										else {
-											//radioodercheck[i]='r';
-											ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
-										}
-										break;
-								case 2: if (radioodercheck[i]=='c') {
-											b0 = new boolean[cbs0.length];
-											for (int j = 0; j<cbs0.length; j++) {
-												b0[j] = cbs0[j].isSelected();
-											}
-											String erg = "";
-											for (int k = 0; k<b0.length; k++) {
-												if (b0[k]) {
-													erg = erg+(cbs0[k].getText());
-												}
-											}
+											erg=erg.substring(0,erg.length()-2);
 											ergebnis.add(erg);
 										}
 										else {	if (radioodercheck[i]=='r') {
-													ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
+													ergebnis.add(rbgroup1.getSelectedToggle().getUserData().toString());
+												}
+												else {
+													break;
+												}
+										}
+										break;
+								case 2: if (radioodercheck[i]=='c') {
+											b2 = new boolean[cbs2.length];
+											for (int j = 0; j<cbs2.length; j++) {
+												b2[j] = cbs2[j].isSelected();
+											}
+											String erg = "";
+											for (int k = 0; k<b2.length; k++) {
+												if (b2[k]) {
+													erg = erg+(cbs2[k].getText());
+													erg=erg+";";
+												}
+											}
+											erg=erg.substring(0,erg.length()-2);
+											ergebnis.add(erg);
+										}
+										else {	if (radioodercheck[i]=='r') {
+													ergebnis.add(rbgroup2.getSelectedToggle().getUserData().toString());
 												}
 												else {
 													break;
@@ -176,20 +186,22 @@ public class Hauptstage extends Stage {
 										}
 										break;
 								case 3: if (radioodercheck[i]=='c') {
-											b0 = new boolean[cbs0.length];
-											for (int j = 0; j<cbs0.length; j++) {
-												b0[j] = cbs0[j].isSelected();
+											b3 = new boolean[cbs3.length];
+											for (int j = 0; j<cbs3.length; j++) {
+												b3[j] = cbs3[j].isSelected();
 											}
 											String erg = "";
-											for (int k = 0; k<b0.length; k++) {
-												if (b0[k]) {
-													erg = erg+(cbs0[k].getText());
+											for (int k = 0; k<b3.length; k++) {
+												if (b3[k]) {
+													erg = erg+(cbs3[k].getText());
+													erg=erg+";";
 												}
 											}
+											erg=erg.substring(0,erg.length()-2);
 											ergebnis.add(erg);
 										}
 										else {	if (radioodercheck[i]=='r') {
-													ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
+													ergebnis.add(rbgroup3.getSelectedToggle().getUserData().toString());
 												}
 												else {
 													break;
@@ -197,20 +209,22 @@ public class Hauptstage extends Stage {
 										}
 										break;
 								case 4: if (radioodercheck[i]=='c') {
-											b0 = new boolean[cbs0.length];
-											for (int j = 0; j<cbs0.length; j++) {
-												b0[j] = cbs0[j].isSelected();
+											b4 = new boolean[cbs4.length];
+											for (int j = 0; j<cbs4.length; j++) {
+												b4[j] = cbs4[j].isSelected();
 											}
 											String erg = "";
-											for (int k = 0; k<b0.length; k++) {
-												if (b0[k]) {
-													erg = erg+(cbs0[k].getText());
+											for (int k = 0; k<b4.length; k++) {
+												if (b4[k]) {
+													erg = erg+(cbs4[k].getText());
+													erg=erg+";";
 												}
 											}
+											erg=erg.substring(0,erg.length()-2);
 											ergebnis.add(erg);
 										}
 										else {	if (radioodercheck[i]=='r') {
-													ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
+													ergebnis.add(rbgroup4.getSelectedToggle().getUserData().toString());
 												}
 												else {
 													break;
@@ -223,6 +237,8 @@ public class Hauptstage extends Stage {
 						}
 					   //schreiben der Werte in Output-Datei
 					   Output.schreibeWerte(klassif,teil2Textarea.getText(),ergebnis);
+					   //ProgressBar updaten
+					   fortschritt.setProgress((klassif.texte.length - klassif.textids.size())/klassif.texte.length);
 					   //neuen Text laden und anzeigen
 					   String[] neuertext = klassif.getText();
 					   String neuertext2 = neuertext[1];
@@ -233,11 +249,7 @@ public class Hauptstage extends Stage {
 						   return;
 					   }
 					   teil2Textarea.setText(neuertext2);
-					   //nichtfunktionierendeidee:
-					   teil2Textarea.impl_updatePeer();
 					   //neuinitialisierung der checkboxen und radiobuttons
-					   fehlermeldungHaupt.setVisible(false);
-					   //fehlermeldungHaupt.setText(" ");
 					   for (int i = 0; i<labelarray.size();i++) {
 							switch (i) {
 								case 0: if (radioodercheck[i]=='c') {
@@ -437,6 +449,7 @@ public class Hauptstage extends Stage {
 		//Teil2 - scrollabe TextArea
 		teil2Textarea = new TextArea();
 		teil2Textarea.setEditable(false);
+		sgroesse=18;
 		teil2Textarea.setFont(new Font("Times",sgroesse));
 		teil2Texthalter.setContent(teil2Textarea);
 		teil2Texthalter.setFitToWidth(true);
@@ -807,6 +820,8 @@ public class Hauptstage extends Stage {
 		return klassi;
 	}
 	
+	
+	/**
 	//Methode, die die Eventhandler beinhaltet
 	public void start() {
 		this.show();
@@ -824,7 +839,6 @@ public class Hauptstage extends Stage {
 			@Override 
 			public void handle(MouseEvent e) { 
 			   sgroesse = sgroesse-2;
-			   teil2Textarea.setFont(new Font("Arial", sgroesse));
 			} 
 		};
 		schriftminus.addEventFilter(MouseEvent.MOUSE_CLICKED, schriftgroesseminus);
@@ -1045,6 +1059,7 @@ public class Hauptstage extends Stage {
 		}; 
 		labelabsenden.addEventFilter(MouseEvent.MOUSE_CLICKED, pruefenuabsenden);
 	} 
+	*/
 	
 	//prueft ob zu jedem Label (min.) 1 Moeglichkeit ausgewaehlt wurde -> true, wenn nicht false
 	public boolean check() {
@@ -1169,6 +1184,7 @@ public class Hauptstage extends Stage {
 		}	   
 		return check;
 	}
+	
 	
 	public void timesup() {
 		//provozierefehler - notdoneyet
