@@ -85,8 +85,8 @@ public class GUI extends Application {
 			
 			Klassifikator ktest = new Klassifikator("abcnutzer",testmap, testtexte);
 			
-			Output.schreibeWerte(ktest, "keks", testergx);
-			Output.schreibeWerte(ktest, "lalala ich bin ein vogel", testergx);
+			//Output.schreibeWerte(ktest, "keks", testergx);
+			//Output.schreibeWerte(ktest, "lalala ich bin ein vogel", testergx);
 		
 
 			

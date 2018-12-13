@@ -449,7 +449,7 @@ public class Hauptstage extends Stage {
 		//Teil2 - scrollabe TextArea
 		teil2Textarea = new TextArea();
 		teil2Textarea.setEditable(false);
-		sgroesse=18;
+		sgroesse=14;
 		teil2Textarea.setFont(new Font("Times",sgroesse));
 		teil2Texthalter.setContent(teil2Textarea);
 		teil2Texthalter.setFitToWidth(true);
