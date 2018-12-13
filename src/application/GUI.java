@@ -106,20 +106,20 @@ public class GUI extends Application {
 			Label fehlermeldung = new Label();
 			
 			//Positionierung der Objekte der IDStage und Zuordnung zum Pane
-			AnchorPane.setTopAnchor(idfrage, 10.0);
-			AnchorPane.setLeftAnchor(idfrage, 10.0);
-			AnchorPane.setTopAnchor(idtext, 40.0);
-			AnchorPane.setLeftAnchor(idtext, 10.0);
-			AnchorPane.setTopAnchor(idok, 80.0);
+			AnchorPane.setTopAnchor(idfrage, 25.0);
+			AnchorPane.setLeftAnchor(idfrage, 25.0);
+			AnchorPane.setTopAnchor(idtext, 52.0);
+			AnchorPane.setLeftAnchor(idtext, 25.0);
+			AnchorPane.setTopAnchor(idok, 95.0);
 			AnchorPane.setLeftAnchor(idok, 25.0);
-			AnchorPane.setTopAnchor(neueid, 80.0);
-			AnchorPane.setLeftAnchor(neueid, 80.0);
-			AnchorPane.setTopAnchor(fehlermeldung, 110.0);
+			AnchorPane.setTopAnchor(neueid, 95.0);
+			AnchorPane.setLeftAnchor(neueid, 198.0);
+			AnchorPane.setTopAnchor(fehlermeldung, 125.0);
 			AnchorPane.setLeftAnchor(fehlermeldung, 10.0);
 			idpane.getChildren().addAll(idfrage, idtext, idok, neueid, fehlermeldung);
 			
 			//Erstellen der Scene aus dem Pane und Zuweisung eines Stylesheets
-			Scene idabfrage = new Scene(idpane,300,150);
+			Scene idabfrage = new Scene(idpane,315,150);
 			idabfrage.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			//primaryStage erhaelt Scene und damit alle anderen Objekte --> zeigen der Stage
@@ -174,94 +174,6 @@ public class GUI extends Application {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	/*
-
-	public Stage erstelleHauptStage(Klassifikator klasse) {
-		
-		 
-		 * statischer Teil 
-		
-		Stage secondStage = new Stage();	
-		int x = 800;
-		int y = 500;
-		
-		/**
-		 * VBox besteht aus 4 untereinanderliegenden Teilen
-		 * Teil 1:	allgemeine Angaben --> ID, Fortschrite, Timer
-		 * Teil 2:	scrollable textarea
-		 * Teil 3:	Labelwertungssystem
-		 * Teil 4:	schriftgroessen buttons + abschicken button
-		 *	
-		VBox klasspane= new VBox();
-		/** Leiste für Teil 1 *
-		HBox teil1Daten = new HBox();
-		/** Teil 2 - scrollable textarea *
-		ScrollPane teil2Texthalter = new ScrollPane();
-		/** Teil 3 - Wertungssystem (tabellenfoerimge Anordnung) *
-		GridPane teil3Ranking = new GridPane();
-		/** Teil 4 - Buttons werden links und rechts angezeigt *
-		BorderPane teil4GroesseAbsenden = new BorderPane();
-
-		String nutzerstring = klasse.getNutzerID();
-		
-		
-		//Teil1 - obere Zeile der Anzeige
-		Label idanzeige = new Label("Nutzer-ID: "+nutzerstring);
-		ProgressBar fortschritt = new ProgressBar(0);
-		Label zeitanzeige = new Label("Counter"); //anpassen, so dass Zeit angezeigt wird
-		
-		teil1Daten.getChildren().addAll(idanzeige, fortschritt);
-		
-		//Teil2 - scrollabe TextArea
-		TextArea teil2Textarea = new TextArea();
-		teil2Texthalter.setContent(teil2Textarea);
-		teil2Texthalter.setFitToWidth(true);
-		teil2Texthalter.setPrefWidth(400);
-		teil2Texthalter.setPrefHeight(180);
-		String text = klasse.getText();
-		teil2Textarea.setText(text);
-		
-		//teil 3 siehe dynamisch
-		
-		//Teil 4 - Absenden und Schriftgroeße
-		HBox schriftgroesse = new HBox();
-		Label schrift = new Label("Schriftgröße");
-		Button schriftplus = new Button("+");
-		Button schriftminus = new Button("-");
-		Button labelabsenden = new Button("Absenden");
-		schriftgroesse.getChildren().addAll(schrift, schriftplus, schriftminus);
-		
-		teil4GroesseAbsenden.setLeft(schriftgroesse);
-		teil4GroesseAbsenden.setRight(labelabsenden);
-		
-		/*
-		 *  dynamischer Teil 
-		 *
-		
-		//Wie kann man jeden button/label anders benennen, um sie
-				//sp?ter bei Event ansprechen zu k?nnen???
-				int zeile=1;
-				for(String key : Input3.labelLesen().keySet()) {
-					Label label0 = new Label(key);
-					GridPane.setConstraints(label0, 1, zeile);
-					for(int i=0; i<Input3.labelLesen().get(key).size();i++){
-						RadioButton rbutton0 = new RadioButton(Input3.labelLesen().get(key).get(i));
-						GridPane.setConstraints(rbutton0, i+2, zeile);
-					}
-					zeile++;
-				}	
-		Scene klassi = new Scene(klasspane,x,y);
-		//klasspane.getChildren().addAll(daten, textanz, ranking, labelok);
-		
-		klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		
-		secondStage.setScene(klassi);
-		return secondStage;
-	}
-	
-	*/
 	
 	public static void main(String[] args) {
 		launch(args);
