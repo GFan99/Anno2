@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -17,6 +18,7 @@ import org.w3c.dom.*;
 import de.bioforscher.fosil.dataformatter.AnnotationItem;
 import de.bioforscher.fosil.dataformatter.DataEntity;
 import de.bioforscher.fosil.dataformatter.Label;
+import de.bioforscher.fosil.dataformatter.TextEntity;
 
 /**
  * Dies wird die Klasse Output.
@@ -65,20 +67,20 @@ public class Output {
 		
 		try{
 		    
-			//getting the xml file to read
+			
 		    File file = Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe");
 		    
 		    //if (file.exists()==false) {
-		    	//creating the JAXB context
+		    	
 			    JAXBContext jContextneu = JAXBContext.newInstance(DataEntity.class);
-			    //creating the marshaller object
 			    Marshaller marshallObj = jContextneu.createMarshaller();
-			    //setting the property to show xml format output
 			    marshallObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			    //setting the values in POJO class
-			    DataEntity dataEntityneu= new DataEntity();
-				dataEntityneu.setRaterID(klassif.getNutzerID());
-				dataEntityneu.setText(text);
+			    DataEntity dataEntity= new DataEntity();
+			    List<TextEntity> textlst=new ArrayList<TextEntity>();
+			    TextEntity textEntityneu= new TextEntity();
+			    
+				textEntityneu.setRaterID(klassif.getNutzerID());
+				textEntityneu.setText(text);
 				
 				String[][] texte=klassif.getTexte();
 				String id="";
@@ -91,7 +93,7 @@ public class Output {
 				    	 id=String.valueOf(i);
 				     }
 				}
-				dataEntityneu.setTextID(id);
+				textEntityneu.setTextID(id);
 				
 				
 				HashMap<String,ArrayList<String>> labelmap =klassif.getLabel();
@@ -106,7 +108,7 @@ public class Output {
 					k++;
 				}
 				
-				AnnotationItem[] items = new AnnotationItem[klassif.getLabel().size()];
+				List<AnnotationItem> annolst=new ArrayList<AnnotationItem>();
 				
 				//für jedes Label annoItem und Label erstellen
 				for (int i=0; i<klassif.getLabel().size();i++) {
@@ -129,13 +131,19 @@ public class Output {
 					}
 						
 					annoItem.setLabel(label);
-					dataEntityneu.setAnnotations(annoItem);
+					annolst.add(annoItem);
 					}
-					
+				textEntityneu.setAnnolst(annolst);
+				
+				textlst.add(textEntityneu);
+				
+				dataEntity.setTextlst(textlst);
+				
+				
 				
 			    //calling the marshall method
 				 OutputStream os = new FileOutputStream(Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe"));
-			     marshallObj.marshal(dataEntityneu, os );
+			     marshallObj.marshal(dataEntity, os );
 			     os.close();
 		
 		   /** else {

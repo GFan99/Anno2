@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<dataEntity xmlns="http://www.bioforscher.de/fosil/DataFormatter">
-    <textID>0</textID>
-    <text>lalala ich bin ein vogel</text>
-    <annotations>
-        <label name="magst du?">
-            <class_terms>Vogel;Meise</class_terms>
-        </label>
-    </annotations>
-    <raterID>abcnutzer</raterID>
-</dataEntity>
+<DataEntity xmlns="http://www.bioforscher.de/fosil/DataFormatter">
+    <textlst>
+        <TextEntity>
+            <textID>0</textID>
+            <text>lalala ich bin ein vogel</text>
+            <raterID>abcnutzer</raterID>
+            <annolst>
+                <AnnotationItem>
+                    <label name="Tier?">
+                        <class_rating>1</class_rating>
+                    </label>
+                </AnnotationItem>
+                <AnnotationItem>
+                    <label name="magst du?">
+                        <class_terms>Vogel;Meise</class_terms>
+                    </label>
+                </AnnotationItem>
+            </annolst>
+        </TextEntity>
+    </textlst>
+</DataEntity>

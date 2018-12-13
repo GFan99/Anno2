@@ -8,9 +8,13 @@
 
 package de.bioforscher.fosil.dataformatter;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -43,7 +47,8 @@ import javax.xml.bind.annotation.XmlType;
     "textID",
     "text",
     "annotations",
-    "raterID"
+    "raterID",
+    "annolst"
 })
 public class TextEntity {
 
@@ -57,6 +62,10 @@ public class TextEntity {
     protected AnnotationItem annotations;
     @XmlElement(required = true)
     protected String raterID;
+    @XmlElementWrapper(name = "annolst")
+    @XmlElement(name = "AnnotationItem")
+    protected List<AnnotationItem> annolst;
+    
 
     /**
      * Ruft den Wert der source-Eigenschaft ab.
@@ -176,6 +185,16 @@ public class TextEntity {
      */
     public void setRaterID(String value) {
         this.raterID = value;
+    }
+    
+    
+    public List<AnnotationItem> getAnnolst() {
+        return annolst;
+    }
+
+    
+    public void setAnnolst(List<AnnotationItem> annolst) {
+        this.annolst = annolst;
     }
 
 }
