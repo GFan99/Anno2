@@ -11,6 +11,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -235,7 +236,8 @@ public class Hauptstage extends Stage {
 					   //nichtfunktionierendeidee:
 					   teil2Textarea.impl_updatePeer();
 					   //neuinitialisierung der checkboxen und radiobuttons
-					   fehlermeldungHaupt.setText("");
+					   fehlermeldungHaupt.setVisible(false);
+					   //fehlermeldungHaupt.setText(" ");
 					   for (int i = 0; i<labelarray.size();i++) {
 							switch (i) {
 								case 0: if (radioodercheck[i]=='c') {
@@ -300,7 +302,8 @@ public class Hauptstage extends Stage {
 						}
 				   }
 				   else {
-					   fehlermeldungHaupt.setText("Bitte prüfen Sie, dass sie jedes Label zugeordnet haben!");
+					   fehlermeldungHaupt.setVisible(true);
+					   //fehlermeldungHaupt.setText("Bitte prüfen Sie, dass sie jedes Label zugeordnet haben!");
 				   }
 			   } 
 		}; 
@@ -310,7 +313,7 @@ public class Hauptstage extends Stage {
 
 	//initalisiert die Scene, die die Darstellung der Stage bestimmt
 	public  Scene erstelleScene(LinkedHashMap<String,ArrayList<String>> labels) {   
-		int x = 980;
+		int x = 935;
 		int y = 600;
 		
 		// two spacers to push the visible elements up a little
@@ -336,11 +339,12 @@ public class Hauptstage extends Stage {
 		Region hboxspacer1 = new Region();
 		hboxspacer1.setPrefWidth(40);
 		HBox.setHgrow(hboxspacer1, Priority.ALWAYS);
+		//Spacer fuer teil1Daten
 		Region hboxspacerx = new Region();
-		hboxspacerx.setPrefWidth(40);
+		hboxspacerx.setPrefWidth(15.0);
 		HBox.setHgrow(hboxspacerx, Priority.ALWAYS);
 		Region hboxspacery = new Region();
-		hboxspacery.setPrefWidth(40);
+		hboxspacery.setPrefWidth(15.0);
 		HBox.setHgrow(hboxspacery, Priority.ALWAYS);
 		
 		Region hboxspaceri = new Region();
@@ -361,13 +365,13 @@ public class Hauptstage extends Stage {
 		VBox klasspane= new VBox();
 		HBox spacehalter = new HBox();
 		/** Leiste für Teil 1 */
-		HBox teil1Daten = new HBox();
+		HBox teil1Daten = new HBox(157.0);
 		/** Teil 2 - scrollable textarea */
 		ScrollPane teil2Texthalter = new ScrollPane();
 		/** Teil 3 - Wertungssystem (tabellenfoerimge Anordnung) */
 		GridPane teil3Ranking = new GridPane();
 		/** Teil 4 - Buttons werden links und rechts angezeigt */
-		BorderPane teil4GroesseAbsenden = new BorderPane();
+		HBox teil4GroesseAbsenden = new HBox(142.0);
 
 		String nutzerstring = klassif.getNutzerID();
 		
@@ -428,43 +432,7 @@ public class Hauptstage extends Stage {
 		    }
 		});
 		
-		/**
-		EventHandler<WindowEvent> timergodown=new EventHandler<WindowEvent>() {
-			public void handle(WindowEvent e) {
-				timerlabel.setText(timeinmin+":00");
-				timerlabel.setVisible(true);
-				if (timeline != null) {
-					timeline.stop();
-				}
-				timeinsec = timeinmin*60;
-	    	 
-				// update timerLabel
-				int min = timeinsec/60;
-				int sec = timeinsec%60;
-				timerlabel.setText(min+":"+sec);
-				timerlabel.setVisible(true);
-				timeline = new Timeline();
-				timeline.setCycleCount(Timeline.INDEFINITE);
-	    		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),new EventHandler<ActionEvent>() {
-	    			public void handle(ActionEvent e) {
-	    				timeinsec--;
-	    				int min=timeinsec/60;
-	    				int sec = timeinsec%60;
-	    				timerlabel.setText(min+":"+sec);
-	    				if (timeinsec <= 0) {
-	    					timeline.stop();
-	    				}
-	    			}
-	    		}));
-	    		timeline.playFromStart();
-			}
-	    };
-	    timerlabel.addEventFilter(WindowEvent.WINDOW_SHOWN,timergodown);
-		//starttimer(60);
-		//Timer timer = new Timer(60);
-		*/
-		
-		teil1Daten.getChildren().addAll(idanzeige, hboxspacerx, fortschritt, hboxspacery, timerlabel);
+		teil1Daten.getChildren().addAll(idanzeige, fortschritt, timerlabel);
 		
 		//Teil2 - scrollabe TextArea
 		teil2Textarea = new TextArea();
@@ -807,25 +775,34 @@ public class Hauptstage extends Stage {
 		schrift = new Label("Schriftgröße");
 		schriftplus = new Button("+");
 		schriftminus = new Button("-");
+		schriftplus.setPrefWidth(28);
+		schriftplus.setMinWidth(28);
+		schriftminus.setPrefWidth(28);
+		schriftminus.setMinWidth(28);
 		//schrift.setMinHeight(schriftplus.getHeight());
 		//schrift.setTextOrigin(VPos.CENTER);
 		//schrift.setTextAlignment(VPos.CENTER);
 		labelabsenden = new Button("Absenden");
 		schriftgroesse.getChildren().addAll(schrift, hboxspaceri, schriftplus, hboxspacerj, schriftminus);
-		fehlermeldungHaupt = new Label("");
+		fehlermeldungHaupt = new Label("Bitte prüfen Sie, dass Sie jedes Label zugeordnet haben!");
+		fehlermeldungHaupt.setVisible(false);
 		
-		teil4GroesseAbsenden.setLeft(schriftgroesse);
-		teil4GroesseAbsenden.setCenter(fehlermeldungHaupt);
-		teil4GroesseAbsenden.setRight(labelabsenden);			
-			
+		//fehlermeldungHaupt.setMinWidth(343.0);
+		//fehlermeldungHaupt.setMaxWidth(343.0);
+		//fehlermeldungHaupt.setPrefWidth(343.0);
+		
+		teil4GroesseAbsenden.getChildren().addAll(schriftgroesse,fehlermeldungHaupt,labelabsenden);			
+		
+		System.out.println(fehlermeldungHaupt.getWidth());
+		
 		klasspane.setPrefWidth(900);
 		klasspane.setMinWidth(900);
 		//klasspane.setFillWidth(true);
 		klasspane.getChildren().addAll(vboxspacer0,teil1Daten, vboxspacer1, teil2Texthalter, vboxspacer2, teil3Ranking, vboxspacer3, teil4GroesseAbsenden, vboxspacer4);
-		spacehalter.getChildren().addAll(hboxspacer0, klasspane, hboxspacer1);
-		
-		Scene klassi = new Scene(spacehalter,x,y);
-		klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		//spacehalter.getChildren().addAll(hboxspacer0, klasspane, hboxspacer1);
+		klasspane.setPadding(new Insets(10,40,10,40));
+		Scene klassi = new Scene(klasspane,x,y);
+		//klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
 		return klassi;
 	}
@@ -874,8 +851,10 @@ public class Hauptstage extends Stage {
 											for (int k = 0; k<b0.length; k++) {
 												if (b0[k]) {
 													erg = erg+(cbs0[k].getText());
+													erg=erg+";";
 												}
 											}
+											erg=erg.substring(0,erg.length()-2);
 											ergebnis.add(erg);
 										}
 										else {
@@ -884,38 +863,45 @@ public class Hauptstage extends Stage {
 										}
 										break;
 								case 1: if (radioodercheck[i]=='c') {
-											b0 = new boolean[cbs0.length];
-											for (int j = 0; j<cbs0.length; j++) {
-												b0[j] = cbs0[j].isSelected();
+											b1 = new boolean[cbs1.length];
+											for (int j = 0; j<cbs1.length; j++) {
+												b1[j] = cbs1[j].isSelected();
 											}
 											String erg = "";
-											for (int k = 0; k<b0.length; k++) {
-												if (b0[k]) {
-													erg = erg+(cbs0[k].getText());
+											for (int k = 0; k<b1.length; k++) {
+												if (b1[k]) {
+													erg = erg+(cbs1[k].getText());
+													erg=erg+";";
 												}
 											}
-											ergebnis.add(erg);
-										}
-										else {
-											//radioodercheck[i]='r';
-											ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
-										}
-										break;
-								case 2: if (radioodercheck[i]=='c') {
-											b0 = new boolean[cbs0.length];
-											for (int j = 0; j<cbs0.length; j++) {
-												b0[j] = cbs0[j].isSelected();
-											}
-											String erg = "";
-											for (int k = 0; k<b0.length; k++) {
-												if (b0[k]) {
-													erg = erg+(cbs0[k].getText());
-												}
-											}
+											erg=erg.substring(0,erg.length()-2);
 											ergebnis.add(erg);
 										}
 										else {	if (radioodercheck[i]=='r') {
-													ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
+													ergebnis.add(rbgroup1.getSelectedToggle().getUserData().toString());
+												}
+												else {
+													break;
+												}
+										}
+										break;
+								case 2: if (radioodercheck[i]=='c') {
+											b2 = new boolean[cbs2.length];
+											for (int j = 0; j<cbs2.length; j++) {
+												b2[j] = cbs2[j].isSelected();
+											}
+											String erg = "";
+											for (int k = 0; k<b2.length; k++) {
+												if (b2[k]) {
+													erg = erg+(cbs2[k].getText());
+													erg=erg+";";
+												}
+											}
+											erg=erg.substring(0,erg.length()-2);
+											ergebnis.add(erg);
+										}
+										else {	if (radioodercheck[i]=='r') {
+													ergebnis.add(rbgroup2.getSelectedToggle().getUserData().toString());
 												}
 												else {
 													break;
@@ -923,20 +909,22 @@ public class Hauptstage extends Stage {
 										}
 										break;
 								case 3: if (radioodercheck[i]=='c') {
-											b0 = new boolean[cbs0.length];
-											for (int j = 0; j<cbs0.length; j++) {
-												b0[j] = cbs0[j].isSelected();
+											b3 = new boolean[cbs3.length];
+											for (int j = 0; j<cbs3.length; j++) {
+												b3[j] = cbs3[j].isSelected();
 											}
 											String erg = "";
-											for (int k = 0; k<b0.length; k++) {
-												if (b0[k]) {
-													erg = erg+(cbs0[k].getText());
+											for (int k = 0; k<b3.length; k++) {
+												if (b3[k]) {
+													erg = erg+(cbs3[k].getText());
+													erg=erg+";";
 												}
 											}
+											erg=erg.substring(0,erg.length()-2);
 											ergebnis.add(erg);
 										}
 										else {	if (radioodercheck[i]=='r') {
-													ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
+													ergebnis.add(rbgroup3.getSelectedToggle().getUserData().toString());
 												}
 												else {
 													break;
@@ -944,20 +932,22 @@ public class Hauptstage extends Stage {
 										}
 										break;
 								case 4: if (radioodercheck[i]=='c') {
-											b0 = new boolean[cbs0.length];
-											for (int j = 0; j<cbs0.length; j++) {
-												b0[j] = cbs0[j].isSelected();
+											b4 = new boolean[cbs4.length];
+											for (int j = 0; j<cbs4.length; j++) {
+												b4[j] = cbs4[j].isSelected();
 											}
 											String erg = "";
-											for (int k = 0; k<b0.length; k++) {
-												if (b0[k]) {
-													erg = erg+(cbs0[k].getText());
+											for (int k = 0; k<b4.length; k++) {
+												if (b4[k]) {
+													erg = erg+(cbs4[k].getText());
+													erg=erg+";";
 												}
 											}
+											erg=erg.substring(0,erg.length()-2);
 											ergebnis.add(erg);
 										}
 										else {	if (radioodercheck[i]=='r') {
-													ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
+													ergebnis.add(rbgroup4.getSelectedToggle().getUserData().toString());
 												}
 												else {
 													break;
@@ -1047,7 +1037,8 @@ public class Hauptstage extends Stage {
 						}
 				   }
 				   else {
-					   fehlermeldungHaupt.setText("Bitte prüfen Sie, dass sie jedes Label zugeordnet haben!");
+					   fehlermeldungHaupt.setVisible(true);
+					   //fehlermeldungHaupt.setText("Bitte prüfen Sie, dass sie jedes Label zugeordnet haben!");
 				   }
 			   } 
 		}; 
