@@ -105,6 +105,8 @@ public class GUI extends Application {
 			idtext.setPrefWidth(260.0);
 			Label fehlermeldung = new Label();
 			
+			
+			//lalalala
 			//Positionierung der Objekte der IDStage und Zuordnung zum Pane
 			AnchorPane.setTopAnchor(idfrage, 25.0);
 			AnchorPane.setLeftAnchor(idfrage, 25.0);

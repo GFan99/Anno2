@@ -852,6 +852,7 @@ public class Hauptstage extends Stage {
 												if (b0[k]) {
 													erg = erg+(cbs0[k].getText());
 													erg=erg+";";
+													//laberlaber
 												}
 											}
 											erg=erg.substring(0,erg.length()-2);
