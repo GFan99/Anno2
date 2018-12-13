@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataEntity xmlns="http://www.bioforscher.de/fosil/DataFormatter">
+    <textID></textID>
+    <text>Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.</text>
+    <annotations>
+        <label name="Gibt es etwas zu essen?">
+            <class_rating>0</class_rating>
+        </label>
+    </annotations>
+    <raterID>DQlCmIAQvDtFkfdl</raterID>
+</dataEntity>

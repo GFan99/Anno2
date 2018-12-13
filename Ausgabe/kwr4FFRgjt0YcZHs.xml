@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataEntity xmlns="http://www.bioforscher.de/fosil/DataFormatter">
+    <textID></textID>
+    <text>Ich
+bin
+ein
+verfressener
+Vogel.</text>
+    <annotations>
+        <label name="Gibt es etwas zu essen?">
+            <class_rating>-1</class_rating>
+        </label>
+    </annotations>
+    <raterID>kwr4FFRgjt0YcZHs</raterID>
+</dataEntity>
