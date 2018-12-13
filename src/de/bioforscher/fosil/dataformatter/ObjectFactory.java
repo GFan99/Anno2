@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2018.12.07 um 08:46:12 AM CET 
+// Generiert: 2018.12.12 um 11:10:11 AM CET 
 //
 
 
@@ -62,6 +62,14 @@ public class ObjectFactory {
      */
     public Label createLabel() {
         return new Label();
+    }
+
+    /**
+     * Create an instance of {@link TextEntity }
+     * 
+     */
+    public TextEntity createTextEntity() {
+        return new TextEntity();
     }
 
     /**

@@ -5,8 +5,13 @@
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 	<element name="element" type="ns:DataEntity"></element>
-
 	<complexType name="DataEntity">
+		<sequence>
+			<element name="TextEntity" type="ns:TextEntity"></element>	
+		</sequence>
+	</complexType>
+
+	<complexType name="TextEntity">
 		<sequence>
 			<!-- Source to raw text -->
 			<element name="source" type="string"></element>
