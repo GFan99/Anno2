@@ -39,6 +39,8 @@ import javafx.util.Duration;
 public class Hauptstage extends Stage {
 
 	Klassifikator klassif;
+	int texteges;
+	int texteklassi;
 	
 	//Teil1
 	Label idanzeige;
@@ -76,9 +78,11 @@ public class Hauptstage extends Stage {
 	boolean timesup;
 
 	
-	public Hauptstage(Klassifikator klasse) {
+	public Hauptstage(Klassifikator klasse, int anzklassifizierte) {
 		super();
 		this.klassif=klasse;
+		this.texteges=klassif.getTexte().length;
+		this.texteklassi=anzklassifizierte;
 		Scene scene = this.erstelleScene(klassif.getLabel());
 		this.setScene(scene);
 		this.show();
@@ -113,8 +117,8 @@ public class Hauptstage extends Stage {
 		EventHandler<MouseEvent> pruefenuabsenden = new EventHandler<MouseEvent>() { 
 			   @Override 
 			   public void handle(MouseEvent e) { 
-				   if(check()) { //check zeigt dass je label (min) 1 Option ausgewählt ist
-					   //auslesen der gewählten label-optionen
+				   if(check()) { //check zeigt dass je label (min) 1 Option ausgewaehlt ist
+					   //auslesen der gewaehlten label-optionen
 					   ArrayList<String> ergebnis = new ArrayList();
 					   for (int i = 0; i<labelarray.size();i++) {
 							switch (i) {
@@ -128,7 +132,6 @@ public class Hauptstage extends Stage {
 												if (b0[k]) {
 													erg = erg+(cbs0[k].getText());
 													erg=erg+";";
-													//laberlaber
 												}
 											}
 											erg=erg.substring(0,erg.length()-1);
@@ -237,8 +240,13 @@ public class Hauptstage extends Stage {
 						}
 					   //schreiben der Werte in Output-Datei
 					   Output.schreibeWerte(klassif,teil2Textarea.getText(),ergebnis);
+					   
+					   System.out.println(klassif.texte.length);
+					   System.out.println(klassif.textids.size());
+					   
 					   //ProgressBar updaten
-					   fortschritt.setProgress((klassif.texte.length - klassif.textids.size())/klassif.texte.length);
+					   texteklassi++;
+					   fortschritt.setProgress(texteklassi/texteges);
 					   //neuen Text laden und anzeigen
 					   String[] neuertext = klassif.getText();
 					   String neuertext2 = neuertext[1];
@@ -393,8 +401,8 @@ public class Hauptstage extends Stage {
 		ProgressBar fortschritt = new ProgressBar(0);
 		fortschritt.setPrefWidth(300);
 		//fortschritt.setProgress(0.01);
-		if ((klassif.texte.length - klassif.textids.size())/klassif.texte.length > 0) {
-			fortschritt.setProgress((klassif.texte.length - klassif.textids.size())/klassif.texte.length);
+		if ((texteklassi/texteges) > 0) {
+			fortschritt.setProgress(texteklassi/texteges);
 		}
 		else fortschritt.setProgress(0.01);
 		

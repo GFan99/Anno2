@@ -142,7 +142,7 @@ public class GUI extends Application {
 					Klassifikator klasse = new Klassifikator(nutzerid, labels, texts);
 					primaryStage.close();
 					
-					new Hauptstage(klasse);
+					new Hauptstage(klasse,0);
 
 			   } 
 			};  neueid.addEventFilter(MouseEvent.MOUSE_CLICKED, idErstellen);   //EventFilter dazu 
@@ -160,11 +160,12 @@ public class GUI extends Application {
 						ArrayList<Integer> schonklassi = Input3.leseklassifizierte(id);
 						LinkedHashMap<String,ArrayList<String>> labels = Input3.labelLesen();    //Labelname als Key, Auswahlmoegl. als Value
 						Klassifikator klasse = new Klassifikator(id,labels,texts);	
+						int anzklassi = schonklassi.size();
 						while (schonklassi.size()!=0) {
 							klasse.textids.remove(schonklassi.get(0));
 						}
 						primaryStage.close();
-						new Hauptstage(klasse);
+						new Hauptstage(klasse, anzklassi);
 					}
 					else {
 						fehlermeldung.setText("Bitte überprüfen Sie Ihre Eingabe. \nDiese ID existiert nicht!");
