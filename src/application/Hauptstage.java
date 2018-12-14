@@ -83,6 +83,7 @@ public class Hauptstage extends Stage {
 		this.klassif=klasse;
 		this.texteges=klassif.getTexte().length;
 		this.texteklassi=anzklassifizierte;
+		this.fortschritt = new ProgressBar(0.5);
 		Scene scene = this.erstelleScene(klassif.getLabel());
 		this.setScene(scene);
 		this.show();
@@ -246,7 +247,13 @@ public class Hauptstage extends Stage {
 					   
 					   //ProgressBar updaten
 					   texteklassi++;
-					   fortschritt.setProgress(texteklassi/texteges);
+					   
+					   System.out.println(texteklassi);
+					   System.out.println(texteges);
+					   System.out.println((double)texteklassi/texteges);
+					   double prozent=(double)texteklassi/texteges;
+					   System.out.println(prozent);
+					   fortschritt.setProgress((float)prozent);
 					   //neuen Text laden und anzeigen
 					   String[] neuertext = klassif.getText();
 					   String neuertext2 = neuertext[1];

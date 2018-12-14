@@ -70,7 +70,7 @@ public class Output {
 			
 		    File file = Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe");
 		    
-		    //if (file.exists()==false) {
+		    if (file.exists()==false) {
 		    	
 			    JAXBContext jContextneu = JAXBContext.newInstance(DataEntity.class);
 			    Marshaller marshallObj = jContextneu.createMarshaller();
@@ -139,37 +139,93 @@ public class Output {
 				
 				dataEntity.setTextlst(textlst);
 				
-				
-				
-			    //calling the marshall method
 				 OutputStream os = new FileOutputStream(Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe"));
 			     marshallObj.marshal(dataEntity, os );
 			     os.close();
+		    }
 		
-		   /** else {
-		    	//creating the JAXB context
-			    JAXBContext jContext = JAXBContext.newInstance(DataEntity.class);
-			    //creating the unmarshall object
-			    Unmarshaller unmarshallerObj = jContext.createUnmarshaller();
-			    //calling the unmarshall method
-			    DataEntity dataEntity=(DataEntity) unmarshallerObj.unmarshal(file);
-
-				
-			    //creating the JAXB context
+		   else {
+			   		   
 			    JAXBContext jContextneu = JAXBContext.newInstance(DataEntity.class);
-			    //creating the marshaller object
+			    
+			    Unmarshaller unmarshObj = jContextneu.createUnmarshaller();
+			    DataEntity dataEntityalt= (DataEntity) unmarshObj.unmarshal(file);
+			    List<TextEntity> textlst=new ArrayList<TextEntity>();
+			    
+			    for(TextEntity textEntity: dataEntityalt.getTextlst()) {
+			    	textlst.add(textEntity);
+			    }
+			    
 			    Marshaller marshallObj = jContextneu.createMarshaller();
-			    //setting the property to show xml format output
 			    marshallObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			    //setting the values in POJO class
-			    DataEntity dataEntityneu= new DataEntity();
-				dataEntityneu.setRaterID(klassif.getNutzerID());
-				dataEntityneu.setText(value);
-				dataEntityneu.setTextID(value);
-				dataEntityneu.setAnnotations(value);
-			    //calling the marshall method
-			    marshallObj.marshal(dataEntityneu, new FileOutputStream(Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe").getAbsolutePath()));
-		    }**/
+			    DataEntity dataEntity= new DataEntity();
+			    
+			    TextEntity textEntityneu= new TextEntity();
+			    
+				textEntityneu.setRaterID(klassif.getNutzerID());
+				textEntityneu.setText(text);
+				
+				String[][] texte=klassif.getTexte();
+				String id="";
+				int length=texte.length;
+				
+				//TextID auslesen
+				for (int i = 0; i <length; i++) {
+					String text1=texte[i][1];
+				     if (text1.equals(text)) {
+				    	 id=String.valueOf(i);
+				     }
+				}
+				textEntityneu.setTextID(id);
+				
+				
+				HashMap<String,ArrayList<String>> labelmap =klassif.getLabel();
+				String[] labelname=new String[labelmap.size()];
+				int[] anzButton=new int[labelmap.size()];
+				int k=0;
+				
+				//Bezeichnung der Label in Liste schreiben und wie viele Buttons Label hat(fuer spaetere Auswertung)
+				for(String key : labelmap.keySet()) {
+					labelname[k]=key;
+					anzButton[k]=labelmap.get(key).size()+1;
+					k++;
+				}
+				
+				List<AnnotationItem> annolst=new ArrayList<AnnotationItem>();
+				
+				//für jedes Label annoItem und Label erstellen
+				for (int i=0; i<klassif.getLabel().size();i++) {
+					AnnotationItem annoItem=new AnnotationItem();
+					Label label=new Label();
+					label.setName(labelname[i]);
+					int anzahl= anzButton[i];
+					
+					//ergebnis auswerten und in Label schreiben
+					String erg=ergebnis.get(i);
+					
+					//auswerten(String,String, int) aufrufen, wenn 100 zurückgegeben wird term schreiben
+					int wert=auswerten(erg,anzahl);
+					if (wert!=100) {
+						BigInteger bi=BigInteger.valueOf(wert);
+						label.setClassRating(bi);
+					}
+					else {
+						label.setClassTerms(erg);;
+					}
+						
+					annoItem.setLabel(label);
+					annolst.add(annoItem);
+					}
+				textEntityneu.setAnnolst(annolst);
+				
+				textlst.add(textEntityneu);
+				
+				dataEntity.setTextlst(textlst);
+				
+				 OutputStream os = new FileOutputStream(Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe"));
+			     marshallObj.marshal(dataEntity, os );
+			     os.close();
+		    }
 		    
 		} catch(Exception e) {
 		    e.printStackTrace();
@@ -179,7 +235,7 @@ public class Output {
 	//auswerten; wenn keines zutrifft 100 zurückgeben
 	public static int auswerten(String erg, int anzahl) {
 		int wert=100;
-		if (erg.equals("Trifft nicht zu") && anzahl==5 ) {
+		if (erg.equals("Trifft nicht zu") && anzahl==6 ) {
 			wert=-2;
 		}
 		else if(erg.equals("Trifft eher nicht zu")) {
@@ -188,13 +244,13 @@ public class Output {
 		else if(erg.equals("Trifft teilweise zu")) {
 			wert=1;
 		}
-		else if(erg.equals("Trifft zu") && anzahl==5) {
+		else if(erg.equals("Trifft zu") && anzahl==6) {
 			wert=2;
 		}
-		else if(erg.equals("Trifft nicht zu") && anzahl==3) {
+		else if(erg.equals("Trifft nicht zu") && anzahl==4) {
 			wert=-1;
 		}
-		else if(erg.equals("Trifft zu") && anzahl==3) {
+		else if(erg.equals("Trifft zu") && anzahl==4) {
 			wert=1;
 		}
 		else if(erg.equals("nein")) {

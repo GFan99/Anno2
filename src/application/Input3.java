@@ -59,15 +59,7 @@ public class Input3 {
 	 */
 	public static boolean[] labelEigenschaft(){
 		try {
-			
-			/**String dateiname ="labels.xml";
-			String ordnername = "Eingabe";
-			
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(pfadNachOS(dateiname, ordnername));
-			NodeList nList = doc.getElementsByTagName("label");**/
-			
+					
 			boolean[] eigenschaften=new boolean[labelobjekte.size()];
 			
 			for(int i=0; i<labelobjekte.size();i++) {
@@ -76,15 +68,7 @@ public class Input3 {
 			}
 						
 			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
-			/**for (int i = 0; i < nList.getLength(); i++)
-			{
-			 Node node = nList.item(i);
-			 
-			 if (node.getNodeType() == Node.ELEMENT_NODE) {
-			    Element eElement = (Element) node;
-			    eigenschaften[i]=Boolean.valueOf(eElement.getAttributeNode("multiple").getValue());
-			 }
-			}**/
+		
 			System.out.println("eigenschaften");
 			return eigenschaften;
 		} catch (Exception e) {
@@ -230,79 +214,11 @@ public class Input3 {
 		return vorhandeneIDs;
 	}
 	
-	/**
-	 * Eine Methode, die ein zweidimensionales String-Array zurückgibt mit den noch zu
-	 * labelnden Texten in Abhängigkeit von der Nutzer-ID.
-	 * @param id
-	 * @return
-	 */
-	/**public static String[][] texteLesen(String id) {
-		//texte Lesen aufrufen und aus dem Array vorhandene texte entfernen mittels ID
-		
-		try {
-			String[][] alleTexte=Input2.texteLesen();
-			
-			String dateiname=id;
-			String ordnername="Ausgabe";
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(pfadNachOS(dateiname, ordnername));
-			NodeList nList = doc.getElementsByTagName("element");
-			
-			String[] vorhandeneTexte = new String[nList.getLength()];
-			String[][] zuLabelndeTexte= new String[alleTexte.length-vorhandeneTexte.length][2];
-			
-			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
-			for (int i = 0; i < nList.getLength(); i++)
-			{
-			 Node node = nList.item(i);
-			 
-			 if (node.getNodeType() == Node.ELEMENT_NODE) {
-			    Element eElement = (Element) node;
-			    vorhandeneTexte[i]=eElement.getElementsByTagName("textID").item(0).getTextContent();
-			 }
-			}
-			
-			
-			for(int i=0; i<alleTexte.length; i++) {
-				//elgantere Moeglichkeit damit nur einmal geschriebne wird?
-				boolean geschrieben=false;
-				for(int j=0; j<vorhandeneTexte.length;j++) {
-					String textid=vorhandeneTexte[j];
-					if (textid!=alleTexte[i][0] && geschrieben==false){
-						zuLabelndeTexte[i][0]=alleTexte[j][0];
-						zuLabelndeTexte[i][1]=alleTexte[j][1];
-						geschrieben=true;
-					}
-				}
-			}
-			
-			return zuLabelndeTexte;
-			
-			
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			String[][] leer=new String[0][0];
-			return leer;
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			String[][] leer=new String[0][0];
-			return leer;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			String[][] leer=new String[0][0];
-			return leer;
-		}
-		
-	}**/
 	
 	public static ArrayList<Integer> leseklassifizierte(String id) {
 		try {
 			
-			String dateiname=id;
+			String dateiname=id+".xml";
 			String ordnername="Ausgabe";
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
