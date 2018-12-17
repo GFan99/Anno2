@@ -333,6 +333,7 @@ public class Hauptstage extends Stage {
 					   fehlermeldungHaupt.setVisible(true);
 					   //fehlermeldungHaupt.setText("Bitte prüfen Sie, dass sie jedes Label zugeordnet haben!");
 				   }
+				   
 			   } 
 		}; 
 		labelabsenden.addEventFilter(MouseEvent.MOUSE_CLICKED, pruefenuabsenden);
@@ -407,6 +408,7 @@ public class Hauptstage extends Stage {
 		//Teil1 - obere Zeile der Anzeige
 		Label idanzeige = new Label("Nutzer-ID: "+nutzerstring);
 		ProgressBar fortschritt = new ProgressBar(0.01);
+		//fortschritt.impl_updatePeer();
 		fortschritt.setPrefWidth(300);
 		//fortschritt.setProgress(0.01);
 		if ((texteklassi/texteges) > 0) {
