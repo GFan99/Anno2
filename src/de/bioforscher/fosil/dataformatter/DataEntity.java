@@ -41,26 +41,25 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DataEntity", propOrder = {
-    "textEntity",
-    "textlst"
+    "textEntity", "DataList"
 })
-@XmlRootElement(name = "DataEntity")
+@XmlRootElement(name="DataEntity")
 public class DataEntity {
 
     @XmlElement(name = "TextEntity", required = true)
     protected TextEntity textEntity;
-    @XmlElementWrapper(name = "textlst")
+    @XmlElementWrapper(name = "DataList")
     @XmlElement(name = "TextEntity")
-    protected List<TextEntity> textlst;
+    protected List<TextEntity> DataList;
    
     
     public List<TextEntity> getTextlst() {
-        return textlst;
+        return DataList;
     }
 
     
-    public void setTextlst(List<TextEntity> textlst) {
-        this.textlst = textlst;
+    public void setTextlst(List<TextEntity> DataList) {
+        this.DataList = DataList;
     }
 
 }

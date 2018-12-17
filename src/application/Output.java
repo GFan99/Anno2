@@ -39,29 +39,6 @@ public class Output {
 	 *
 	 */
 	
-	public void speichern(HashMap<Integer,boolean[]> erg, String[] texte) {
-		
-		
-		
-		
-				 
-				 
-			
-			
-			
-			
-			
-		
-		
-	}
-	
-	public void abbruchSave(ArrayList<Integer> id, String[] texte, String[] label, HashMap<Integer,boolean[]> erg) {
-		
-	}
-
-	public static void abbruchSave(Klassifikator klassif) {
-		
-	}
 
 	public static void schreibeWerte(Klassifikator klassif, String text, ArrayList<String> ergebnis) {
 		
@@ -89,7 +66,7 @@ public class Output {
 				//TextID auslesen
 				for (int i = 0; i <length; i++) {
 					String text1=texte[i][1];
-				     if (text1.equals(text)) {
+				     if (text1.substring(5).equals(text)) {
 				    	 id=String.valueOf(i);
 				     }
 				}
@@ -265,9 +242,15 @@ public class Output {
 		
 		return wert;
 	}
-	
 
-	public static void schreibexml() {
+	public static void abbruchSave(Klassifikator klassif) {
+		// TODO Auto-generated method stub
 		
 	}
+
+	public static void schreibexml() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

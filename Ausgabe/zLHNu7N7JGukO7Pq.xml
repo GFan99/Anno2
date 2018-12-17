@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DataEntity xmlns="http://www.bioforscher.de/fosil/DataFormatter">
+    <DataList>
+        <TextEntity>
+            <textID>0</textID>
+            <text>Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.Ich liebe Essen.</text>
+            <raterID>zLHNu7N7JGukO7Pq</raterID>
+            <annolst>
+                <AnnotationItem>
+                    <label name="Musikbezug?">
+                        <class_rating>-2</class_rating>
+                    </label>
+                </AnnotationItem>
+                <AnnotationItem>
+                    <label name="was ist es für ein Tier?">
+                        <class_terms>Säugetier</class_terms>
+                    </label>
+                </AnnotationItem>
+                <AnnotationItem>
+                    <label name="Auf was bezieht sich Text?">
+                        <class_terms>Musik</class_terms>
+                    </label>
+                </AnnotationItem>
+                <AnnotationItem>
+                    <label name="Eventbezug?">
+                        <class_rating>-1</class_rating>
+                    </label>
+                </AnnotationItem>
+                <AnnotationItem>
+                    <label name="Gibt es etwas zu essen?">
+                        <class_terms>Nein</class_terms>
+                    </label>
+                </AnnotationItem>
+            </annolst>
+        </TextEntity>
+    </DataList>
+</DataEntity>
