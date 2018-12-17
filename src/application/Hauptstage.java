@@ -253,7 +253,8 @@ public class Hauptstage extends Stage {
 					   System.out.println((double)texteklassi/texteges);
 					   double prozent=(double)texteklassi/texteges;
 					   System.out.println(prozent);
-					   fortschritt.setProgress((float)prozent);
+					   fortschritt = new ProgressBar(prozent);
+					   
 					   //neuen Text laden und anzeigen
 					   String[] neuertext = klassif.getText();
 					   String neuertext2 = neuertext[1];
@@ -405,13 +406,12 @@ public class Hauptstage extends Stage {
 		
 		//Teil1 - obere Zeile der Anzeige
 		Label idanzeige = new Label("Nutzer-ID: "+nutzerstring);
-		ProgressBar fortschritt = new ProgressBar(0);
+		ProgressBar fortschritt = new ProgressBar(0.01);
 		fortschritt.setPrefWidth(300);
 		//fortschritt.setProgress(0.01);
 		if ((texteklassi/texteges) > 0) {
-			fortschritt.setProgress(texteklassi/texteges);
+			fortschritt = new ProgressBar(texteklassi/texteges);
 		}
-		else fortschritt.setProgress(0.01);
 		
 		Label zeitanzeige = new Label("Verbleibende Zeit: "); 	//anpassen, so dass Zeit angezeigt wird
 		
