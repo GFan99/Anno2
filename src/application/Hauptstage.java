@@ -9,6 +9,7 @@ import javax.swing.GroupLayout.Alignment;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -42,6 +43,16 @@ public class Hauptstage extends Stage {
 	int texteges;
 	int texteklassi;
 	
+	VBox klasspane;
+	int x, y;
+	
+	HBox teil1Daten; 				//Leiste für Teil 1
+	ScrollPane teil2Texthalter;		//Teil 2 - scrollable textarea */
+	GridPane teil3Ranking;			//Teil 3 - Wertungssystem (tabellenfoermige Anordnung)
+	HBox teil4GroesseAbsenden;		//Teil 4 - Buttons werden links und rechts angezeigt
+	
+	Region vboxspacer0,vboxspacer1,vboxspacer2,vboxspacer3,vboxspacer4;
+	
 	//Teil1
 	Label idanzeige;
 	ProgressBar fortschritt;
@@ -49,6 +60,8 @@ public class Hauptstage extends Stage {
 	Label timerlabel;
 	Timeline timeline;
 	int timeinsec;
+	
+	double prozent;
 	
 	//Teil2
 	TextArea teil2Textarea;
@@ -240,7 +253,7 @@ public class Hauptstage extends Stage {
 							}
 						}
 					   //schreiben der Werte in Output-Datei
-					   Output.schreibeWerte(klassif,teil2Textarea.getText(),ergebnis);
+					   //Output.schreibeWerte(klassif,teil2Textarea.getText(),ergebnis);
 					   
 					   System.out.println(klassif.texte.length);
 					   System.out.println(klassif.textids.size());
@@ -248,12 +261,20 @@ public class Hauptstage extends Stage {
 					   //ProgressBar updaten
 					   texteklassi++;
 					   
-					   System.out.println(texteklassi);
-					   System.out.println(texteges);
-					   System.out.println((double)texteklassi/texteges);
-					   double prozent=(double)texteklassi/texteges;
-					   System.out.println(prozent);
-					   fortschritt = new ProgressBar(prozent);
+					   System.out.println("texteklassi:    "+texteklassi);
+					   System.out.println("texteges:     "+texteges);
+					   System.out.println("(double) texteklassi/texteges:   "+(double)texteklassi/texteges);
+					   prozent=(double)texteklassi/texteges;
+					   System.out.println("Wert prozent:    "+prozent);
+					   
+					   System.out.print("ist javafx appli thread:   ");
+					   System.out.println(Platform.isFxApplicationThread());
+					   //fortschritt = new ProgressBar(prozent);
+					   //System.out.println("getProgress:      "+fortschritt.getProgress());
+					   //System.out.println("isVisible:      "+fortschritt.isVisible());
+					   
+					   Scene s = updateScene(timerlabel.getText(),prozent);
+					   setScene(s);
 					   
 					   //neuen Text laden und anzeigen
 					   String[] neuertext = klassif.getText();
@@ -342,32 +363,35 @@ public class Hauptstage extends Stage {
 
 	//initalisiert die Scene, die die Darstellung der Stage bestimmt
 	public  Scene erstelleScene(LinkedHashMap<String,ArrayList<String>> labels) {   
-		int x = 935;
-		int y = 600;
+		// Groesse der Scene
+		x = 935;
+		y = 600;
 		
-		// two spacers to push the visible elements up a little
-		Region vboxspacer0 = new Region();
+		// Spacer fuer gesamtes Pane
+		vboxspacer0 = new Region();
 		vboxspacer0.setPrefHeight(40);
 		VBox.setVgrow(vboxspacer0, Priority.ALWAYS);
-		Region vboxspacer1 = new Region();
+		vboxspacer1 = new Region();
 		vboxspacer1.setPrefHeight(40);
 		VBox.setVgrow(vboxspacer1, Priority.ALWAYS);
-		Region vboxspacer2 = new Region();
+		vboxspacer2 = new Region();
 		vboxspacer2.setPrefHeight(40);
 		VBox.setVgrow(vboxspacer2, Priority.ALWAYS);
-		Region vboxspacer3 = new Region();
+		vboxspacer3 = new Region();
 		vboxspacer3.setPrefHeight(60);
 		VBox.setVgrow(vboxspacer3, Priority.ALWAYS);
-		Region vboxspacer4 = new Region();
+		vboxspacer4 = new Region();
 		vboxspacer4.setPrefHeight(40);
 		VBox.setVgrow(vboxspacer4, Priority.ALWAYS);
 		
-		Region hboxspacer0 = new Region();
-		hboxspacer0.setPrefWidth(40);
-		HBox.setHgrow(hboxspacer0, Priority.ALWAYS);
-		Region hboxspacer1 = new Region();
-		hboxspacer1.setPrefWidth(40);
-		HBox.setHgrow(hboxspacer1, Priority.ALWAYS);
+		// Spacer fuer abstaende links u rechts aussen im fenster
+		//Region hboxspacer0 = new Region();
+		//hboxspacer0.setPrefWidth(40);
+		//HBox.setHgrow(hboxspacer0, Priority.ALWAYS);
+		//Region hboxspacer1 = new Region();
+		//hboxspacer1.setPrefWidth(40);
+		//HBox.setHgrow(hboxspacer1, Priority.ALWAYS);
+		
 		//Spacer fuer teil1Daten
 		Region hboxspacerx = new Region();
 		hboxspacerx.setPrefWidth(15.0);
@@ -376,6 +400,7 @@ public class Hauptstage extends Stage {
 		hboxspacery.setPrefWidth(15.0);
 		HBox.setHgrow(hboxspacery, Priority.ALWAYS);
 		
+		//Spacer fuer Textgroessen-Buttons
 		Region hboxspaceri = new Region();
 		hboxspaceri.setPrefWidth(5);
 		HBox.setHgrow(hboxspaceri, Priority.ALWAYS);
@@ -391,16 +416,16 @@ public class Hauptstage extends Stage {
 		 * Teil 3:	Labelwertungssystem
 		 * Teil 4:	schriftgroessen buttons + abschicken button
 		 */	
-		VBox klasspane= new VBox();
-		HBox spacehalter = new HBox();
+		klasspane = new VBox();
+		//spacehalter = new HBox();
 		/** Leiste für Teil 1 */
-		HBox teil1Daten = new HBox(157.0);
+		teil1Daten = new HBox(157.0);
 		/** Teil 2 - scrollable textarea */
-		ScrollPane teil2Texthalter = new ScrollPane();
+		teil2Texthalter = new ScrollPane();
 		/** Teil 3 - Wertungssystem (tabellenfoerimge Anordnung) */
-		GridPane teil3Ranking = new GridPane();
+		teil3Ranking = new GridPane();
 		/** Teil 4 - Buttons werden links und rechts angezeigt */
-		HBox teil4GroesseAbsenden = new HBox(142.0);
+		teil4GroesseAbsenden = new HBox(142.0);
 
 		String nutzerstring = klassif.getNutzerID();
 		
@@ -841,7 +866,7 @@ public class Hauptstage extends Stage {
 	/**
 	//Methode, die die Eventhandler beinhaltet
 	public void start() {
-		this.show();
+		this.show();  --> nicht noetig, da extends stage, nicht application
 		 
 		EventHandler<MouseEvent> schriftgroesseplus = new EventHandler<MouseEvent>() { 
 		   @Override 
@@ -1202,6 +1227,78 @@ public class Hauptstage extends Stage {
 		return check;
 	}
 	
+	public Scene updateScene(String zeit, double fortschrittinprozent) {
+		
+		//Teil1 - obere Zeile der Anzeige
+		Label idanzeige = new Label("Nutzer-ID: "+klassif.getNutzerID());
+		ProgressBar fortschritt = new ProgressBar(0.01);
+		fortschritt.setPrefWidth(300);
+		fortschritt.setProgress(fortschrittinprozent);
+		
+		System.out.println(zeit.substring(0, 1));
+		System.out.println(zeit.substring(3, 4));
+		
+		int zeitmin = Integer.parseInt(zeit.substring(0, 1));
+		int zeitsec = Integer.parseInt(zeit.substring(3, 4));
+		//Label zeitanzeige = new Label("Verbleibende Zeit: "); 	//anpassen, so dass Zeit angezeigt wird
+			
+		Label timerlabel = new Label("");
+		
+		//Zeit fuer Timer wird hier eingestellt
+		timerlabel.setText(zeitmin+":"+zeitsec);
+				
+		setOnShowing(new EventHandler<WindowEvent>() {
+		    @Override
+		    public void handle(WindowEvent event) {
+		    	schriftplus.fire();schriftplus.fire();schriftplus.fire();schriftplus.fire();schriftplus.fire();
+		    	timerlabel.setText(zeitmin+":"+zeitsec);
+				timerlabel.setVisible(true);
+				if (timeline != null) {
+					timeline.stop();
+				}
+				timeinsec = (zeitmin*60)+zeitsec;
+			    	 
+				// update timerLabel
+				int min = timeinsec/60;
+				int sec = timeinsec%60;
+				if (sec > 9) {
+					timerlabel.setText(min+":"+sec);
+				}
+				else timerlabel.setText(min+":0"+sec);
+				timerlabel.setVisible(true);
+				timeline = new Timeline();
+				timeline.setCycleCount(Timeline.INDEFINITE);
+			    timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),new EventHandler<ActionEvent>() {
+			    	public void handle(ActionEvent e) {
+			    		timeinsec--;
+			    		int min=timeinsec/60;
+			    		int sec = timeinsec%60;
+			    		if (sec > 9) {
+			    			timerlabel.setText(min+":"+sec);
+			    		}
+			    		else timerlabel.setText(min+":0"+sec);
+			   			if (timeinsec <= 0) {
+			   				timesup();
+			   				timeline.stop();
+			   			}
+			   		}
+			   }));
+			   timeline.playFromStart();
+		    }
+		});
+		teil1Daten.getChildren().addAll(idanzeige, fortschritt, timerlabel);
+				
+		klasspane.setPrefWidth(900);
+		klasspane.setMinWidth(900);
+		//klasspane.setFillWidth(true);
+		klasspane.getChildren().addAll(vboxspacer0,teil1Daten, vboxspacer1, teil2Texthalter, vboxspacer2, teil3Ranking, vboxspacer3, teil4GroesseAbsenden, vboxspacer4);
+		//spacehalter.getChildren().addAll(hboxspacer0, klasspane, hboxspacer1);
+		klasspane.setPadding(new Insets(10,40,10,40));
+		Scene sc = new Scene(klasspane,x,y);
+		//klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				
+		return sc;
+	}
 	
 	public void timesup() {
 		//provozierefehler - notdoneyet
