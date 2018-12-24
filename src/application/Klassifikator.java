@@ -33,6 +33,7 @@ public class Klassifikator {
 	private LinkedHashMap<Integer,boolean[]> ergebnisse;
 	int idgroesse;							
 	private String nutzerID;
+	int anzklassi;
 	
 	/**
 	 * Ein leerer Konstruktor...
@@ -46,6 +47,7 @@ public class Klassifikator {
 		this.ergebnisse = new LinkedHashMap<Integer,boolean[]>();
 		this.idgroesse = 0;
 		this.setNutzerID("");
+		this.anzklassi = 0;
 	}
 	
 	/**
@@ -69,6 +71,7 @@ public class Klassifikator {
 		}	
 		this.ergebnisse = new LinkedHashMap<Integer,boolean[]>();
 		this.nutzerID = nutzerID;
+		this.anzklassi = 0;
 	}
 	
 	/**
