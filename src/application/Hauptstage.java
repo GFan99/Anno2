@@ -96,7 +96,7 @@ public class Hauptstage extends Stage {
 		this.klassif=klasse;
 		this.texteges=klassif.getTexte().length;
 		this.texteklassi=anzklassifizierte;
-		this.fortschritt = new ProgressBar(0.5);
+		this.fortschritt = new ProgressBar(0.0);
 		Scene scene = this.erstelleScene(klassif.getLabel());
 		this.setScene(scene);
 		this.show();
@@ -273,8 +273,11 @@ public class Hauptstage extends Stage {
 					   //System.out.println("getProgress:      "+fortschritt.getProgress());
 					   //System.out.println("isVisible:      "+fortschritt.isVisible());
 					   
-					   Scene s = updateScene(timerlabel.getText(),prozent);
-					   setScene(s);
+					   //Scene s = updateScene(timerlabel.getText(),prozent);
+					   //setScene(s);
+					   
+					   fortschritt.setProgress(prozent);
+					   Output.schreibeWerte(klassif,teil2Textarea.getText() , ergebnis);
 					   
 					   //neuen Text laden und anzeigen
 					   String[] neuertext = klassif.getText();
@@ -432,12 +435,13 @@ public class Hauptstage extends Stage {
 		
 		//Teil1 - obere Zeile der Anzeige
 		Label idanzeige = new Label("Nutzer-ID: "+nutzerstring);
-		ProgressBar fortschritt = new ProgressBar(0.01);
+		//ProgressBar fortschritt = new ProgressBar(0.01);
 		//fortschritt.impl_updatePeer();
 		fortschritt.setPrefWidth(300);
 		//fortschritt.setProgress(0.01);
 		if ((texteklassi/texteges) > 0) {
-			fortschritt = new ProgressBar(texteklassi/texteges);
+			//fortschritt = new ProgressBar(texteklassi/texteges);
+			fortschritt.setProgress(texteklassi/texteges);
 		}
 		
 		Label zeitanzeige = new Label("Verbleibende Zeit: "); 	//anpassen, so dass Zeit angezeigt wird
@@ -448,8 +452,8 @@ public class Hauptstage extends Stage {
 		
 		setOnShowing(new EventHandler<WindowEvent>() {
 		    @Override
-		    public void handle(WindowEvent event) {
-		    	schriftplus.fire();schriftplus.fire();schriftplus.fire();schriftplus.fire();schriftplus.fire();
+		    public void handle( WindowEvent event) {
+		    	//schriftplus.fire();schriftplus.fire();schriftplus.fire();schriftplus.fire();schriftplus.fire();
 		    	timerlabel.setText(timeinmin+":00");
 				timerlabel.setVisible(true);
 				if (timeline != null) {
