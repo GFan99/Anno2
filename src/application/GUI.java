@@ -59,6 +59,7 @@ public class GUI extends Application {
 			
 			//new ZeitEndeStage(0.68);
 			
+			/*
 			LinkedHashMap<String,ArrayList<String>> testmap = new LinkedHashMap<String,ArrayList<String>>();
 			ArrayList<String> wert1 = new ArrayList<String>();
 			wert1.add("Vogel");
@@ -84,6 +85,7 @@ public class GUI extends Application {
 			testergx.add(testerg2);
 			
 			Klassifikator ktest = new Klassifikator("abcnutzer",testmap, testtexte);
+			*/
 			
 			//Output.schreibeWerte(ktest, "keks", testergx);
 			//Output.schreibeWerte(ktest, "lalala ich bin ein vogel", testergx);
