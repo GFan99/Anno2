@@ -149,7 +149,7 @@ public class Output {
 				//TextID auslesen
 				for (int i = 0; i <length; i++) {
 					String text1=texte[i][1];
-				     if (text1.equals(text)) {
+				     if (text1.substring(5).equals(text)) {
 				    	 id=String.valueOf(i);
 				     }
 				}
