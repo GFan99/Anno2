@@ -44,7 +44,7 @@ public class FertigStage extends Stage {
 			
 			this.setOnCloseRequest(event -> {
 			    System.out.println("Stage is closing");
-			    Output.kontrollspeichern();
+			    //Output.kontrollspeichern();
 			});
 			
 		} catch(Exception e) {
