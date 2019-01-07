@@ -60,9 +60,6 @@ public class Klassifikator {
 		this.label = label;
 		this.texte = texte;
 		this.textids = new ArrayList<Integer>();
-		for (int i = 0; i<texte.length;i++) {
-			textids.add(i);
-		}
 		this.idgroesse = texte.length;
 		for (int i =0;i<idgroesse;i++) {
 			textids.add(i);
