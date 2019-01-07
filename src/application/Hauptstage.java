@@ -372,19 +372,19 @@ public class Hauptstage extends Stage {
 		
 		// Spacer fuer gesamtes Pane
 		vboxspacer0 = new Region();
-		vboxspacer0.setPrefHeight(40);
+		vboxspacer0.setPrefHeight(0);
 		VBox.setVgrow(vboxspacer0, Priority.ALWAYS);
 		vboxspacer1 = new Region();
-		vboxspacer1.setPrefHeight(40);
+		vboxspacer1.setPrefHeight(0);
 		VBox.setVgrow(vboxspacer1, Priority.ALWAYS);
 		vboxspacer2 = new Region();
-		vboxspacer2.setPrefHeight(40);
+		vboxspacer2.setPrefHeight(0);
 		VBox.setVgrow(vboxspacer2, Priority.ALWAYS);
 		vboxspacer3 = new Region();
-		vboxspacer3.setPrefHeight(60);
+		vboxspacer3.setPrefHeight(20);
 		VBox.setVgrow(vboxspacer3, Priority.ALWAYS);
 		vboxspacer4 = new Region();
-		vboxspacer4.setPrefHeight(40);
+		vboxspacer4.setPrefHeight(0);
 		VBox.setVgrow(vboxspacer4, Priority.ALWAYS);
 		
 		// Spacer fuer abstaende links u rechts aussen im fenster
@@ -398,18 +398,18 @@ public class Hauptstage extends Stage {
 		//Spacer fuer teil1Daten
 		Region hboxspacerx = new Region();
 		hboxspacerx.setPrefWidth(15.0);
-		HBox.setHgrow(hboxspacerx, Priority.ALWAYS);
+		//HBox.setHgrow(hboxspacerx, Priority.ALWAYS);
 		Region hboxspacery = new Region();
 		hboxspacery.setPrefWidth(15.0);
-		HBox.setHgrow(hboxspacery, Priority.ALWAYS);
+		//HBox.setHgrow(hboxspacery, Priority.ALWAYS);
 		
 		//Spacer fuer Textgroessen-Buttons
 		Region hboxspaceri = new Region();
 		hboxspaceri.setPrefWidth(5);
-		HBox.setHgrow(hboxspaceri, Priority.ALWAYS);
+		//HBox.setHgrow(hboxspaceri, Priority.ALWAYS);
 		Region hboxspacerj = new Region();
 		hboxspacerj.setPrefWidth(2);
-		HBox.setHgrow(hboxspacerj, Priority.ALWAYS);
+		//HBox.setHgrow(hboxspacerj, Priority.ALWAYS);
 		
 		
 		/**
@@ -425,7 +425,7 @@ public class Hauptstage extends Stage {
 		teil1Daten = new HBox(157.0);
 		/** Teil 2 - scrollable textarea */
 		teil2Texthalter = new ScrollPane();
-		/** Teil 3 - Wertungssystem (tabellenfoerimge Anordnung) */
+		/** Teil 3 - Wertungssystem (tabellenfoermige Anordnung) */
 		teil3Ranking = new GridPane();
 		/** Teil 4 - Buttons werden links und rechts angezeigt */
 		teil4GroesseAbsenden = new HBox(142.0);
@@ -435,20 +435,23 @@ public class Hauptstage extends Stage {
 		
 		//Teil1 - obere Zeile der Anzeige
 		Label idanzeige = new Label("Nutzer-ID: "+nutzerstring);
+		HBox.setHgrow(idanzeige, Priority.ALWAYS);
 		//ProgressBar fortschritt = new ProgressBar(0.01);
 		//fortschritt.impl_updatePeer();
 		fortschritt.setPrefWidth(300);
+		HBox.setHgrow(fortschritt, Priority.ALWAYS);
 		//fortschritt.setProgress(0.01);
 		if ((texteklassi/texteges) > 0) {
 			//fortschritt = new ProgressBar(texteklassi/texteges);
 			fortschritt.setProgress(texteklassi/texteges);
 		}
 		
-		Label zeitanzeige = new Label("Verbleibende Zeit: "); 	//anpassen, so dass Zeit angezeigt wird
+		//Label zeitanzeige = new Label("Verbleibende Zeit: "); 	//anpassen, so dass Zeit angezeigt wird
 		
 		Label timerlabel = new Label("");
 		int timeinmin = 60;										//Zeit fuer Timer wird hier eingestellt
 		timerlabel.setText(timeinmin+":00");
+		HBox.setHgrow(timerlabel, Priority.ALWAYS);
 		
 		setOnShowing(new EventHandler<WindowEvent>() {
 		    @Override
@@ -832,8 +835,11 @@ public class Hauptstage extends Stage {
 		//Teil 4 - Absenden und Schriftgroeße
 		schriftgroesse = new HBox();
 		schrift = new Label("Schriftgröße");
+		HBox.setHgrow(schrift, Priority.ALWAYS);
 		schriftplus = new Button("+");
+		HBox.setHgrow(schriftplus, Priority.ALWAYS);
 		schriftminus = new Button("-");
+		HBox.setHgrow(schriftminus, Priority.ALWAYS);
 		schriftplus.setPrefWidth(28);
 		schriftplus.setMinWidth(28);
 		schriftminus.setPrefWidth(28);
@@ -842,9 +848,11 @@ public class Hauptstage extends Stage {
 		//schrift.setTextOrigin(VPos.CENTER);
 		//schrift.setTextAlignment(VPos.CENTER);
 		labelabsenden = new Button("Absenden");
+		HBox.setHgrow(labelabsenden, Priority.ALWAYS);
 		schriftgroesse.getChildren().addAll(schrift, hboxspaceri, schriftplus, hboxspacerj, schriftminus);
 		fehlermeldungHaupt = new Label("Bitte prüfen Sie, dass Sie jedes Label zugeordnet haben!");
 		fehlermeldungHaupt.setVisible(false);
+		HBox.setHgrow(fehlermeldungHaupt, Priority.ALWAYS);
 		
 		//fehlermeldungHaupt.setMinWidth(343.0);
 		//fehlermeldungHaupt.setMaxWidth(343.0);
@@ -857,9 +865,10 @@ public class Hauptstage extends Stage {
 		klasspane.setPrefWidth(900);
 		klasspane.setMinWidth(900);
 		//klasspane.setFillWidth(true);
-		klasspane.getChildren().addAll(vboxspacer0,teil1Daten, vboxspacer1, teil2Texthalter, vboxspacer2, teil3Ranking, vboxspacer3, teil4GroesseAbsenden, vboxspacer4);
+		klasspane.getChildren().addAll(teil1Daten, teil2Texthalter, teil3Ranking, teil4GroesseAbsenden);
 		//spacehalter.getChildren().addAll(hboxspacer0, klasspane, hboxspacer1);
-		klasspane.setPadding(new Insets(10,40,10,40));
+		klasspane.setPadding(new Insets(30,40,50,40));
+		klasspane.setSpacing(25);
 		Scene klassi = new Scene(klasspane,x,y);
 		//klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		

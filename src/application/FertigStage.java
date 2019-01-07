@@ -22,13 +22,13 @@ public class FertigStage extends Stage {
 			Label fertig = new Label("Sie haben alle Texte klassifiziert.");
 			Button schliessen = new Button("Schliessen");
 
-			AnchorPane.setLeftAnchor(fertig, 10.0);
-			AnchorPane.setTopAnchor(fertig, 10.0);
-			AnchorPane.setLeftAnchor(schliessen, 10.0);
-			AnchorPane.setTopAnchor(schliessen, 40.0);
-			endpane.getChildren().addAll(endpane);
+			AnchorPane.setLeftAnchor(fertig, 25.0);
+			AnchorPane.setTopAnchor(fertig, 25.0);
+			AnchorPane.setLeftAnchor(schliessen, 75.0);
+			AnchorPane.setTopAnchor(schliessen, 52.0);
+			endpane.getChildren().addAll(fertig, schliessen);
 			
-			Scene beenden =new Scene(endpane,400,250);
+			Scene beenden = new Scene(endpane,250,105);
 			beenden.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			this.setScene(beenden);
