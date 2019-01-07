@@ -230,10 +230,10 @@ public class Output {
 		else if(erg.equals("Trifft zu") && anzahl==4) {
 			wert=1;
 		}
-		else if(erg.equals("nein")) {
+		else if(erg.equals("Nein")) {
 			wert=-1;
 		}
-		else if(erg.equals("ja")) {
+		else if(erg.equals("Ja")) {
 			wert=1;
 		}
 		else if(erg.equals("Ich weiss nicht")) {
