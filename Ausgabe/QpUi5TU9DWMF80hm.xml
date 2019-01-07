@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DataEntity xmlns="http://www.bioforscher.de/fosil/DataFormatter">
+    <DataList>
+        <TextEntity>
+            <textID>2</textID>
+            <text>Ich bin ein Text �ber ein Pferd.</text>
+            <raterID>QpUi5TU9DWMF80hm</raterID>
+            <annolst>
+                <AnnotationItem>
+                    <label name="Musikbezug?">
+                        <class_rating>-1</class_rating>
+                    </label>
+                </AnnotationItem>
+                <AnnotationItem>
+                    <label name="was ist es für ein Tier?">
+                        <class_terms>Säugetier</class_terms>
+                    </label>
+                </AnnotationItem>
+                <AnnotationItem>
+                    <label name="Auf was bezieht sich Text?">
+                        <class_terms>Essen</class_terms>
+                    </label>
+                </AnnotationItem>
+                <AnnotationItem>
+                    <label name="Eventbezug?">
+                        <class_rating>0</class_rating>
+                    </label>
+                </AnnotationItem>
+                <AnnotationItem>
+                    <label name="Gibt es etwas zu essen?">
+                        <class_terms>Ja</class_terms>
+                    </label>
+                </AnnotationItem>
+            </annolst>
+        </TextEntity>
+    </DataList>
+</DataEntity>
