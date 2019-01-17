@@ -284,7 +284,7 @@ public class Hauptstage extends Stage {
 					   String neuertext2 = neuertext[1];
 					   if (neuertext2 == "") {
 						   close();
-						   Output.schreibexml();
+						   //Output.schreibexml();
 						   new FertigStage();
 						   return;
 					   }
@@ -1315,7 +1315,7 @@ public class Hauptstage extends Stage {
 	
 	public void timesup() {
 		//provozierefehler - notdoneyet
-		Output.abbruchSave(klassif);
+		//Output.abbruchSave(klassif);
 		close();
 		new ZeitEndeStage(fortschritt.getProgress());
 	}
