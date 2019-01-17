@@ -125,7 +125,6 @@ public class Hauptstage extends Stage {
 		
 		this.setOnCloseRequest(event -> {
 		    System.out.println("Stage is closing");
-		    Output.abbruchSave(klassif);
 		});
 		
 		EventHandler<MouseEvent> pruefenuabsenden = new EventHandler<MouseEvent>() { 
