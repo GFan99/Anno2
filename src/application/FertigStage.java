@@ -29,7 +29,7 @@ public class FertigStage extends Stage {
 			endpane.getChildren().addAll(fertig, schliessen);
 			
 			Scene beenden = new Scene(endpane,250,105);
-			beenden.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			//beenden.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			this.setScene(beenden);
 			this.show();

@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 public class ZeitEndeStage extends Stage {
 	
 	private Button schliessen;
-	private ProgressIndicator prog;
 
 	public ZeitEndeStage(double fortschrittprozent) {
 		super();
@@ -72,7 +71,7 @@ public class ZeitEndeStage extends Stage {
 		gameoverpane.setBottom(spaceru);
 			
 		Scene beenden = new Scene(gameoverpane,300,150);
-		beenden.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		//beenden.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 		return beenden;
 	}
