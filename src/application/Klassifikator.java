@@ -31,7 +31,7 @@ public class Klassifikator {
 	protected String[][] texte;
 	public ArrayList<Integer> textids;
 	private LinkedHashMap<Integer,boolean[]> ergebnisse;
-	int idgroesse;							
+	private int idgroesse;							
 	private String nutzerID;
 	
 	/**
