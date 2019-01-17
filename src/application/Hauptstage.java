@@ -39,56 +39,56 @@ import javafx.util.Duration;
 
 public class Hauptstage extends Stage {
 
-	Klassifikator klassif;
-	int texteges;
-	int texteklassi;
+	private Klassifikator klassif;
+	private int texteges;
+	private int texteklassi;
 	
-	VBox klasspane;
-	int x, y;
+	private VBox klasspane;
+	private int x, y;
 	
-	HBox teil1Daten; 				//Leiste für Teil 1
-	ScrollPane teil2Texthalter;		//Teil 2 - scrollable textarea */
-	GridPane teil3Ranking;			//Teil 3 - Wertungssystem (tabellenfoermige Anordnung)
-	HBox teil4GroesseAbsenden;		//Teil 4 - Buttons werden links und rechts angezeigt
+	private HBox teil1Daten; 				//Leiste für Teil 1
+	private ScrollPane teil2Texthalter;		//Teil 2 - scrollable textarea */
+	private GridPane teil3Ranking;			//Teil 3 - Wertungssystem (tabellenfoermige Anordnung)
+	private HBox teil4GroesseAbsenden;		//Teil 4 - Buttons werden links und rechts angezeigt
 	
-	Region vboxspacer0,vboxspacer1,vboxspacer2,vboxspacer3,vboxspacer4;
+	private Region vboxspacer0,vboxspacer1,vboxspacer2,vboxspacer3,vboxspacer4;
 	
 	//Teil1
-	Label idanzeige;
-	ProgressBar fortschritt;
-	Label zeitanzeige;
-	Label timerlabel;
-	Timeline timeline;
-	int timeinsec;
+	//private Label idanzeige;
+	private ProgressBar fortschritt;
+	//private Label zeitanzeige;
+	//private Label timerlabel;
+	private Timeline timeline;
+	private int timeinsec;
 	
-	double prozent;
+	private double prozent;
 	
 	//Teil2
-	TextArea teil2Textarea;
+	private TextArea teil2Textarea;
 	
 	//Teil3
-	Label label0, label1, label2, label3, label4;
-	RadioButton[] rbs0, rbs1, rbs2, rbs3, rbs4;
-	CheckBox[] cbs0, cbs1, cbs2, cbs3, cbs4;
-	ToggleGroup rbgroup0, rbgroup1, rbgroup2, rbgroup3, rbgroup4;
-	char[] radioodercheck;
-	boolean[] mehrfachwahl;
-	ArrayList<String> labelarray;
-	LinkedHashMap<String,ArrayList<String>> labels; //Labelname als Key, Auswahlmoegl. als Value
-	boolean[] b0, b1, b2, b3, b4;
-	int boolz0, boolz1, boolz2, boolz3, boolz4;
-	RadioButton rb0x, rb1x, rb2x, rb3x, rb4x;
+	private Label label0, label1, label2, label3, label4;
+	private RadioButton[] rbs0, rbs1, rbs2, rbs3, rbs4;
+	private CheckBox[] cbs0, cbs1, cbs2, cbs3, cbs4;
+	private ToggleGroup rbgroup0, rbgroup1, rbgroup2, rbgroup3, rbgroup4;
+	private char[] radioodercheck;
+	private boolean[] mehrfachwahl;
+	private ArrayList<String> labelarray;
+	//private LinkedHashMap<String,ArrayList<String>> labels; //Labelname als Key, Auswahlmoegl. als Value
+	private boolean[] b0, b1, b2, b3, b4;
+	private int boolz0, boolz1, boolz2, boolz3, boolz4;
+	private RadioButton rb0x, rb1x, rb2x, rb3x, rb4x;
 	
 	//Teil4
-	HBox schriftgroesse;
-	Label schrift;
-	Button schriftplus;
-	Button schriftminus;
-	Button labelabsenden;
-	Label fehlermeldungHaupt;
-	int sgroesse;
+	private HBox schriftgroesse;
+	private Label schrift;
+	private Button schriftplus;
+	private Button schriftminus;
+	private Button labelabsenden;
+	private Label fehlermeldungHaupt;
+	private int sgroesse;
 	
-	boolean timesup;
+	//private boolean timesup;
 
 	
 	public Hauptstage(Klassifikator klasse, int anzklassifizierte) {
