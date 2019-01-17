@@ -125,8 +125,14 @@ public class GUI extends Application {
 						}
 						//Schliessen der 'IDStage'
 						primaryStage.close();
-						//Erstellen einer neuen Hauptstage oeffnet das naechste Fenster
-						new Hauptstage(klasse, anzklassi);
+						//falls bereits alle Texte klassifiziert wurden, wird der Nutzer direkt zur FertigStage weitergeleitet
+						if (anzklassi == texts.length) {
+							new FertigStage();
+						}
+						else {
+							//Erstellen einer neuen Hauptstage oeffnet das naechste Fenster
+							new Hauptstage(klasse, anzklassi);
+						}
 					}
 					else {
 						//falls die ID noch nicht existiert, so erscheint eine Fehlermeldung und
