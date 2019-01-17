@@ -54,10 +54,7 @@ public class Hauptstage extends Stage {
 	private Region vboxspacer0,vboxspacer1,vboxspacer2,vboxspacer3,vboxspacer4;
 	
 	//Teil1
-	//private Label idanzeige;
 	private ProgressBar fortschritt;
-	//private Label zeitanzeige;
-	//private Label timerlabel;
 	private Timeline timeline;
 	private int timeinsec;
 	
@@ -74,7 +71,6 @@ public class Hauptstage extends Stage {
 	private char[] radioodercheck;
 	private boolean[] mehrfachwahl;
 	private ArrayList<String> labelarray;
-	//private LinkedHashMap<String,ArrayList<String>> labels; //Labelname als Key, Auswahlmoegl. als Value
 	private boolean[] b0, b1, b2, b3, b4;
 	private int boolz0, boolz1, boolz2, boolz3, boolz4;
 	private RadioButton rb0x, rb1x, rb2x, rb3x, rb4x;
@@ -88,9 +84,10 @@ public class Hauptstage extends Stage {
 	private Label fehlermeldungHaupt;
 	private int sgroesse;
 	
-	//private boolean timesup;
-
-	
+	/**
+	 * Der Konstruktor der Klasse Hauptstage erzeugt ein Stage-Objekt, welches auch gleich 
+	 * einer javafx-Scene hinzugefuegt und dann angezeigt wird.
+	 */
 	public Hauptstage(Klassifikator klasse, int anzklassifizierte) {
 		super();
 		this.klassif=klasse;
@@ -780,52 +777,6 @@ public class Hauptstage extends Stage {
 			}
 		}
 		
-		/**
-		Region ghspacer0 = new Region();
-		ghspacer0.setPrefHeight(30);
-		GridPane.setHgrow(ghspacer0, Priority.ALWAYS);
-		Region ghspacer1 = new Region();
-		ghspacer1.setPrefHeight(30);
-		GridPane.setHgrow(ghspacer1, Priority.ALWAYS);
-		Region ghspacer2 = new Region();
-		ghspacer2.setPrefHeight(30);
-		GridPane.setHgrow(ghspacer2, Priority.ALWAYS);
-		Region ghspacer3 = new Region();
-		ghspacer3.setPrefHeight(30);
-		GridPane.setHgrow(ghspacer3, Priority.ALWAYS);
-		Region ghspacer4 = new Region();
-		ghspacer4.setPrefHeight(30);
-		GridPane.setHgrow(ghspacer4, Priority.ALWAYS);
-
-		Region gvspacer0 = new Region();
-		gvspacer0.setPrefHeight(50);
-		GridPane.setVgrow(gvspacer0, Priority.ALWAYS);
-		Region gvspacer1 = new Region();
-		gvspacer1.setPrefHeight(50);
-		GridPane.setVgrow(gvspacer1, Priority.ALWAYS);
-		Region gvspacer2 = new Region();
-		gvspacer2.setPrefHeight(50);
-		GridPane.setVgrow(gvspacer2, Priority.ALWAYS);
-		Region gvspacer3 = new Region();
-		gvspacer3.setPrefHeight(50);
-		GridPane.setVgrow(gvspacer3, Priority.ALWAYS);
-		Region gvspacer4 = new Region();
-		gvspacer4.setPrefHeight(50);
-		GridPane.setVgrow(gvspacer4, Priority.ALWAYS);
-		
-		GridPane.setConstraints(ghspacer0, 1, 0);
-		GridPane.setConstraints(ghspacer1, 3, 0);
-		GridPane.setConstraints(ghspacer2, 5, 0);
-		GridPane.setConstraints(ghspacer3, 7, 0);
-		GridPane.setConstraints(ghspacer4, 9, 0);
-		
-		GridPane.setConstraints(gvspacer0, 0, 1);
-		GridPane.setConstraints(gvspacer1, 0, 3);
-		GridPane.setConstraints(gvspacer2, 0, 5);
-		GridPane.setConstraints(gvspacer3, 0, 7);
-		GridPane.setConstraints(gvspacer4, 0, 9);
-		*/
-		
 		teil3Ranking.setHgap(20);
 		teil3Ranking.setVgap(5);
 		teil3Ranking.setPrefWidth(900);
@@ -843,9 +794,6 @@ public class Hauptstage extends Stage {
 		schriftplus.setMinWidth(28);
 		schriftminus.setPrefWidth(28);
 		schriftminus.setMinWidth(28);
-		//schrift.setMinHeight(schriftplus.getHeight());
-		//schrift.setTextOrigin(VPos.CENTER);
-		//schrift.setTextAlignment(VPos.CENTER);
 		labelabsenden = new Button("Absenden");
 		HBox.setHgrow(labelabsenden, Priority.ALWAYS);
 		schriftgroesse.getChildren().addAll(schrift, hboxspaceri, schriftplus, hboxspacerj, schriftminus);
@@ -873,247 +821,6 @@ public class Hauptstage extends Stage {
 		
 		return klassi;
 	}
-	
-	
-	/**
-	//Methode, die die Eventhandler beinhaltet
-	public void start() {
-		this.show();  --> nicht noetig, da extends stage, nicht application
-		 
-		EventHandler<MouseEvent> schriftgroesseplus = new EventHandler<MouseEvent>() { 
-		   @Override 
-		   public void handle(MouseEvent e) { 
-			   sgroesse = sgroesse+2;
-			   teil2Textarea.setFont(new Font("Arial", sgroesse));			   
-		   } 
-		};
-		schriftplus.addEventFilter(MouseEvent.MOUSE_CLICKED, schriftgroesseplus);
-		
-		EventHandler<MouseEvent> schriftgroesseminus = new EventHandler<MouseEvent>() { 
-			@Override 
-			public void handle(MouseEvent e) { 
-			   sgroesse = sgroesse-2;
-			} 
-		};
-		schriftminus.addEventFilter(MouseEvent.MOUSE_CLICKED, schriftgroesseminus);
-		
-		this.setOnCloseRequest(event -> {
-		    System.out.println("Stage is closing");
-		    Output.abbruchSave(klassif);
-		});
-		
-		EventHandler<MouseEvent> pruefenuabsenden = new EventHandler<MouseEvent>() { 
-			   @Override 
-			   public void handle(MouseEvent e) { 
-				   if(check()) { //check zeigt dass je label (min) 1 Option ausgewählt ist
-					   //auslesen der gewählten label-optionen
-					   ArrayList<String> ergebnis = new ArrayList();
-					   for (int i = 0; i<labelarray.size();i++) {
-							switch (i) {
-								case 0: if (radioodercheck[i]=='c') {
-											b0 = new boolean[cbs0.length];
-											for (int j = 0; j<cbs0.length; j++) {
-												b0[j] = cbs0[j].isSelected();
-											}
-											String erg = "";
-											for (int k = 0; k<b0.length; k++) {
-												if (b0[k]) {
-													erg = erg+(cbs0[k].getText());
-													erg=erg+";";
-													//laberlaber
-												}
-											}
-											erg=erg.substring(0,erg.length()-2);
-											ergebnis.add(erg);
-										}
-										else {
-											//radioodercheck[i]='r';
-											ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
-										}
-										break;
-								case 1: if (radioodercheck[i]=='c') {
-											b1 = new boolean[cbs1.length];
-											for (int j = 0; j<cbs1.length; j++) {
-												b1[j] = cbs1[j].isSelected();
-											}
-											String erg = "";
-											for (int k = 0; k<b1.length; k++) {
-												if (b1[k]) {
-													erg = erg+(cbs1[k].getText());
-													erg=erg+";";
-												}
-											}
-											erg=erg.substring(0,erg.length()-2);
-											ergebnis.add(erg);
-										}
-										else {	if (radioodercheck[i]=='r') {
-													ergebnis.add(rbgroup1.getSelectedToggle().getUserData().toString());
-												}
-												else {
-													break;
-												}
-										}
-										break;
-								case 2: if (radioodercheck[i]=='c') {
-											b2 = new boolean[cbs2.length];
-											for (int j = 0; j<cbs2.length; j++) {
-												b2[j] = cbs2[j].isSelected();
-											}
-											String erg = "";
-											for (int k = 0; k<b2.length; k++) {
-												if (b2[k]) {
-													erg = erg+(cbs2[k].getText());
-													erg=erg+";";
-												}
-											}
-											erg=erg.substring(0,erg.length()-2);
-											ergebnis.add(erg);
-										}
-										else {	if (radioodercheck[i]=='r') {
-													ergebnis.add(rbgroup2.getSelectedToggle().getUserData().toString());
-												}
-												else {
-													break;
-												}
-										}
-										break;
-								case 3: if (radioodercheck[i]=='c') {
-											b3 = new boolean[cbs3.length];
-											for (int j = 0; j<cbs3.length; j++) {
-												b3[j] = cbs3[j].isSelected();
-											}
-											String erg = "";
-											for (int k = 0; k<b3.length; k++) {
-												if (b3[k]) {
-													erg = erg+(cbs3[k].getText());
-													erg=erg+";";
-												}
-											}
-											erg=erg.substring(0,erg.length()-2);
-											ergebnis.add(erg);
-										}
-										else {	if (radioodercheck[i]=='r') {
-													ergebnis.add(rbgroup3.getSelectedToggle().getUserData().toString());
-												}
-												else {
-													break;
-												}
-										}
-										break;
-								case 4: if (radioodercheck[i]=='c') {
-											b4 = new boolean[cbs4.length];
-											for (int j = 0; j<cbs4.length; j++) {
-												b4[j] = cbs4[j].isSelected();
-											}
-											String erg = "";
-											for (int k = 0; k<b4.length; k++) {
-												if (b4[k]) {
-													erg = erg+(cbs4[k].getText());
-													erg=erg+";";
-												}
-											}
-											erg=erg.substring(0,erg.length()-2);
-											ergebnis.add(erg);
-										}
-										else {	if (radioodercheck[i]=='r') {
-													ergebnis.add(rbgroup4.getSelectedToggle().getUserData().toString());
-												}
-												else {
-													break;
-												}
-										}
-										break;
-								default:	break;
-										
-							}
-						}
-					   //schreiben der Werte in Output-Datei
-					   Output.schreibeWerte(klassif,teil2Textarea.getText(),ergebnis);
-					   //ProgressBar updaten
-					   fortschritt.setProgress((klassif.texte.length - klassif.textids.size())/klassif.texte.length);
-					   //neuen Text laden und anzeigen
-					   String[] neuertext = klassif.getText();
-					   String neuertext2 = neuertext[1];
-					   if (neuertext2 == "") {
-						   close();
-						   Output.schreibexml();
-						   new FertigStage();
-						   return;
-					   }
-					   teil2Textarea.setText(neuertext2);
-					   //neuinitialisierung der checkboxen und radiobuttons
-					   for (int i = 0; i<labelarray.size();i++) {
-							switch (i) {
-								case 0: if (radioodercheck[i]=='c') {
-											for (int j = 0; j<cbs0.length; j++) {
-												cbs0[j].setSelected(false);
-											}
-										}
-										else {
-											//radioodercheck[i]='r';
-											rb0x.setSelected(true);;
-										}
-										break;
-								case 1: if (radioodercheck[i]=='c') {
-											for (int j = 0; j<cbs1.length; j++) {
-												cbs1[j].setSelected(false);
-											}
-										}
-										else {
-											//radioodercheck[i]='r';
-											rb1x.setSelected(true);;
-										}
-										break;
-								case 2: if (radioodercheck[i]=='c') {
-											for (int j = 0; j<cbs2.length; j++) {
-												cbs2[j].setSelected(false);
-											}
-										}
-										else {
-											if (radioodercheck[i]=='r') {
-												rb2x.setSelected(true);
-											}
-											else break;
-										}
-										break;
-								case 3: if (radioodercheck[i]=='c') {
-											for (int j = 0; j<cbs3.length; j++) {
-												cbs3[j].setSelected(false);
-											}
-										}
-										else {
-											if (radioodercheck[i]=='r') {
-												rb3x.setSelected(true);
-											}
-											else break;
-										}
-										break;
-								case 4: if (radioodercheck[i]=='c') {
-											for (int j = 0; j<cbs4.length; j++) {
-												cbs4[j].setSelected(false);
-											}
-										}
-										else {
-											if (radioodercheck[i]=='r') {
-												rb4x.setSelected(true);
-											}
-											else break;
-										}
-										break;
-								default:	break;
-										
-							}
-						}
-				   }
-				   else {
-					   fehlermeldungHaupt.setVisible(true);
-					   //fehlermeldungHaupt.setText("Bitte prüfen Sie, dass sie jedes Label zugeordnet haben!");
-				   }
-			   } 
-		}; 
-		labelabsenden.addEventFilter(MouseEvent.MOUSE_CLICKED, pruefenuabsenden);
-	} 
-	*/
 	
 	//prueft ob zu jedem Label (min.) 1 Moeglichkeit ausgewaehlt wurde -> true, wenn nicht false
 	public boolean check() {
@@ -1239,83 +946,12 @@ public class Hauptstage extends Stage {
 		return check;
 	}
 	
-	public Scene updateScene(String zeit, double fortschrittinprozent) {
-		
-		//Teil1 - obere Zeile der Anzeige
-		Label idanzeige = new Label("Nutzer-ID: "+klassif.getNutzerID());
-		ProgressBar fortschritt = new ProgressBar(0.01);
-		fortschritt.setPrefWidth(300);
-		fortschritt.setProgress(fortschrittinprozent);
-		
-		System.out.println(zeit.substring(0, 1));
-		System.out.println(zeit.substring(3, 4));
-		
-		int zeitmin = Integer.parseInt(zeit.substring(0, 1));
-		int zeitsec = Integer.parseInt(zeit.substring(3, 4));
-		//Label zeitanzeige = new Label("Verbleibende Zeit: "); 	//anpassen, so dass Zeit angezeigt wird
-			
-		Label timerlabel = new Label("");
-		
-		//Zeit fuer Timer wird hier eingestellt
-		timerlabel.setText(zeitmin+":"+zeitsec);
-				
-		setOnShowing(new EventHandler<WindowEvent>() {
-		    @Override
-		    public void handle(WindowEvent event) {
-		    	schriftplus.fire();schriftplus.fire();schriftplus.fire();schriftplus.fire();schriftplus.fire();
-		    	timerlabel.setText(zeitmin+":"+zeitsec);
-				timerlabel.setVisible(true);
-				if (timeline != null) {
-					timeline.stop();
-				}
-				timeinsec = (zeitmin*60)+zeitsec;
-			    	 
-				// update timerLabel
-				int min = timeinsec/60;
-				int sec = timeinsec%60;
-				if (sec > 9) {
-					timerlabel.setText(min+":"+sec);
-				}
-				else timerlabel.setText(min+":0"+sec);
-				timerlabel.setVisible(true);
-				timeline = new Timeline();
-				timeline.setCycleCount(Timeline.INDEFINITE);
-			    timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),new EventHandler<ActionEvent>() {
-			    	public void handle(ActionEvent e) {
-			    		timeinsec--;
-			    		int min=timeinsec/60;
-			    		int sec = timeinsec%60;
-			    		if (sec > 9) {
-			    			timerlabel.setText(min+":"+sec);
-			    		}
-			    		else timerlabel.setText(min+":0"+sec);
-			   			if (timeinsec <= 0) {
-			   				timesup();
-			   				timeline.stop();
-			   			}
-			   		}
-			   }));
-			   timeline.playFromStart();
-		    }
-		});
-		teil1Daten.getChildren().addAll(idanzeige, fortschritt, timerlabel);
-				
-		klasspane.setPrefWidth(900);
-		klasspane.setMinWidth(900);
-		//klasspane.setFillWidth(true);
-		klasspane.getChildren().addAll(vboxspacer0,teil1Daten, vboxspacer1, teil2Texthalter, vboxspacer2, teil3Ranking, vboxspacer3, teil4GroesseAbsenden, vboxspacer4);
-		//spacehalter.getChildren().addAll(hboxspacer0, klasspane, hboxspacer1);
-		klasspane.setPadding(new Insets(10,40,10,40));
-		Scene sc = new Scene(klasspane,x,y);
-		//klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-				
-		return sc;
-	}
-	
+	/**
+	 * Diese Methode schliesst das aktuelle Fenster und oeffnet eine ZeitEndeStage, also das naechste Fenster.
+	 */
 	public void timesup() {
-		//provozierefehler - notdoneyet
-		//Output.abbruchSave(klassif);
 		close();
 		new ZeitEndeStage(fortschritt.getProgress());
 	}
+
 }
