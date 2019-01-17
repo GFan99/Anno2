@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="ISO-8859-1"?> 
-<labels>
-	<label name="Musikbezug?" beschreibung="5Rating" multiple="false" />
-	<label name="was ist es für ein Tier?" beschreibung="Säugetier;Vogel;Meise;Pferd" multiple="true" />
-	<label name="Auf was bezieht sich Text?" beschreibung="Musik;Essen;keine Ahnung" multiple="false" />
-	<label name="Eventbezug?" beschreibung="3Rating zutreffen" multiple="false" />
-	<label name="Gibt es etwas zu essen?" beschreibung="3Rating ja" multiple="false" />
-	
-</labels>
