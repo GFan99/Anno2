@@ -35,7 +35,7 @@ public class Input3 {
 	public static File pfadNachOS(String dateiname, String ordnername) {
 		String osName = System.getProperty("os.name");
 		if (osName.indexOf("Windows") != -1) {
-			String pfad = System.getProperty("user.dir");//user.dir ist workspace
+			String pfad = System.getProperty("user.home");//user.dir ist workspace
 			if (dateiname!="") {
 				dateiname="//"+dateiname;
 			}
