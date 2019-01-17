@@ -21,30 +21,21 @@ import de.bioforscher.fosil.dataformatter.Label;
 import de.bioforscher.fosil.dataformatter.TextEntity;
 
 /**
- * Dies wird die Klasse Output.
- * Sie ist zustaendig fuer alle Speichervorgaenge des Programms.
- *  - speichern()	 : Speichert Klassifikator.ergebnisse in Form einer XML-Datei.
- *  - abbruchSave()	 : Diese Methode speichert Klassifikator.textIDs, sowie das Klassifikator.texte[]
- *  					und Klassifikator.label[]. Ausserdem ruft sie speichern() auf, sodass auch 
- *  					Klassifikator.ergebnisse gespeichert wird.
- * @author becksusanna
- * @version 0.1
+ * Die Klasse ist für das Speichern der Ergebnisse verantortlich.
+ * @author Laura
+ *
  */
 public class Output {
 	
 	/**
-	 *DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	DocumentBuilder builder = factory.newDocumentBuilder();
-	Document document = builder.parse(XMLFILENAME); 
-	 *
+	 * Die Ergebnisse werden in eine XML-Datei gespeichert, welche die Nutzer ID als Namen traegt.
+	 * Dabei wird geprueft, ob bereits eine Datei mit dieser ID vorhanden ist. Wenn vorhanden, wird
+	 * die XML eingelesen und mit den hinzugekommenen Werten neu geschrieben.
 	 */
-	
-
 	public static void schreibeWerte(Klassifikator klassif, String text, ArrayList<String> ergebnis) {
 		
 		try{
-		    
-			
+		    	
 		    File file = Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe");
 		    
 		    if (file.exists()==false) {
@@ -87,7 +78,7 @@ public class Output {
 				
 				List<AnnotationItem> annolst=new ArrayList<AnnotationItem>();
 				
-				//fï¿½r jedes Label annoItem und Label erstellen
+				//fuer jedes Label annoItem und Label erstellen
 				for (int i=0; i<klassif.getLabel().size();i++) {
 					AnnotationItem annoItem=new AnnotationItem();
 					Label label=new Label();
@@ -97,7 +88,7 @@ public class Output {
 					//ergebnis auswerten und in Label schreiben
 					String erg=ergebnis.get(i);
 					
-					//auswerten(String,String, int) aufrufen, wenn 100 zurï¿½ckgegeben wird term schreiben
+					//auswerten(String,String, int) aufrufen, wenn 100 zurueckgegeben wird term schreiben
 					int wert=auswerten(erg,anzahl);
 					if (wert!=100) {
 						BigInteger bi=BigInteger.valueOf(wert);
@@ -180,7 +171,7 @@ public class Output {
 					//ergebnis auswerten und in Label schreiben
 					String erg=ergebnis.get(i);
 					
-					//auswerten(String,String, int) aufrufen, wenn 100 zurï¿½ckgegeben wird term schreiben
+					//auswerten(String,String, int) aufrufen, wenn 100 zurueckgegeben wird term schreiben
 					int wert=auswerten(erg,anzahl);
 					if (wert!=100) {
 						BigInteger bi=BigInteger.valueOf(wert);
@@ -209,7 +200,10 @@ public class Output {
 		}
 	}
 	
-	//auswerten; wenn keines zutrifft 100 zurï¿½ckgeben
+	/**
+	 * Die Methode wertet die Ergenisse aus.
+	 * Wenn keines zutrifft wird 100 zurueckgegeben.
+	 */
 	public static int auswerten(String erg, int anzahl) {
 		int wert=100;
 		if (erg.equals("Trifft nicht zu") && anzahl==6 ) {
@@ -243,14 +237,5 @@ public class Output {
 		return wert;
 	}
 
-	public static void abbruchSave(Klassifikator klassif) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public static void schreibexml() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

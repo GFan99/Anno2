@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Set;
@@ -22,40 +21,43 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/**
+ * Die Klasse dient zum Einlesen der Texte, der vorhandenen Nutzer IDs und den Labeln.
+ * Zudem werden die Text IDs der bereits gelabelten Texte eingelesen.
+ * @author Laura
+ *
+ */
+
 public class Input3 {
 	
 	private static ArrayList<Labelobjekt> labelobjekte= new ArrayList<>();
 	
 	/**
-	 * Eine Methode, um den Dateipfad zurückzugeben in Abhängigkeit vom Betriebssystem
-	 * @param dateiname
-	 * @param ordnername
-	 * @return
+	 * Eine Methode, um den Dateipfad zurückzugeben in Abhängigkeit vom Betriebssystem.
 	 */
 	public static File pfadNachOS(String dateiname, String ordnername) {
 		String osName = System.getProperty("os.name");
 		if (osName.indexOf("Windows") != -1) {
-			String pfad = System.getProperty("user.home");//user.dir ist workspace
+			String pfad = System.getProperty("user.home");//liefert Benutzerordner
 			if (dateiname!="") {
 				dateiname="//"+dateiname;
 			}
-			return new File(pfad+"//"+ordnername+dateiname);
+			return new File(pfad+"//Anno//"+ordnername+dateiname);
 		}
 		else {
+			String pfad = System.getProperty("user.home");//liefert Benutzerordner
 			if (dateiname!="") {
 				dateiname="/"+dateiname;
 			}
-			return new File("./"+ordnername+dateiname);
+			return new File(pfad+"/Anno/"+ordnername+dateiname);
 		}
 			
 		}
 	
 	/**
-	 * Eine Methode, um die Eigenschaft der Labels aus der XML-Datei auszulesen und
+	 * Eine Methode, um die Eigenschaft der Labels aus den Labelobjekten auszulesen und
 	 * als boolean[] zurückzugeben.
 	 * (Dürfen mehrere Möglichkeiten angeklickt werden?)
-	 * @param
-	 * @return String[]
 	 */
 	public static boolean[] labelEigenschaft(){
 		try {
@@ -66,10 +68,7 @@ public class Input3 {
 				Labelobjekt objekt=labelobjekte.get(i);
 				eigenschaften[i]=objekt.isEigenschaft();
 			}
-						
-			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
 		
-			System.out.println("eigenschaften");
 			return eigenschaften;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,9 +80,9 @@ public class Input3 {
 	
 	
 	/**
-	 * Eine Metho//lalalade, um die Label und deren Beschriftung aus der XML-Datei auszulesen 
-	 * und als HashMap zurückzugeben
-	 * @return
+	 * Eine Methode, um die Label und deren Beschriftung aus der XML-Datei auszulesen 
+	 * und als LinkedHashMap<String,ArrayList<String>> zurückzugeben.
+	 * Zudem wird labelobjekte,welche in labelEigenschaft() verwendet wird, gefüllt.
 	 */
 	public static LinkedHashMap<String,ArrayList<String>> labelLesen(){
 		try {
@@ -134,8 +133,6 @@ public class Input3 {
 						}
 			    label.put(key, beschriftung);
 			    eigenschaften[i]=Boolean.valueOf(eElement.getAttributeNode("multiple").getValue());
-			    //Labelobjekt objekt=new Labelobjekt(key,beschriftung,eigenschaften[i]);
-				//labelobjekte.add(objekt);
 				beschriftung = new ArrayList<String>();
 			    
 					}
@@ -164,9 +161,7 @@ public class Input3 {
 	}
 	
 	/**
-	 * Eine Methode, um den Ordner mit den Texten einzulesen und als String[]-Array zurueckzugeben.
-	 * @param
-	 * @return String[]
+	 * Eine Methode, um den Ordner mit den Texten einzulesen und als String[][] zurueckzugeben.
 	 */
 	public static String[][] texteLesen(){
 		try {
@@ -200,7 +195,6 @@ public class Input3 {
 	/**
 	 * Eine Methode, welche ein String-Array mit allen bereits vorhandenen Nutzer-IDs
 	 * zurückzugeben, indem der Dateiname der bereits vorhanden XML-Dateien ausgelesen wird.
-	 * @return
 	 */
 	public static String[] vorhandeneIDs() {
 		String dateiname="";
@@ -214,7 +208,10 @@ public class Input3 {
 		return vorhandeneIDs;
 	}
 	
-	
+	/**
+	 * Es werden die bereits gelabelelten Texte gelesen und von diesen die Text ID
+	 * als ArrayList<Integer> zurueckgegeben.
+	 */
 	public static ArrayList<Integer> leseklassifizierte(String id) {
 		try {
 			
