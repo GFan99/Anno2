@@ -47,7 +47,7 @@ public class Hauptstage extends Stage {
 	private int x, y;
 	
 	private HBox teil1Daten; 				//Leiste für Teil 1
-	private ScrollPane teil2Texthalter;		//Teil 2 - scrollable textarea */
+	private ScrollPane teil2Texthalter;		//Teil 2 - scrollable textarea
 	private GridPane teil3Ranking;			//Teil 3 - Wertungssystem (tabellenfoermige Anordnung)
 	private HBox teil4GroesseAbsenden;		//Teil 4 - Buttons werden links und rechts angezeigt
 	
@@ -97,13 +97,15 @@ public class Hauptstage extends Stage {
 		Scene scene = this.erstelleScene(klassif.getLabel());
 		this.setScene(scene);
 		this.show();
-		 
+		
+		//Eventhandler für den '+'-Button, mit dem sich die Schriftgroesse verandern laesst
 		EventHandler<MouseEvent> schriftgroesseplus = new EventHandler<MouseEvent>() { 
 		   @Override 
 		   public void handle(MouseEvent e) { 
+			   //Schrift soll nicht sinnlos gross werden, daher auf 24 begrenzt
 			   if (sgroesse <=24) {
 				   sgroesse = sgroesse+2;
-				   teil2Textarea.setFont(new Font("Times", sgroesse));
+				   teil2Textarea.setFont(Font.font("Courier New", sgroesse));
 			   }
 		   } 
 		};
@@ -114,7 +116,7 @@ public class Hauptstage extends Stage {
 			public void handle(MouseEvent e) { 
 			   if (sgroesse >=10) {
 				   sgroesse = sgroesse-2;
-				   teil2Textarea.setFont(new Font("Times", sgroesse));
+				   teil2Textarea.setFont(Font.font("Courier New", sgroesse));
 			   }
 			} 
 		};
@@ -495,7 +497,7 @@ public class Hauptstage extends Stage {
 		teil2Textarea = new TextArea();
 		teil2Textarea.setEditable(false);
 		sgroesse=14;
-		teil2Textarea.setFont(new Font("Times",sgroesse));
+		teil2Textarea.setFont(Font.font("Courier New",sgroesse));
 		teil2Texthalter.setContent(teil2Textarea);
 		teil2Texthalter.setFitToWidth(true);
 		teil2Texthalter.setPrefWidth(850);
@@ -515,6 +517,7 @@ public class Hauptstage extends Stage {
 		//teil 3 
 		//LinkedHashMap<String,ArrayList<String>> labels mit Labelname als Key und Auswahlmoegl. als Value
 		teil3Ranking = new GridPane();
+		teil3Ranking.setGridLinesVisible(true);
 		rbs0 = new RadioButton[0];
 		rbs1 = new RadioButton[0];
 		rbs2 = new RadioButton[0];
