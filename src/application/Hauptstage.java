@@ -30,6 +30,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -517,7 +518,7 @@ public class Hauptstage extends Stage {
 		//teil 3 
 		//LinkedHashMap<String,ArrayList<String>> labels mit Labelname als Key und Auswahlmoegl. als Value
 		teil3Ranking = new GridPane();
-		teil3Ranking.setGridLinesVisible(true);
+		Color c = Color.rgb(173, 173, 173);
 		rbs0 = new RadioButton[0];
 		rbs1 = new RadioButton[0];
 		rbs2 = new RadioButton[0];
