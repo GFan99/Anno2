@@ -1,2 +1,17 @@
-ZA: Hash aus Benutzername von HS-Login bilden
-	
+Hash aus Benutzername von HS-Login bilden
+Groesse an Anzahl Label anpassen (30px * Anzahl Label abziehen)
+Fortschrittbalken bei erneuter oeffnung anpassen
+Pfad durch Property-Datei -->in JAR legen
+in Property: Pfad, Zeit
+optische Gruppen --> Grid Panel Zeilen alternierend einfaerben
+
+Beleg: Einleitung-->Evaluation(Goldstandard und deren Aufbau)
+				-->Anwendungsfall+Diagramm
+				
+Vortrag: Show mit Präsentation
+		wie als würde man es Verkaufen
+		kein Code
+		UML zeigen
+		Anwendungsbeispiele
+		Anforderungen an Beispiel -->dann zur Lsg Programm präsentieren
+		

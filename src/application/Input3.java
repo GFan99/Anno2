@@ -220,7 +220,7 @@ public class Input3 {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(pfadNachOS(dateiname, ordnername));
-			NodeList nList = doc.getElementsByTagName("element");
+			NodeList nList = doc.getElementsByTagName("TextEntity");
 			
 			ArrayList<Integer> vorhandeneTexte = new ArrayList<Integer>();
 			
@@ -235,6 +235,8 @@ public class Input3 {
 			    vorhandeneTexte.add(Integer.parseInt(inhalt));
 			 }
 			}
+			System.out.println(vorhandeneTexte.size());
+			System.out.println("blablabla");
 			 
 			 return vorhandeneTexte;
 			 
