@@ -40,7 +40,7 @@ public class Input3 {
 	private static ArrayList<Labelobjekt> labelobjekte= new ArrayList<>();
 	
 	/**
-	 * Eine Methode, um den Dateipfad zurückzugeben in Abhängigkeit vom Betriebssystem.
+	 * Eine Methode, um den Dateipfad zurï¿½ckzugeben in Abhï¿½ngigkeit vom Betriebssystem.
 	 */
 	public static File pfadNachOS(String dateiname, String ordnername) {
 		String osName = System.getProperty("os.name");
@@ -63,8 +63,8 @@ public class Input3 {
 	
 	/**
 	 * Eine Methode, um die Eigenschaft der Labels aus den Labelobjekten auszulesen und
-	 * als boolean[] zurückzugeben.
-	 * (Dürfen mehrere Möglichkeiten angeklickt werden?)
+	 * als boolean[] zurï¿½ckzugeben.
+	 * (Dï¿½rfen mehrere Mï¿½glichkeiten angeklickt werden?)
 	 */
 	public static boolean[] labelEigenschaft(){
 		try {
@@ -88,8 +88,8 @@ public class Input3 {
 	
 	/**
 	 * Eine Methode, um die Label und deren Beschriftung aus der XML-Datei auszulesen 
-	 * und als LinkedHashMap<String,ArrayList<String>> zurückzugeben.
-	 * Zudem wird labelobjekte,welche in labelEigenschaft() verwendet wird, gefüllt.
+	 * und als LinkedHashMap<String,ArrayList<String>> zurï¿½ckzugeben.
+	 * Zudem wird labelobjekte,welche in labelEigenschaft() verwendet wird, gefï¿½llt.
 	 */
 	public static LinkedHashMap<String,ArrayList<String>> labelLesen(){
 		try {
@@ -201,7 +201,7 @@ public class Input3 {
 	
 	/**
 	 * Eine Methode, welche ein String-Array mit allen bereits vorhandenen Nutzer-IDs
-	 * zurückzugeben, indem der Dateiname der bereits vorhanden XML-Dateien ausgelesen wird.
+	 * zurï¿½ckzugeben, indem der Dateiname der bereits vorhanden XML-Dateien ausgelesen wird.
 	 */
 	public static String[] vorhandeneIDs() {
 		String dateiname="";
@@ -224,27 +224,6 @@ public class Input3 {
 			
 			String dateiname=id+".xml";
 			String ordnername="Ausgabe";
-			/**DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(pfadNachOS(dateiname, ordnername));
-			NodeList nList = doc.getElementsByTagName("TextEntity");
-			
-			ArrayList<Integer> vorhandeneTexte = new ArrayList<Integer>();
-			
-			//die Namen der Labels werden nacheinander in das String[]-Array geschrieben
-			for (int i = 0; i < nList.getLength(); i++)
-			{
-			 Node node = nList.item(i);
-			 
-			 if (node.getNodeType() == Node.ELEMENT_NODE) {
-			    Element eElement = (Element) node;
-			    String inhalt=eElement.getElementsByTagName("textID").item(0).getTextContent();
-			    vorhandeneTexte.add(Integer.parseInt(inhalt));
-			 }
-			}
-			System.out.println(vorhandeneTexte.size());
-			System.out.println("blablabla");
-			 **/
 			
 			JAXBContext jContextneu = JAXBContext.newInstance(DataEntity.class);
 		    
