@@ -8,8 +8,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,6 +24,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import de.bioforscher.fosil.dataformatter.DataEntity;
+import de.bioforscher.fosil.dataformatter.TextEntity;
 
 /**
  * Die Klasse dient zum Einlesen der Texte, der vorhandenen Nutzer IDs und den Labeln.
@@ -217,7 +224,7 @@ public class Input3 {
 			
 			String dateiname=id+".xml";
 			String ordnername="Ausgabe";
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			/**DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(pfadNachOS(dateiname, ordnername));
 			NodeList nList = doc.getElementsByTagName("TextEntity");
@@ -237,21 +244,21 @@ public class Input3 {
 			}
 			System.out.println(vorhandeneTexte.size());
 			System.out.println("blablabla");
-			 
+			 **/
+			
+			JAXBContext jContextneu = JAXBContext.newInstance(DataEntity.class);
+		    
+		    Unmarshaller unmarshObj = jContextneu.createUnmarshaller();
+		    DataEntity dataEntityalt= (DataEntity) unmarshObj.unmarshal(pfadNachOS(dateiname, ordnername));
+		    ArrayList<Integer> vorhandeneTexte=new ArrayList<Integer>();
+		    
+		    for(TextEntity textEntity: dataEntityalt.getTextlst()) {
+		    	String textid=textEntity.getTextID();
+		    	vorhandeneTexte.add(Integer.valueOf(textid));
+		    }
 			 return vorhandeneTexte;
-			 
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				ArrayList<Integer> leer = new ArrayList<Integer>();;
-				return leer;
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				ArrayList<Integer> leer = new ArrayList<Integer>();
-				return leer;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			
+			} catch (JAXBException e) {
 				e.printStackTrace();
 				ArrayList<Integer> leer = new ArrayList<Integer>();
 				return leer;
