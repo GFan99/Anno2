@@ -1,5 +1,6 @@
 package application;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Iterator;
@@ -24,11 +25,15 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -94,7 +99,8 @@ public class Hauptstage extends Stage {
 		this.klassif=klasse;
 		this.texteges=klassif.getTexte().length;
 		this.texteklassi=anzklassifizierte;
-		this.fortschritt = new ProgressBar(0.0);
+		prozent=(double)anzklassifizierte/klasse.getTexte().length;
+		this.fortschritt = new ProgressBar(prozent);
 		Scene scene = this.erstelleScene(klassif.getLabel());
 		this.setScene(scene);
 		this.show();
@@ -410,7 +416,6 @@ public class Hauptstage extends Stage {
 		hboxspacerj.setPrefWidth(2);
 		//HBox.setHgrow(hboxspacerj, Priority.ALWAYS);
 		
-		
 		/**
 		 * VBox besteht aus 4 untereinanderliegenden Teilen
 		 * Teil 1:	allgemeine Angaben --> ID, Fortschrite, Timer
@@ -518,6 +523,7 @@ public class Hauptstage extends Stage {
 		//teil 3 
 		//LinkedHashMap<String,ArrayList<String>> labels mit Labelname als Key und Auswahlmoegl. als Value
 		teil3Ranking = new GridPane();
+		//teil3Ranking.setGridLinesVisible(true);
 		Color c = Color.rgb(173, 173, 173);
 		rbs0 = new RadioButton[0];
 		rbs1 = new RadioButton[0];
@@ -542,6 +548,27 @@ public class Hauptstage extends Stage {
 		for (Iterator<String> it = labelliste.iterator(); it.hasNext();) {
 			labelarray.add(it.next());
 		}
+		/**
+		ArrayList<StackPane> paneliste0 = new ArrayList<StackPane>();
+		for (int i = 0; i<labels.get(labelarray.get(0)).size(); i++) {
+			StackPane pane = new StackPane();
+			pane.setStyle("-fx-background-color: lightgray;");
+			paneliste0.add(pane);
+		}
+		ArrayList<StackPane> paneliste2 = new ArrayList<StackPane>();
+		for (int i = 0; i<labels.get(labelarray.get(2)).size(); i++) {
+			StackPane pane = new StackPane();
+			pane.setStyle("-fx-background-color: lightgray;");
+			paneliste2.add(pane);
+		}
+		ArrayList<StackPane> paneliste4 = new ArrayList<StackPane>();
+		for (int i = 0; i<labels.get(labelarray.get(4)).size(); i++) {
+			StackPane pane = new StackPane();
+			pane.setStyle("-fx-background-color: lightgray;");
+			paneliste4.add(pane);
+		}
+		*/
+			
 		mehrfachwahl = Input3.labelEigenschaft();
 		ArrayList<Label> labellabelliste = new ArrayList<Label>();
 		for (int i = 0; i<labelarray.size();i++) {
@@ -553,6 +580,7 @@ public class Hauptstage extends Stage {
 							cbs0 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs0.length;j++) {
 								cbs0[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
+								//paneliste0.get(j).getChildren().add(cbs0[j]);
 								cbs0[j].setVisible(true);
 							}
 						}
@@ -567,6 +595,7 @@ public class Hauptstage extends Stage {
 								rbs0[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs0[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs0[j].setToggleGroup(rbgroup0);
+								//paneliste0.get(j).getChildren().add(rbs0[j]);
 								rbs0[j].setVisible(true);
 							}
 						}
@@ -603,6 +632,7 @@ public class Hauptstage extends Stage {
 							cbs2 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs2.length;j++) {
 								cbs2[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));	
+								//paneliste2.get(j).getChildren().add(cbs2[j]);
 								cbs2[j].setVisible(true);
 							}
 						}
@@ -617,6 +647,7 @@ public class Hauptstage extends Stage {
 								rbs2[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs2[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs2[j].setToggleGroup(rbgroup2);
+								//paneliste2.get(j).getChildren().add(rbs2[j]);
 								rbs2[j].setVisible(true);
 							}
 						}
@@ -653,6 +684,7 @@ public class Hauptstage extends Stage {
 							cbs4 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs4.length;j++) {
 								cbs4[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
+								//paneliste4.get(j).getChildren().add(cbs4[j]);
 								cbs4[j].setVisible(true);
 							}
 						}
@@ -667,6 +699,7 @@ public class Hauptstage extends Stage {
 								rbs4[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs4[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs4[j].setToggleGroup(rbgroup4);
+								//paneliste4.get(j).getChildren().add(rbs4[j]);
 								rbs4[j].setVisible(true);
 							}
 						}
@@ -675,11 +708,27 @@ public class Hauptstage extends Stage {
 						
 			}
 		}
+		/**
+		ArrayList<StackPane> panelistel = new ArrayList<StackPane>();
+		for (int i = 0; i<3; i++) {
+			StackPane pane = new StackPane();
+			pane.setStyle("-fx-background-color: lightgray;");
+			panelistel.add(pane);
+		}
+		*/
 		//Label ins GridPane einfügen
 		for(Integer i=0;i<labellabelliste.size();i++) {
-			GridPane.setColumnIndex(labellabelliste.get(i), 0);
-			GridPane.setRowIndex(labellabelliste.get(i), i);
-			teil3Ranking.getChildren().add(labellabelliste.get(i));
+			/**if(i==0 || i==2 || i==4) {
+				panelistel.get(i/2).getChildren().add(labellabelliste.get(i));
+				GridPane.setColumnIndex(panelistel.get(i/2), 0);
+				GridPane.setRowIndex(panelistel.get(i/2), i);
+				teil3Ranking.getChildren().add(panelistel.get(i/2));
+			}
+			else { */
+				GridPane.setColumnIndex(labellabelliste.get(i), 0);
+				GridPane.setRowIndex(labellabelliste.get(i), i);
+				teil3Ranking.getChildren().add(labellabelliste.get(i));
+			/** } */
 		}
 		for(int i=0;i<radioodercheck.length;i++) {
 			switch(i) {
@@ -813,15 +862,46 @@ public class Hauptstage extends Stage {
 		
 		System.out.println(fehlermeldungHaupt.getWidth());
 		
+		AnchorPane gestreift = new AnchorPane();
+		Region[] streifen = new Region[5];
+		for (int i = 0; i< streifen.length; i++) {
+			streifen[i]=new Region();
+			streifen[i].setPrefWidth(830.0);
+			streifen[i].setPrefHeight(18.0);
+			if (i%2==0) {
+			streifen[i].setStyle("-fx-background-color: lightgray;");
+			}
+			AnchorPane.setLeftAnchor(streifen[i], 0.0);
+			AnchorPane.setTopAnchor(streifen[i], i*(19.0+4.0));
+			gestreift.getChildren().add(streifen[i]);
+		}
+		AnchorPane.setTopAnchor(teil3Ranking, 0.0);
+		AnchorPane.setLeftAnchor(teil3Ranking, 0.0);
+		gestreift.getChildren().add(teil3Ranking);
+		teil3Ranking.setOpacity(50.0);
+		
 		klasspane.setPrefWidth(900);
 		klasspane.setMinWidth(900);
 		//klasspane.setFillWidth(true);
-		klasspane.getChildren().addAll(teil1Daten, teil2Texthalter, teil3Ranking, teil4GroesseAbsenden);
+		klasspane.getChildren().addAll(teil1Daten, teil2Texthalter, gestreift, teil4GroesseAbsenden);
 		//spacehalter.getChildren().addAll(hboxspacer0, klasspane, hboxspacer1);
 		klasspane.setPadding(new Insets(30,40,50,40));
 		klasspane.setSpacing(25);
 		Scene klassi = new Scene(klasspane,x,y);
 		//klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		
+		System.out.println("Padding: "+teil3Ranking.getPadding());
+		System.out.println("Hgap: "+teil3Ranking.getHgap());
+		System.out.println("Vgap: "+teil3Ranking.getVgap());
+		//double[][] grid = teil3Ranking.getGrid();
+		System.out.println("height: "+teil3Ranking.getHeight());
+		System.out.println("width: "+klasspane.getWidth());
+		//System.out.println("Column span 1: "+GridPane.getColumnSpan(rbs0[0]));
+		//System.out.println("Column span 2: "+GridPane.getColumnSpan(rbs0[1]));
+		//System.out.println("Column span 3: "+GridPane.getColumnSpan(rbs0[2]));
+		//System.out.println("Column span 4: "+GridPane.getColumnSpan(rbs0[3]));
+		//System.out.println("Column span 5: "+GridPane.getColumnSpan(rbs0[4]));
+		//System.out.println("row span: "+GridPane.getRowSpan(labellabelliste.get(0)));
 		
 		return klassi;
 	}
@@ -956,6 +1036,21 @@ public class Hauptstage extends Stage {
 	public void timesup() {
 		close();
 		new ZeitEndeStage(fortschritt.getProgress());
+	}
+	
+	public static double[][] getCurrentGrid(GridPane gp) {
+	    double[][] ret=new double [0][0];
+
+	    try {
+	        Method m=gp.getClass().getDeclaredMethod("getGrid");
+	        m.setAccessible(true);
+	        ret=(double[][])m.invoke(gp);                   
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return ret;
 	}
 
 }
