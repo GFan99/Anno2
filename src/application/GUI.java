@@ -26,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 /**
@@ -52,6 +53,7 @@ public class GUI extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			System.out.println(Font.getFamilies());
 			//erstellen des Pane und der Komponenten der "IDStage"
 			AnchorPane idpane = new AnchorPane();
 			Label idfrage = new Label("Bitte geben Sie ihre Nutzer-ID ein:");
