@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -20,21 +19,20 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import de.bioforscher.fosil.dataformatter.DataEntity;
 import de.bioforscher.fosil.dataformatter.TextEntity;
 
 /**
  * Die Klasse dient zum Einlesen der Texte, der vorhandenen Nutzer IDs und den Labeln.
- * Zudem werden die Text IDs der bereits gelabelten Texte eingelesen.
+ * Zudem werden die Text IDs der bereits gelabelten Texte eingelesen. 
+ * Aus der Property Datei werden der Pfad und die vorgegebene Uhrzeit ausgelesen.
  * @author Laura
  *
  */
@@ -47,21 +45,6 @@ public class Input3 {
 	 * Eine Methode, um den Dateipfad zur�ckzugeben in Abh�ngigkeit vom Betriebssystem.
 	 */
 	public static File pfadNachOS(String dateiname, String ordnername) {
-		/**String osName = System.getProperty("os.name");
-		if (osName.indexOf("Windows") != -1) {
-			String pfad = System.getProperty("user.home");//liefert Benutzerordner
-			if (dateiname!="") {
-				dateiname="//"+dateiname;
-			}
-			return new File(pfad+"//Anno//"+ordnername+dateiname);
-		}
-		else {
-			String pfad = System.getProperty("user.home");//liefert Benutzerordner
-			if (dateiname!="") {
-				dateiname="/"+dateiname;
-			}
-			return new File(pfad+"/Anno/"+ordnername+dateiname);
-		}**/
 		
 		try {
 			Properties properties = new Properties();
@@ -73,7 +56,7 @@ public class Input3 {
 			properties.load(stream);
 			stream.close();
 			fstream.close();
-			String pfad = properties.getProperty("pfad");//Slashes werden entfernt
+			String pfad = properties.getProperty("pfad");
 			System.out.println(pfad);
 			if (dateiname!="") {
 				dateiname=i+dateiname;
@@ -81,11 +64,9 @@ public class Input3 {
 			
 			return new File(pfad+i+ordnername+dateiname);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new File("");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new File("");
 		}
@@ -274,5 +255,35 @@ public class Input3 {
 				ArrayList<Integer> leer = new ArrayList<Integer>();
 				return leer;
 			}
+	}
+	
+	/**
+	 * Die Methode liest die vorgegebene Zeit aus dem Property File
+	 * und gibt diese zurueck.
+	 */
+	public int getTime() {
+		try {
+			Properties properties = new Properties();
+			BufferedInputStream stream;
+			String i=System.getProperty("file.separator");
+			FileInputStream fstream=new FileInputStream("."+i+"src"+i+"application"+i+"anno.properties");
+			System.out.println(System.getProperty("user.dir")+i+"src"+i+"application"+i+"anno.properties");
+			stream = new BufferedInputStream(fstream);
+			properties.load(stream);
+			stream.close();
+			fstream.close();
+			int zeit = Integer.parseInt(properties.getProperty("zeit"));
+			
+			return zeit;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+		
 	}
 }
