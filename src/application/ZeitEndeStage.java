@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -39,8 +40,10 @@ public class ZeitEndeStage extends Stage {
 		VBox box = new VBox();
 
 		Label timeout = new Label("Ihre Zeit ist für heute abgelaufen. \nSie haben bereits " + prozent*100 + "% klassifiziert.");
+		timeout.setFont(Font.font("Tahoma"));
 		timeout.setTextAlignment(TextAlignment.CENTER);
 		schliessen = new Button("Schliessen");
+		schliessen.setFont(Font.font("Tahoma"));
 		Region spacer = new Region();
 		spacer.setMinHeight(20.0);
 		
@@ -60,18 +63,13 @@ public class ZeitEndeStage extends Stage {
 		hbox.getChildren().addAll(spacerl2, schliessen);
 		
 		box.getChildren().addAll(timeout, spacer, hbox);
-		//AnchorPane.setLeftAnchor(timeout, 30.0);
-		//AnchorPane.setTopAnchor(timeout, 20.0);
-		//AnchorPane.setLeftAnchor(schliessen, 50.0);
-		//AnchorPane.setTopAnchor(schliessen, 60.0);
 		gameoverpane.setCenter(box);
 		gameoverpane.setLeft(spacerl);
 		gameoverpane.setRight(spacerr);
 		gameoverpane.setTop(spacero);
 		gameoverpane.setBottom(spaceru);
 			
-		Scene beenden = new Scene(gameoverpane,300,150);
-		//beenden.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		Scene beenden = new Scene(gameoverpane,275,150);
 			
 		return beenden;
 	}

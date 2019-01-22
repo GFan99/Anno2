@@ -101,7 +101,8 @@ public class Hauptstage extends Stage {
 		this.texteklassi=anzklassifizierte;
 		prozent=(double)anzklassifizierte/klasse.getTexte().length;
 		this.fortschritt = new ProgressBar(prozent);
-		Scene scene = this.erstelleScene(klassif.getLabel());
+		//int zeit = Input3.getTime();
+		Scene scene = this.erstelleScene(klassif.getLabel(), 2);
 		this.setScene(scene);
 		this.show();
 		
@@ -355,7 +356,7 @@ public class Hauptstage extends Stage {
 	/**
 	 * Methode, die die Scene - und damit das Aussehen der Stage - initialisiert
 	 */
-	public  Scene erstelleScene(LinkedHashMap<String,ArrayList<String>> labels) {   
+	public  Scene erstelleScene(LinkedHashMap<String,ArrayList<String>> labels, int erlaubtezeit) {   
 		// Groesse der Scene
 		int ywith5labels = 600;
 		x = 935;
@@ -388,10 +389,10 @@ public class Hauptstage extends Stage {
 		
 		//Spacer fuer teil1Daten
 		Region hboxspacerx = new Region();
-		hboxspacerx.setPrefWidth(15.0);
+		hboxspacerx.setPrefWidth(20.0);
 		//HBox.setHgrow(hboxspacerx, Priority.ALWAYS);
 		Region hboxspacery = new Region();
-		hboxspacery.setPrefWidth(15.0);
+		hboxspacery.setPrefWidth(20.0);
 		//HBox.setHgrow(hboxspacery, Priority.ALWAYS);
 		
 		//Spacer fuer Textgroessen-Buttons
@@ -422,9 +423,9 @@ public class Hauptstage extends Stage {
 
 		String nutzerstring = klassif.getNutzerID();
 		
-		
 		//Teil1 - obere Zeile der Anzeige
 		Label idanzeige = new Label("Nutzer-ID: "+nutzerstring);
+		idanzeige.setFont(Font.font("Tahoma"));
 		HBox.setHgrow(idanzeige, Priority.ALWAYS);
 		//ProgressBar fortschritt = new ProgressBar(0.01);
 		//fortschritt.impl_updatePeer();
@@ -439,7 +440,8 @@ public class Hauptstage extends Stage {
 		//Label zeitanzeige = new Label("Verbleibende Zeit: "); 	//anpassen, so dass Zeit angezeigt wird
 		
 		Label timerlabel = new Label("");
-		int timeinmin = 60;										//Zeit fuer Timer wird hier eingestellt
+		timerlabel.setFont(Font.font("Tahoma"));
+		int timeinmin = erlaubtezeit;
 		timerlabel.setText(timeinmin+":00");
 		HBox.setHgrow(timerlabel, Priority.ALWAYS);
 		
@@ -484,6 +486,8 @@ public class Hauptstage extends Stage {
 		});
 		
 		teil1Daten.getChildren().addAll(idanzeige, fortschritt, timerlabel);
+		teil1Daten.setPrefWidth(850);
+		
 		
 		//Teil2 - scrollabe TextArea
 		teil2Textarea = new TextArea();
@@ -534,39 +538,20 @@ public class Hauptstage extends Stage {
 		for (Iterator<String> it = labelliste.iterator(); it.hasNext();) {
 			labelarray.add(it.next());
 		}
-		/**
-		ArrayList<StackPane> paneliste0 = new ArrayList<StackPane>();
-		for (int i = 0; i<labels.get(labelarray.get(0)).size(); i++) {
-			StackPane pane = new StackPane();
-			pane.setStyle("-fx-background-color: lightgray;");
-			paneliste0.add(pane);
-		}
-		ArrayList<StackPane> paneliste2 = new ArrayList<StackPane>();
-		for (int i = 0; i<labels.get(labelarray.get(2)).size(); i++) {
-			StackPane pane = new StackPane();
-			pane.setStyle("-fx-background-color: lightgray;");
-			paneliste2.add(pane);
-		}
-		ArrayList<StackPane> paneliste4 = new ArrayList<StackPane>();
-		for (int i = 0; i<labels.get(labelarray.get(4)).size(); i++) {
-			StackPane pane = new StackPane();
-			pane.setStyle("-fx-background-color: lightgray;");
-			paneliste4.add(pane);
-		}
-		*/
-			
+		
 		mehrfachwahl = Input3.labelEigenschaft();
 		ArrayList<Label> labellabelliste = new ArrayList<Label>();
 		for (int i = 0; i<labelarray.size();i++) {
 			switch (i) {
 				case 0: label0=new Label(labelarray.get(i));
+						label0.setFont(Font.font("Tahoma"));
 						labellabelliste.add(label0);
 						if (mehrfachwahl[i]) {
 							radioodercheck[i]='c';
 							cbs0 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs0.length;j++) {
 								cbs0[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
-								//paneliste0.get(j).getChildren().add(cbs0[j]);
+								cbs0[j].setFont(Font.font("Tahoma"));
 								cbs0[j].setVisible(true);
 							}
 						}
@@ -581,18 +566,20 @@ public class Hauptstage extends Stage {
 								rbs0[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs0[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs0[j].setToggleGroup(rbgroup0);
-								//paneliste0.get(j).getChildren().add(rbs0[j]);
+								rbs0[j].setFont(Font.font("Tahoma"));
 								rbs0[j].setVisible(true);
 							}
 						}
 						break;
 				case 1: label1=new Label(labelarray.get(i));
+						label1.setFont(Font.font("Tahoma"));
 						labellabelliste.add(label1);
 						if (mehrfachwahl[i]) {
 							radioodercheck[i]='c';
 							cbs1 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs1.length;j++) {
 								cbs1[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
+								cbs1[j].setFont(Font.font("Tahoma"));
 								cbs1[j].setVisible(true);
 							}
 						}
@@ -607,18 +594,20 @@ public class Hauptstage extends Stage {
 								rbs1[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs1[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs1[j].setToggleGroup(rbgroup1);
+								rbs1[j].setFont(Font.font("Tahoma"));
 								rbs1[j].setVisible(true);
 							}
 						}
 						break;
 				case 2: label2=new Label(labelarray.get(i));
+						label2.setFont(Font.font("Tahoma"));
 						labellabelliste.add(label2);
 						if (mehrfachwahl[i]) {
 							radioodercheck[i]='c';
 							cbs2 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs2.length;j++) {
 								cbs2[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));	
-								//paneliste2.get(j).getChildren().add(cbs2[j]);
+								cbs2[j].setFont(Font.font("Tahoma"));
 								cbs2[j].setVisible(true);
 							}
 						}
@@ -633,18 +622,20 @@ public class Hauptstage extends Stage {
 								rbs2[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs2[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs2[j].setToggleGroup(rbgroup2);
-								//paneliste2.get(j).getChildren().add(rbs2[j]);
+								rbs2[j].setFont(Font.font("Tahoma"));
 								rbs2[j].setVisible(true);
 							}
 						}
 						break;
 				case 3: label3=new Label(labelarray.get(i));
+						label3.setFont(Font.font("Tahoma"));
 						labellabelliste.add(label3);
 						if (mehrfachwahl[i]) {
 							radioodercheck[i]='c';
 							cbs3 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs3.length;j++) {
 								cbs3[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
+								cbs3[j].setFont(Font.font("Tahoma"));
 								cbs3[j].setVisible(true);
 							}
 						}
@@ -659,18 +650,20 @@ public class Hauptstage extends Stage {
 								rbs3[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs3[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs3[j].setToggleGroup(rbgroup3);
+								rbs3[j].setFont(Font.font("Tahoma"));
 								rbs3[j].setVisible(true);
 							}
 						}
 						break;
 				case 4: label4=new Label(labelarray.get(i));
+				label4.setFont(Font.font("Tahoma"));
 						labellabelliste.add(label4);
 						if (mehrfachwahl[i]) {
 							radioodercheck[i]='c';
 							cbs4 = new CheckBox[labels.get(labelarray.get(i)).size()];
 							for(int j = 0; j<cbs4.length;j++) {
 								cbs4[j]=new CheckBox(labels.get(labelarray.get(i)).get(j));
-								//paneliste4.get(j).getChildren().add(cbs4[j]);
+								cbs4[j].setFont(Font.font("Tahoma"));
 								cbs4[j].setVisible(true);
 							}
 						}
@@ -685,7 +678,7 @@ public class Hauptstage extends Stage {
 								rbs4[j]=new RadioButton(labels.get(labelarray.get(i)).get(j));
 								rbs4[j].setUserData(labels.get(labelarray.get(i)).get(j));
 								rbs4[j].setToggleGroup(rbgroup4);
-								//paneliste4.get(j).getChildren().add(rbs4[j]);
+								rbs4[j].setFont(Font.font("Tahoma"));
 								rbs4[j].setVisible(true);
 							}
 						}
@@ -694,27 +687,11 @@ public class Hauptstage extends Stage {
 						
 			}
 		}
-		/**
-		ArrayList<StackPane> panelistel = new ArrayList<StackPane>();
-		for (int i = 0; i<3; i++) {
-			StackPane pane = new StackPane();
-			pane.setStyle("-fx-background-color: lightgray;");
-			panelistel.add(pane);
-		}
-		*/
 		//Label ins GridPane einfügen
 		for(Integer i=0;i<labellabelliste.size();i++) {
-			/**if(i==0 || i==2 || i==4) {
-				panelistel.get(i/2).getChildren().add(labellabelliste.get(i));
-				GridPane.setColumnIndex(panelistel.get(i/2), 0);
-				GridPane.setRowIndex(panelistel.get(i/2), i);
-				teil3Ranking.getChildren().add(panelistel.get(i/2));
-			}
-			else { */
-				GridPane.setColumnIndex(labellabelliste.get(i), 0);
-				GridPane.setRowIndex(labellabelliste.get(i), i);
-				teil3Ranking.getChildren().add(labellabelliste.get(i));
-			/** } */
+			GridPane.setColumnIndex(labellabelliste.get(i), 0);
+			GridPane.setRowIndex(labellabelliste.get(i), i);
+			teil3Ranking.getChildren().add(labellabelliste.get(i));
 		}
 		for(int i=0;i<radioodercheck.length;i++) {
 			switch(i) {
@@ -824,19 +801,24 @@ public class Hauptstage extends Stage {
 		//Teil 4 - Absenden und Schriftgroeße
 		schriftgroesse = new HBox();
 		schrift = new Label("Schriftgröße");
+		schrift.setFont(Font.font("Tahoma"));
 		HBox.setHgrow(schrift, Priority.ALWAYS);
 		schriftplus = new Button("+");
+		schriftplus.setFont(Font.font("Tahoma"));
 		HBox.setHgrow(schriftplus, Priority.ALWAYS);
 		schriftminus = new Button("-");
+		schriftminus.setFont(Font.font("Tahoma"));
 		HBox.setHgrow(schriftminus, Priority.ALWAYS);
 		schriftplus.setPrefWidth(28);
 		schriftplus.setMinWidth(28);
 		schriftminus.setPrefWidth(28);
 		schriftminus.setMinWidth(28);
 		labelabsenden = new Button("Absenden");
+		labelabsenden.setFont(Font.font("Tahoma"));
 		HBox.setHgrow(labelabsenden, Priority.ALWAYS);
 		schriftgroesse.getChildren().addAll(schrift, hboxspaceri, schriftplus, hboxspacerj, schriftminus);
 		fehlermeldungHaupt = new Label("Bitte prüfen Sie, dass Sie jedes Label zugeordnet haben!");
+		fehlermeldungHaupt.setFont(Font.font("Tahoma"));
 		fehlermeldungHaupt.setVisible(false);
 		HBox.setHgrow(fehlermeldungHaupt, Priority.ALWAYS);
 		
@@ -844,7 +826,7 @@ public class Hauptstage extends Stage {
 		//fehlermeldungHaupt.setMaxWidth(343.0);
 		//fehlermeldungHaupt.setPrefWidth(343.0);
 		
-		teil4GroesseAbsenden.getChildren().addAll(schriftgroesse,fehlermeldungHaupt,labelabsenden);			
+		teil4GroesseAbsenden.getChildren().addAll(schriftgroesse,fehlermeldungHaupt,labelabsenden);	
 		
 		System.out.println(fehlermeldungHaupt.getWidth());
 		
@@ -1024,6 +1006,7 @@ public class Hauptstage extends Stage {
 		new ZeitEndeStage(fortschritt.getProgress());
 	}
 	
+	/**
 	public static double[][] getCurrentGrid(GridPane gp) {
 	    double[][] ret=new double [0][0];
 
@@ -1038,5 +1021,6 @@ public class Hauptstage extends Stage {
 
 	    return ret;
 	}
+	*/
 
 }

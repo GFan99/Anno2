@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class FertigStage extends Stage {
@@ -20,7 +21,9 @@ public class FertigStage extends Stage {
 			
 			AnchorPane endpane=new AnchorPane();
 			Label fertig = new Label("Sie haben alle Texte klassifiziert.");
+			fertig.setFont(Font.font("Tahoma"));
 			Button schliessen = new Button("Schliessen");
+			schliessen.setFont(Font.font("Tahoma"));
 
 			AnchorPane.setLeftAnchor(fertig, 25.0);
 			AnchorPane.setTopAnchor(fertig, 25.0);
@@ -28,8 +31,7 @@ public class FertigStage extends Stage {
 			AnchorPane.setTopAnchor(schliessen, 52.0);
 			endpane.getChildren().addAll(fertig, schliessen);
 			
-			Scene beenden = new Scene(endpane,250,105);
-			//beenden.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Scene beenden = new Scene(endpane,240,105);
 			
 			this.setScene(beenden);
 			this.show();
@@ -44,7 +46,6 @@ public class FertigStage extends Stage {
 			
 			this.setOnCloseRequest(event -> {
 			    System.out.println("Stage is closing");
-			    //Output.kontrollspeichern();
 			});
 			
 		} catch(Exception e) {

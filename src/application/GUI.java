@@ -57,10 +57,14 @@ public class GUI extends Application {
 			//erstellen des Pane und der Komponenten der "IDStage"
 			AnchorPane idpane = new AnchorPane();
 			Label idfrage = new Label("Bitte geben Sie ihre Nutzer-ID ein:");
+			idfrage.setFont(Font.font("Tahoma"));
 			TextField idtext = new TextField();
 			Button idok = new Button("OK");
+			idok.setFont(Font.font("Tahoma"));
 			Button neueid = new Button("ID erstellen");
+			neueid.setFont(Font.font("Tahoma"));
 			Label fehlermeldung = new Label();
+			fehlermeldung.setFont(Font.font("Tahoma"));
 			//VorzugsBreite fuer Textfeld setzen, damit gesamte ID sichtbar eingegeben werden kann
 			idtext.setPrefWidth(260.0);
 			
