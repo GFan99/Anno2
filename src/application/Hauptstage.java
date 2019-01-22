@@ -866,11 +866,11 @@ public class Hauptstage extends Stage {
 		Region[] streifen = new Region[5];
 		for (int i = 0; i< streifen.length; i++) {
 			streifen[i]=new Region();
-			streifen[i].setPrefWidth(830.0);
+			streifen[i].setPrefWidth(850.0);
 			streifen[i].setPrefHeight(18.0);
-			if (i%2==0) {
-			streifen[i].setStyle("-fx-background-color: lightgray;");
-			}
+			//if (i%2==0) {
+			streifen[i].setStyle("-fx-background-color: gainsboro;");
+			//}
 			AnchorPane.setLeftAnchor(streifen[i], 0.0);
 			AnchorPane.setTopAnchor(streifen[i], i*(19.0+4.0));
 			gestreift.getChildren().add(streifen[i]);
