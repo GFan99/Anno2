@@ -1,9 +1,7 @@
 Hash aus Benutzername von HS-Login bilden
 Groesse an Anzahl Label anpassen (30px * Anzahl Label abziehen)
-Fortschrittbalken bei erneuter oeffnung anpassen --> Input
 Pfad durch Property-Datei -->in JAR legen
 in Property: Pfad, Zeit
-optische Gruppen --> Grid Panel Zeilen alternierend einfaerben
 
 Beleg: Einleitung-->Evaluation(Goldstandard und deren Aufbau)
 				-->Anwendungsfall+Diagramm
@@ -14,4 +12,7 @@ Vortrag: Show mit Pr�sentation
 		UML zeigen
 		Anwendungsbeispiele
 		Anforderungen an Beispiel -->dann zur Lsg Programm pr�sentieren
-		
+
+done:
+optische Gruppen --> Grid Panel Zeilen alternierend einfaerben		
+Fortschrittbalken bei erneuter oeffnung anpassen --> Input
