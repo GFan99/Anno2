@@ -102,7 +102,7 @@ public class Hauptstage extends Stage {
 		prozent=(double)anzklassifizierte/klasse.getTexte().length;
 		this.fortschritt = new ProgressBar(prozent);
 		//int zeit = Input3.getTime();
-		Scene scene = this.erstelleScene(klassif.getLabel(), 2);
+		Scene scene = this.erstelleScene(klassif.getLabel(), 60);
 		this.setScene(scene);
 		this.show();
 		
@@ -845,6 +845,7 @@ public class Hauptstage extends Stage {
 		}
 		AnchorPane.setTopAnchor(teil3Ranking, 0.0);
 		AnchorPane.setLeftAnchor(teil3Ranking, 0.0);
+		teil3Ranking.setPadding(new Insets(0.0,5.0,0.0,5.0));
 		gestreift.getChildren().add(teil3Ranking);
 		teil3Ranking.setOpacity(50.0);
 		
