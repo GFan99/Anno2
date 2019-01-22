@@ -1,7 +1,10 @@
 package application;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,6 +12,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.xml.bind.JAXBContext;
@@ -43,7 +47,7 @@ public class Input3 {
 	 * Eine Methode, um den Dateipfad zur�ckzugeben in Abh�ngigkeit vom Betriebssystem.
 	 */
 	public static File pfadNachOS(String dateiname, String ordnername) {
-		String osName = System.getProperty("os.name");
+		/**String osName = System.getProperty("os.name");
 		if (osName.indexOf("Windows") != -1) {
 			String pfad = System.getProperty("user.home");//liefert Benutzerordner
 			if (dateiname!="") {
@@ -57,7 +61,35 @@ public class Input3 {
 				dateiname="/"+dateiname;
 			}
 			return new File(pfad+"/Anno/"+ordnername+dateiname);
+		}**/
+		
+		try {
+			Properties properties = new Properties();
+			BufferedInputStream stream;
+			String i=System.getProperty("file.separator");
+			FileInputStream fstream=new FileInputStream("."+i+"src"+i+"application"+i+"anno.properties");
+			System.out.println(System.getProperty("user.dir")+i+"src"+i+"application"+i+"anno.properties");
+			stream = new BufferedInputStream(fstream);
+			properties.load(stream);
+			stream.close();
+			fstream.close();
+			String pfad = properties.getProperty("pfad");//Slashes werden entfernt
+			System.out.println(pfad);
+			if (dateiname!="") {
+				dateiname=i+dateiname;
+			}
+			
+			return new File(pfad+i+ordnername+dateiname);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new File("");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new File("");
 		}
+		
 			
 		}
 	
