@@ -69,7 +69,7 @@ public class ZeitEndeStage extends Stage {
 		gameoverpane.setTop(spacero);
 		gameoverpane.setBottom(spaceru);
 			
-		Scene beenden = new Scene(gameoverpane,275,150);
+		Scene beenden = new Scene(gameoverpane,275,140);
 			
 		return beenden;
 	}
