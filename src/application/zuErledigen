@@ -1,7 +1,8 @@
-Hash aus Benutzername von HS-Login bilden
-Breite an Label anpassen 
-Pfad durch Property-Datei -->in JAR legen
-in Property: Pfad, Zeit
+-> Hash aus Benutzername von HS-Login bilden
+-> Breite an Label anpassen 
+-> Pfad durch Property-Datei -->in JAR legen
+	in Property: Pfad, Zeit
+-> teil1Daten u teil4GroesseAbsenden Breite nochmal anpassen
 
 Beleg: Einleitung-->Evaluation(Goldstandard und deren Aufbau)
 				-->Anwendungsfall+Diagramm
