@@ -1,6 +1,5 @@
 Laura:
--> Pfad durch Property-Datei -->in JAR legen
-	in Property: Pfad, Zeit
+
 Susanna:
 -> teil1Daten u teil4GroesseAbsenden Breite nochmal anpassen
 -> Breite Streifen an Label anpassen 
@@ -22,3 +21,5 @@ done:
 optische Gruppen --> Grid Panel Zeilen alternierend einfaerben		
 Fortschrittbalken bei erneuter oeffnung anpassen --> Input
 Höhe und Streifenanzahl an Label angepasst
+-> Pfad durch Property-Datei -->in JAR legen
+	in Property: Pfad, Zeit
