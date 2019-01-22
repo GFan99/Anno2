@@ -265,22 +265,7 @@ public class Hauptstage extends Stage {
 					   
 					   //ProgressBar updaten
 					   texteklassi++;
-					   
-					   System.out.println("texteklassi:    "+texteklassi);
-					   System.out.println("texteges:     "+texteges);
-					   System.out.println("(double) texteklassi/texteges:   "+(double)texteklassi/texteges);
 					   prozent=(double)texteklassi/texteges;
-					   System.out.println("Wert prozent:    "+prozent);
-					   
-					   System.out.print("ist javafx appli thread:   ");
-					   System.out.println(Platform.isFxApplicationThread());
-					   //fortschritt = new ProgressBar(prozent);
-					   //System.out.println("getProgress:      "+fortschritt.getProgress());
-					   //System.out.println("isVisible:      "+fortschritt.isVisible());
-					   
-					   //Scene s = updateScene(timerlabel.getText(),prozent);
-					   //setScene(s);
-					   
 					   fortschritt.setProgress(prozent);
 					   Output.schreibeWerte(klassif,teil2Textarea.getText() , ergebnis);
 					   
@@ -289,7 +274,6 @@ public class Hauptstage extends Stage {
 					   String neuertext2 = neuertext[1];
 					   if (neuertext2 == "") {
 						   close();
-						   //Output.schreibexml();
 						   new FertigStage();
 						   return;
 					   }
@@ -366,14 +350,16 @@ public class Hauptstage extends Stage {
 			   } 
 		}; 
 		labelabsenden.addEventFilter(MouseEvent.MOUSE_CLICKED, pruefenuabsenden);
-		//start();
 	}
 
-	//initalisiert die Scene, die die Darstellung der Stage bestimmt
+	/**
+	 * Methode, die die Scene - und damit das Aussehen der Stage - initialisiert
+	 */
 	public  Scene erstelleScene(LinkedHashMap<String,ArrayList<String>> labels) {   
 		// Groesse der Scene
+		int ywith5labels = 600;
 		x = 935;
-		y = 600;
+		y = ywith5labels + (labels.size()-5)*30;
 		
 		// Spacer fuer gesamtes Pane
 		vboxspacer0 = new Region();
@@ -863,7 +849,7 @@ public class Hauptstage extends Stage {
 		System.out.println(fehlermeldungHaupt.getWidth());
 		
 		AnchorPane gestreift = new AnchorPane();
-		Region[] streifen = new Region[5];
+		Region[] streifen = new Region[labels.size()];
 		for (int i = 0; i< streifen.length; i++) {
 			streifen[i]=new Region();
 			streifen[i].setPrefWidth(850.0);
@@ -890,12 +876,12 @@ public class Hauptstage extends Stage {
 		Scene klassi = new Scene(klasspane,x,y);
 		//klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
-		System.out.println("Padding: "+teil3Ranking.getPadding());
-		System.out.println("Hgap: "+teil3Ranking.getHgap());
-		System.out.println("Vgap: "+teil3Ranking.getVgap());
+		System.out.println("rankinggrid-Padding: "+teil3Ranking.getPadding());
+		System.out.println("rankinggrid-Hgap: "+teil3Ranking.getHgap());
+		System.out.println("rankinggrid-Vgap: "+teil3Ranking.getVgap());
 		//double[][] grid = teil3Ranking.getGrid();
-		System.out.println("height: "+teil3Ranking.getHeight());
-		System.out.println("width: "+klasspane.getWidth());
+		System.out.println("rankinggrid-height: "+teil3Ranking.getHeight());
+		System.out.println("rankinggrid-width: "+teil3Ranking.getWidth());
 		//System.out.println("Column span 1: "+GridPane.getColumnSpan(rbs0[0]));
 		//System.out.println("Column span 2: "+GridPane.getColumnSpan(rbs0[1]));
 		//System.out.println("Column span 3: "+GridPane.getColumnSpan(rbs0[2]));

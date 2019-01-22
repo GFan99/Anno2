@@ -1,5 +1,5 @@
 Hash aus Benutzername von HS-Login bilden
-Groesse an Anzahl Label anpassen (30px * Anzahl Label abziehen)
+Breite an Label anpassen 
 Pfad durch Property-Datei -->in JAR legen
 in Property: Pfad, Zeit
 
@@ -16,3 +16,4 @@ Vortrag: Show mit Pr�sentation
 done:
 optische Gruppen --> Grid Panel Zeilen alternierend einfaerben		
 Fortschrittbalken bei erneuter oeffnung anpassen --> Input
+Höhe und Streifenanzahl an Label angepasst
