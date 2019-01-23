@@ -101,8 +101,8 @@ public class Hauptstage extends Stage {
 		this.texteklassi=anzklassifizierte;
 		prozent=(double)anzklassifizierte/klasse.getTexte().length;
 		this.fortschritt = new ProgressBar(prozent);
-		//int zeit = Input3.getTime();
-		Scene scene = this.erstelleScene(klassif.getLabel(), 60);
+		int zeit = Input3.getTime();
+		Scene scene = this.erstelleScene(klassif.getLabel(), zeit);
 		this.setScene(scene);
 		this.show();
 		
@@ -387,13 +387,14 @@ public class Hauptstage extends Stage {
 		//hboxspacer1.setPrefWidth(40);
 		//HBox.setHgrow(hboxspacer1, Priority.ALWAYS);
 		
-		//Spacer fuer teil1Daten
+		/**Spacer fuer teil1Daten
 		Region hboxspacerx = new Region();
-		hboxspacerx.setPrefWidth(20.0);
-		//HBox.setHgrow(hboxspacerx, Priority.ALWAYS);
+		hboxspacerx.setPrefWidth(185.0);
+		HBox.setHgrow(hboxspacerx, Priority.NEVER);
 		Region hboxspacery = new Region();
-		hboxspacery.setPrefWidth(20.0);
-		//HBox.setHgrow(hboxspacery, Priority.ALWAYS);
+		hboxspacery.setPrefWidth(185.0);
+		HBox.setHgrow(hboxspacery, Priority.NEVER);
+		*/
 		
 		//Spacer fuer Textgroessen-Buttons
 		Region hboxspaceri = new Region();
@@ -426,10 +427,12 @@ public class Hauptstage extends Stage {
 		//Teil1 - obere Zeile der Anzeige
 		Label idanzeige = new Label("Nutzer-ID: "+nutzerstring);
 		idanzeige.setFont(Font.font("Tahoma"));
+		idanzeige.setMinWidth(200);
 		HBox.setHgrow(idanzeige, Priority.ALWAYS);
 		//ProgressBar fortschritt = new ProgressBar(0.01);
 		//fortschritt.impl_updatePeer();
 		fortschritt.setPrefWidth(300);
+		fortschritt.setMinWidth(300);
 		HBox.setHgrow(fortschritt, Priority.ALWAYS);
 		//fortschritt.setProgress(0.01);
 		if ((texteklassi/texteges) > 0) {
@@ -443,6 +446,7 @@ public class Hauptstage extends Stage {
 		timerlabel.setFont(Font.font("Tahoma"));
 		int timeinmin = erlaubtezeit;
 		timerlabel.setText(timeinmin+":00");
+		timerlabel.setMinWidth(41);
 		HBox.setHgrow(timerlabel, Priority.ALWAYS);
 		
 		setOnShowing(new EventHandler<WindowEvent>() {
@@ -485,8 +489,13 @@ public class Hauptstage extends Stage {
 		    }
 		});
 		
+		//teil1Daten.getChildren().addAll(idanzeige, hboxspacerx, fortschritt, hboxspacery, timerlabel);
 		teil1Daten.getChildren().addAll(idanzeige, fortschritt, timerlabel);
 		teil1Daten.setPrefWidth(850);
+		teil1Daten.setMinWidth(850.0);
+		teil1Daten.setMaxWidth(850.0);
+		System.out.println("idanzeige   "+idanzeige.getWidth());
+		System.out.println("timerlabel  "+timerlabel.getWidth());
 		
 		
 		//Teil2 - scrollabe TextArea
@@ -514,7 +523,6 @@ public class Hauptstage extends Stage {
 		//LinkedHashMap<String,ArrayList<String>> labels mit Labelname als Key und Auswahlmoegl. als Value
 		teil3Ranking = new GridPane();
 		//teil3Ranking.setGridLinesVisible(true);
-		Color c = Color.rgb(173, 173, 173);
 		rbs0 = new RadioButton[0];
 		rbs1 = new RadioButton[0];
 		rbs2 = new RadioButton[0];
@@ -815,18 +823,23 @@ public class Hauptstage extends Stage {
 		schriftminus.setMinWidth(28);
 		labelabsenden = new Button("Absenden");
 		labelabsenden.setFont(Font.font("Tahoma"));
+		labelabsenden.setMinWidth(77);
 		HBox.setHgrow(labelabsenden, Priority.ALWAYS);
 		schriftgroesse.getChildren().addAll(schrift, hboxspaceri, schriftplus, hboxspacerj, schriftminus);
+		schriftgroesse.setMinWidth(135);
+		HBox.setHgrow(schriftgroesse, Priority.ALWAYS);
 		fehlermeldungHaupt = new Label("Bitte prüfen Sie, dass Sie jedes Label zugeordnet haben!");
 		fehlermeldungHaupt.setFont(Font.font("Tahoma"));
 		fehlermeldungHaupt.setVisible(false);
 		HBox.setHgrow(fehlermeldungHaupt, Priority.ALWAYS);
 		
-		//fehlermeldungHaupt.setMinWidth(343.0);
+		fehlermeldungHaupt.setMinWidth(343.0);
 		//fehlermeldungHaupt.setMaxWidth(343.0);
 		//fehlermeldungHaupt.setPrefWidth(343.0);
 		
 		teil4GroesseAbsenden.getChildren().addAll(schriftgroesse,fehlermeldungHaupt,labelabsenden);	
+		teil4GroesseAbsenden.setPrefWidth(850);
+		teil4GroesseAbsenden.setMinWidth(850);teil4GroesseAbsenden.setMaxWidth(850);
 		
 		System.out.println(fehlermeldungHaupt.getWidth());
 		

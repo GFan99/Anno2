@@ -261,7 +261,7 @@ public class Input3 {
 	 * Die Methode liest die vorgegebene Zeit aus dem Property File
 	 * und gibt diese zurueck.
 	 */
-	public int getTime() {
+	public static int getTime() {
 		try {
 			Properties properties = new Properties();
 			BufferedInputStream stream;

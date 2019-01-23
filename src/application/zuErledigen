@@ -1,8 +1,8 @@
 Laura:
 
 Susanna:
--> teil1Daten u teil4GroesseAbsenden Breite nochmal anpassen
--> Breite Streifen an Label anpassen 
+del -> Breite Streifen an Label anpassen 
+
 Zusatz:
 -> Hash aus Benutzername von HS-Login bilden
 
@@ -18,8 +18,10 @@ Vortrag: Show mit Pr�sentation
 		Anforderungen an Beispiel -->dann zur Lsg Programm pr�sentieren
 
 done:
-optische Gruppen --> Grid Panel Zeilen alternierend einfaerben		
-Fortschrittbalken bei erneuter oeffnung anpassen --> Input
-Höhe und Streifenanzahl an Label angepasst
+-> optische Gruppen --> Grid Panel Zeilen alternierend einfaerben		
+-> Fortschrittbalken bei erneuter oeffnung anpassen --> Input
+-> Höhe und Streifenanzahl an Label angepasst
 -> Pfad durch Property-Datei -->in JAR legen
 	in Property: Pfad, Zeit
+-> teil1Daten u teil4GroesseAbsenden Breite nochmal anpassen
+-> Zeit auf PropertyList abstimmen
