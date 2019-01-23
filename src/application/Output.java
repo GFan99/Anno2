@@ -11,9 +11,6 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.*;
-
-import org.w3c.dom.*;
 
 import de.bioforscher.fosil.dataformatter.AnnotationItem;
 import de.bioforscher.fosil.dataformatter.DataEntity;
@@ -38,6 +35,7 @@ public class Output {
 		    	
 		    File file = Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe");
 		    
+		    //wenn File mit RaterID noch nicht vorhanden
 		    if (file.exists()==false) {
 		    	
 			    JAXBContext jContextneu = JAXBContext.newInstance(DataEntity.class);
@@ -45,6 +43,93 @@ public class Output {
 			    marshallObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			    DataEntity dataEntity= new DataEntity();
 			    List<TextEntity> textlst=new ArrayList<TextEntity>();
+			    TextEntity textEntityneu= new TextEntity();
+			    
+				textEntityneu.setRaterID(klassif.getNutzerID());
+				textEntityneu.setText(text);
+				
+				String[][] texte=klassif.getTexte();
+				String id="";
+				int length=texte.length;
+				
+				//TextID auslesen
+				for (int i = 0; i <length; i++) {
+					String text1=texte[i][1];
+				     if (text1.substring(5).equals(text)) {
+				    	 id=String.valueOf(i);
+				     }
+				}
+				textEntityneu.setTextID(id);
+				
+				
+				HashMap<String,ArrayList<String>> labelmap =klassif.getLabel();
+				String[] labelname=new String[labelmap.size()];
+				int[] anzButton=new int[labelmap.size()];
+				int k=0;
+				
+				//Bezeichnung der Label in Liste schreiben und wie viele Buttons Label hat (fuer spaetere Auswertung)
+				for(String key : labelmap.keySet()) {
+					labelname[k]=key;
+					anzButton[k]=labelmap.get(key).size()+1;
+					k++;
+				}
+				
+				List<AnnotationItem> annolst=new ArrayList<AnnotationItem>();
+				
+				//fuer jedes Label annoItem und Label erstellen
+				for (int i=0; i<klassif.getLabel().size();i++) {
+					AnnotationItem annoItem=new AnnotationItem();
+					Label label=new Label();
+					label.setName(labelname[i]);
+					int anzahl= anzButton[i];
+					
+					//ergebnis auswerten und in Label schreiben
+					String erg=ergebnis.get(i);
+					
+					//auswerten(String,String, int) aufrufen, wenn 100 zurueckgegeben wird term schreiben
+					int wert=auswerten(erg,anzahl);
+					if (wert!=100) {
+						BigInteger bi=BigInteger.valueOf(wert);
+						label.setClassRating(bi);
+					}
+					else {
+						label.setClassTerms(erg);;
+					}
+						
+					annoItem.setLabel(label);
+					annolst.add(annoItem);
+					}
+				
+				textEntityneu.setAnnolst(annolst);
+				
+				textlst.add(textEntityneu);
+				
+				dataEntity.setTextlst(textlst);
+				
+				 OutputStream os = new FileOutputStream(Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe"));
+			     marshallObj.marshal(dataEntity, os );
+			     os.close();
+		    }
+		
+		   //wenn File mit RaterID bereits vorhanden
+		    else {
+			   		   
+			    JAXBContext jContextneu = JAXBContext.newInstance(DataEntity.class);
+			    
+			    Unmarshaller unmarshObj = jContextneu.createUnmarshaller();
+			    DataEntity dataEntityalt= (DataEntity) unmarshObj.unmarshal(file);
+			    List<TextEntity> textlst=new ArrayList<TextEntity>();
+			    
+			    //bereits vorhandene TextEntities werden eingelesen und in Liste geschrieben
+			    for(TextEntity textEntity: dataEntityalt.getTextlst()) {
+			    	textlst.add(textEntity);
+			    }
+			    
+			    Marshaller marshallObj = jContextneu.createMarshaller();
+			    marshallObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			    DataEntity dataEntity= new DataEntity();
+			    
+			    //neue TextEntity wird erzeugt, Werte zugewiesen und zu Liste hinzugefügt
 			    TextEntity textEntityneu= new TextEntity();
 			    
 				textEntityneu.setRaterID(klassif.getNutzerID());
@@ -88,90 +173,7 @@ public class Output {
 					//ergebnis auswerten und in Label schreiben
 					String erg=ergebnis.get(i);
 					
-					//auswerten(String,String, int) aufrufen, wenn 100 zurueckgegeben wird term schreiben
-					int wert=auswerten(erg,anzahl);
-					if (wert!=100) {
-						BigInteger bi=BigInteger.valueOf(wert);
-						label.setClassRating(bi);
-					}
-					else {
-						label.setClassTerms(erg);;
-					}
-						
-					annoItem.setLabel(label);
-					annolst.add(annoItem);
-					}
-				textEntityneu.setAnnolst(annolst);
-				
-				textlst.add(textEntityneu);
-				
-				dataEntity.setTextlst(textlst);
-				
-				 OutputStream os = new FileOutputStream(Input3.pfadNachOS(klassif.getNutzerID()+".xml", "Ausgabe"));
-			     marshallObj.marshal(dataEntity, os );
-			     os.close();
-		    }
-		
-		   else {
-			   		   
-			    JAXBContext jContextneu = JAXBContext.newInstance(DataEntity.class);
-			    
-			    Unmarshaller unmarshObj = jContextneu.createUnmarshaller();
-			    DataEntity dataEntityalt= (DataEntity) unmarshObj.unmarshal(file);
-			    List<TextEntity> textlst=new ArrayList<TextEntity>();
-			    
-			    for(TextEntity textEntity: dataEntityalt.getTextlst()) {
-			    	textlst.add(textEntity);
-			    }
-			    
-			    Marshaller marshallObj = jContextneu.createMarshaller();
-			    marshallObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			    DataEntity dataEntity= new DataEntity();
-			    
-			    TextEntity textEntityneu= new TextEntity();
-			    
-				textEntityneu.setRaterID(klassif.getNutzerID());
-				textEntityneu.setText(text);
-				
-				String[][] texte=klassif.getTexte();
-				String id="";
-				int length=texte.length;
-				
-				//TextID auslesen
-				for (int i = 0; i <length; i++) {
-					String text1=texte[i][1];
-				     if (text1.substring(5).equals(text)) {
-				    	 id=String.valueOf(i);
-				     }
-				}
-				textEntityneu.setTextID(id);
-				
-				
-				HashMap<String,ArrayList<String>> labelmap =klassif.getLabel();
-				String[] labelname=new String[labelmap.size()];
-				int[] anzButton=new int[labelmap.size()];
-				int k=0;
-				
-				//Bezeichnung der Label in Liste schreiben und wie viele Buttons Label hat(fuer spaetere Auswertung)
-				for(String key : labelmap.keySet()) {
-					labelname[k]=key;
-					anzButton[k]=labelmap.get(key).size()+1;
-					k++;
-				}
-				
-				List<AnnotationItem> annolst=new ArrayList<AnnotationItem>();
-				
-				//fï¿½r jedes Label annoItem und Label erstellen
-				for (int i=0; i<klassif.getLabel().size();i++) {
-					AnnotationItem annoItem=new AnnotationItem();
-					Label label=new Label();
-					label.setName(labelname[i]);
-					int anzahl= anzButton[i];
-					
-					//ergebnis auswerten und in Label schreiben
-					String erg=ergebnis.get(i);
-					
-					//auswerten(String,String, int) aufrufen, wenn 100 zurueckgegeben wird term schreiben
+					//auswerten(String,String, int) aufrufen, wenn 100 zurueckgegeben wird term schreiben, ansonsten repraesentative Zahl
 					int wert=auswerten(erg,anzahl);
 					if (wert!=100) {
 						BigInteger bi=BigInteger.valueOf(wert);

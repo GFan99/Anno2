@@ -42,22 +42,26 @@ public class Input3 {
 	private static ArrayList<Labelobjekt> labelobjekte= new ArrayList<>();
 	
 	/**
-	 * Eine Methode, um den Dateipfad zur�ckzugeben in Abh�ngigkeit vom Betriebssystem.
+	 * Eine Methode, um den Dateipfad zurueckzugeben in Abhaengigkeit vom Betriebssystem.
 	 */
 	public static File pfadNachOS(String dateiname, String ordnername) {
 		
 		try {
 			Properties properties = new Properties();
 			BufferedInputStream stream;
+			
+			//Trennzeichen je nach Betriebssystem
 			String i=System.getProperty("file.separator");
+			
+			//Property-File einlesen
 			FileInputStream fstream=new FileInputStream("."+i+"src"+i+"application"+i+"anno.properties");
-			System.out.println(System.getProperty("user.dir")+i+"src"+i+"application"+i+"anno.properties");
 			stream = new BufferedInputStream(fstream);
 			properties.load(stream);
 			stream.close();
 			fstream.close();
+			
+			//Pfad auslesen und ggf. Dateiname anhaengen
 			String pfad = properties.getProperty("pfad");
-			System.out.println(pfad);
 			if (dateiname!="") {
 				dateiname=i+dateiname;
 			}
@@ -76,14 +80,15 @@ public class Input3 {
 	
 	/**
 	 * Eine Methode, um die Eigenschaft der Labels aus den Labelobjekten auszulesen und
-	 * als boolean[] zur�ckzugeben.
-	 * (D�rfen mehrere M�glichkeiten angeklickt werden?)
+	 * als boolean[] zurueckzugeben.
+	 * (Duerfen mehrere Moeglichkeiten angeklickt werden?)
 	 */
 	public static boolean[] labelEigenschaft(){
 		try {
 					
 			boolean[] eigenschaften=new boolean[labelobjekte.size()];
 			
+			//labelobjekte auslesen und in Array schreiben
 			for(int i=0; i<labelobjekte.size();i++) {
 				Labelobjekt objekt=labelobjekte.get(i);
 				eigenschaften[i]=objekt.isEigenschaft();
@@ -101,8 +106,8 @@ public class Input3 {
 	
 	/**
 	 * Eine Methode, um die Label und deren Beschriftung aus der XML-Datei auszulesen 
-	 * und als LinkedHashMap<String,ArrayList<String>> zur�ckzugeben.
-	 * Zudem wird labelobjekte,welche in labelEigenschaft() verwendet wird, gef�llt.
+	 * und als LinkedHashMap<String,ArrayList<String>> zurueckzugeben.
+	 * Zudem wird labelobjekte, welche in labelEigenschaft() verwendet wird, gefuellt.
 	 */
 	public static LinkedHashMap<String,ArrayList<String>> labelLesen(){
 		try {
@@ -159,6 +164,7 @@ public class Input3 {
 			    
 			   	}
 			
+			//labelobjekte fuellen
 			int i=0;
 			Set keys = label.keySet();
 			Iterator it = keys.iterator();
@@ -191,6 +197,7 @@ public class Input3 {
 			File[] dateien =pfadNachOS(dateiname,ordnername).listFiles();
 			String[][] texte= new String[dateien.length][2];
 			
+			//Textdateien auslesen und in zweisimensionales Array mit TextID schreiben
 			for (int i=0; i<dateien.length; i++) {
 				BufferedReader br = new BufferedReader(new FileReader(dateien[i]));
 				String line = br.readLine();
@@ -214,13 +221,15 @@ public class Input3 {
 	
 	/**
 	 * Eine Methode, welche ein String-Array mit allen bereits vorhandenen Nutzer-IDs
-	 * zur�ckzugeben, indem der Dateiname der bereits vorhanden XML-Dateien ausgelesen wird.
+	 * zurueckzugeben, indem der Dateiname der bereits vorhanden XML-Dateien ausgelesen wird.
 	 */
 	public static String[] vorhandeneIDs() {
 		String dateiname="";
 		String ordnername="Ausgabe";
 		File[] dateien =pfadNachOS(dateiname,ordnername).listFiles();
 		String[] vorhandeneIDs =new String[dateien.length];
+		
+		//Namen der vorhandenen Dateien einlesen, .xml abschneiden und in Array schreiben
 		for(int i=0; i<dateien.length; i++) {
 			String name=dateien[i].getName();
 			vorhandeneIDs[i]=name.replace(".xml","");
@@ -244,6 +253,7 @@ public class Input3 {
 		    DataEntity dataEntityalt= (DataEntity) unmarshObj.unmarshal(pfadNachOS(dateiname, ordnername));
 		    ArrayList<Integer> vorhandeneTexte=new ArrayList<Integer>();
 		    
+		    //fuer alle vorhandenen TextEntities die TextID auslesen und in Liste schreiben
 		    for(TextEntity textEntity: dataEntityalt.getTextlst()) {
 		    	String textid=textEntity.getTextID();
 		    	vorhandeneTexte.add(Integer.valueOf(textid));
@@ -265,22 +275,25 @@ public class Input3 {
 		try {
 			Properties properties = new Properties();
 			BufferedInputStream stream;
+			
+			//Trennzeichen je nach Betriebssystem
 			String i=System.getProperty("file.separator");
+			
+			//Property-File einlesen
 			FileInputStream fstream=new FileInputStream("."+i+"src"+i+"application"+i+"anno.properties");
-			System.out.println(System.getProperty("user.dir")+i+"src"+i+"application"+i+"anno.properties");
 			stream = new BufferedInputStream(fstream);
 			properties.load(stream);
 			stream.close();
 			fstream.close();
+			
+			//Zeit auslesen
 			int zeit = Integer.parseInt(properties.getProperty("zeit"));
 			
 			return zeit;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
 		}
