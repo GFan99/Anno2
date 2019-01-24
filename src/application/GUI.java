@@ -59,6 +59,7 @@ public class GUI extends Application {
 			Label idfrage = new Label("Bitte geben Sie ihre Nutzer-ID ein:");
 			idfrage.setFont(Font.font("Tahoma"));
 			TextField idtext = new TextField();
+			idtext.setFont(Font.font("Tahoma"));
 			Button idok = new Button("OK");
 			idok.setFont(Font.font("Tahoma"));
 			Button neueid = new Button("ID erstellen");

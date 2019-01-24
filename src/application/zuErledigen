@@ -1,4 +1,6 @@
 Laura:
+uml -> Hauptstage.vboxspacer entfernen
+	-> FertigStage.schliessen hinzufügen
 
 Susanna:
 del -> Breite Streifen an Label anpassen 

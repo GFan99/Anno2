@@ -1,20 +1,14 @@
 package application;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.Set;
-
-import javax.swing.GroupLayout.Alignment;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -26,73 +20,106 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
+/**
+ * In dieser Klasse ist der Teil der GUI programmiert, der die meiste Zeit fuer den Nutzer sichtbar ist - also dass 
+ * "Klassifizierungs-Fenster". Das Layout ist hauptsaechlich in 4 Abschnitte unterteilt, welche senkrecht im Fenster
+ * angeordnet sind. Im ersten Teil (HBox teil1daten) befinden sich die Label zur Anzeige der Nutzer-ID und der Bear-
+ * beitungszeit, sowie der Fortschrittsbalken. Im zweiten Abschnitt (ScrollPane teil2Texthalter) werden nacheinander
+ * die zu klassifizierenden Texte angezeigt. Im dritten Teil (GridPane teil3Ranking) sind die Label, sowie die Check-
+ * Boxen und RadioButtons mit denen der Nutzer den Labeln ihre Werte zuordnen kann. Der letze Abschnitt (HBox 
+ * teil4GroesseAbsenden) beinhaltet Buttons zum Aendern der Schriftgroesse, einen Button zu Absenden der eingegebenen
+ * Labelwerte, sowie einen Bereich zur Anzeige einer Fehlermeldung.
+ * Im Folgenden ist der Quellcode bestmoeglich nach diesen vier Abschnitten sortiert, um die Uebersicht zu wahren.
+ * 
+ * @author becksusanna
+ */
 public class Hauptstage extends Stage {
 
+	/*
+	 * Der Klassifikator speichert die Texte und Label und bietet Zugriff auf diese, ohne
+	 * dass sie jedes mal ueber Input3 neu eingelesen werden muessen. Da die Anzahl der 
+	 * Texte insgegesamt und die Anzahl der bereits klassifizierten Texte hier oefter auf-
+	 * gerufen werden um den Fortschrittsbalken zu aktualisieren, werden sie in dieser 
+	 * noch mal als eigenstaendige Variablen gespeichert.  
+	 */
 	private Klassifikator klassif;
 	private int texteges;
 	private int texteklassi;
 	
+	//Das Klasspane beinhaltet die vier oben beschriebenen Teile und x und y geben die 
+	//Groesse des Panes. Sie sind nicht final gesetzt, da sie von der Anzahl der Label 
+	//abhaengig sind (s.u.).
 	private VBox klasspane;
 	private int x, y;
 	
-	private HBox teil1Daten; 				//Leiste für Teil 1
+	//Panes fuer die vier Teile
+	private HBox teil1Daten; 				//Teil 1 - "Daten-Leiste" --> ID, Fortschritt, Timer
 	private ScrollPane teil2Texthalter;		//Teil 2 - scrollable textarea
-	private GridPane teil3Ranking;			//Teil 3 - Wertungssystem (tabellenfoermige Anordnung)
-	private HBox teil4GroesseAbsenden;		//Teil 4 - Buttons werden links und rechts angezeigt
-	
-	private Region vboxspacer0,vboxspacer1,vboxspacer2,vboxspacer3,vboxspacer4;
+	private GridPane teil3Ranking;			//Teil 3 - Labelwertungssystem (tabellenfoermige Anordnung)
+	private HBox teil4GroesseAbsenden;		//Teil 4 - Schriftgroessen-Buttons u Absenden-Button links und rechts, mittig Fehlermeldung
 	
 	//Teil1
 	private ProgressBar fortschritt;
-	private Timeline timeline;
+	private Timeline timeline;				//timeline "steuert" den Timer
 	private int timeinsec;
-	
-	private double prozent;
+	private double prozent;					//prozent gibt den Fortschritt in prozent -> "Wert" der ProgressBar
 	
 	//Teil2
-	private TextArea teil2Textarea;
+	private TextArea teil2Textarea;			//Feld in dem Text angezeigt wird
 	
 	//Teil3
+	
+	//Namen der Label werden in Form von Labeln angezeigt
 	private Label label0, label1, label2, label3, label4;
+	//Arrays von CheckBoxen bzw. RadioButtons je Label (0 bis 4)
 	private RadioButton[] rbs0, rbs1, rbs2, rbs3, rbs4;
 	private CheckBox[] cbs0, cbs1, cbs2, cbs3, cbs4;
+	//ToggleGroups "vereinen" die RadioButtons in Gruppen, sodass immer nur einer ausgewaehlt sein kann,
+	//eine Gruppe pro Label noetig (0 bis 4)
 	private ToggleGroup rbgroup0, rbgroup1, rbgroup2, rbgroup3, rbgroup4;
+	//zwei Arrays, die zu jedem Label speichern, ob RadioButtons oder CheckBoxen
+	//initialisiert wurden. (Wert-Erklaerungen siehe unten)
 	private char[] radioodercheck;
 	private boolean[] mehrfachwahl;
+	
+	//Liste, die Labelnamen beinhaltet
 	private ArrayList<String> labelarray;
+	//Variablen, die beim Auslesen der gewaehlten RadioButtons und Checkboxen helfen
 	private boolean[] b0, b1, b2, b3, b4;
 	private int boolz0, boolz1, boolz2, boolz3, boolz4;
+	//"Hilfs-RadioButtons", damit es bei (Neu-)Initialisierung, der RadioButtons so aussieht als waere 
+	//keiner ausgewaehlt (sind Teil der ToggleGroups rbgroup0 - rbgroup4) Je ToggleGroup darf naemlich
+	//immer nur genau ein RadioButton auf 'selected' gesetzt werden darf, also auch nicht keiner, was
+	//diese HilfsButtons erforderlich macht.
 	private RadioButton rb0x, rb1x, rb2x, rb3x, rb4x;
 	
 	//Teil4
 	private HBox schriftgroesse;
+	//die folgenden drei Elemente sind Teil der HBox schriftgroesse:
 	private Label schrift;
 	private Button schriftplus;
 	private Button schriftminus;
+	//die anderen zwei Elemente von Teil 4:
 	private Button labelabsenden;
 	private Label fehlermeldungHaupt;
+	//sgroesse speichert dauerhaft die aktuelle Schriftgroesse, sodass diese auf ein Max/Minimum 
+	//beschraenkbar ist
 	private int sgroesse;
+	
 	
 	/**
 	 * Der Konstruktor der Klasse Hauptstage erzeugt ein Stage-Objekt, welches auch gleich 
-	 * einer javafx-Scene hinzugefuegt und dann angezeigt wird.
+	 * eine javafx-Scene zugeordnet bekommt und dann angezeigt wird.
 	 */
 	public Hauptstage(Klassifikator klasse, int anzklassifizierte) {
 		super();
@@ -101,16 +128,17 @@ public class Hauptstage extends Stage {
 		this.texteklassi=anzklassifizierte;
 		prozent=(double)anzklassifizierte/klasse.getTexte().length;
 		this.fortschritt = new ProgressBar(prozent);
-		int zeit = Input3.getTime();
+		int zeit = Input3.getTime();	//Einlesen der erlaubten Zeit aus der Property-Datei
+		//"Bau" der Scene, Zuordnung zur Stage u anzeigen Stage
 		Scene scene = this.erstelleScene(klassif.getLabel(), zeit);
 		this.setScene(scene);
 		this.show();
 		
-		//Eventhandler für den '+'-Button, mit dem sich die Schriftgroesse verandern laesst
+		//Eventhandler fuer den '+'-Button, mit dem sich die Schriftgroesse veraendern laesst
 		EventHandler<MouseEvent> schriftgroesseplus = new EventHandler<MouseEvent>() { 
 		   @Override 
 		   public void handle(MouseEvent e) { 
-			   //Schrift soll nicht sinnlos gross werden, daher auf 24 begrenzt
+			   //Schrift soll nicht zu gross werden, daher auf 24 begrenzt
 			   if (sgroesse <=24) {
 				   sgroesse = sgroesse+2;
 				   teil2Textarea.setFont(Font.font("Courier New", sgroesse));
@@ -119,10 +147,12 @@ public class Hauptstage extends Stage {
 		};
 		schriftplus.addEventFilter(MouseEvent.MOUSE_CLICKED, schriftgroesseplus);
 		
+		//Eventhandler fuer den '-'-Button, mit dem sich die Schriftgroesse veraendern laesst
 		EventHandler<MouseEvent> schriftgroesseminus = new EventHandler<MouseEvent>() { 
 			@Override 
 			public void handle(MouseEvent e) { 
-			   if (sgroesse >=10) {
+				//Schrift soll nicht zu klein werden, daher nach unten auf 10 begrenzt
+				if (sgroesse >=10) {
 				   sgroesse = sgroesse-2;
 				   teil2Textarea.setFont(Font.font("Courier New", sgroesse));
 			   }
@@ -130,23 +160,28 @@ public class Hauptstage extends Stage {
 		};
 		schriftminus.addEventFilter(MouseEvent.MOUSE_CLICKED, schriftgroesseminus);
 		
-		this.setOnCloseRequest(event -> {
-		    System.out.println("Stage is closing");
-		});
-		
+		//Eventhandler fur den 'Absenden'-Button
 		EventHandler<MouseEvent> pruefenuabsenden = new EventHandler<MouseEvent>() { 
 			   @Override 
 			   public void handle(MouseEvent e) { 
-				   if(check()) { //check zeigt dass je label (min) 1 Option ausgewaehlt ist
-					   //auslesen der gewaehlten label-optionen
-					   ArrayList<String> ergebnis = new ArrayList();
+				   //check zeigt dass je label (min) 1 Option ausgewaehlt ist
+				   if(check()) { 
+					   //Erstellen eines String-Arrays fuer die gewaehlten Optionen
+					   ArrayList<String> ergebnis = new ArrayList<String>();
+					   //Iteration ueber alle Label
 					   for (int i = 0; i<labelarray.size();i++) {
 							switch (i) {
-								case 0: if (radioodercheck[i]=='c') {
+								//jeder case i bezieht sich auf Label i. Dabei wird immer zuerst radioodercheck
+								//ausgelesen. Weiterer Verlauf beispielhaft in case0 beschrieben: 
+								case 0: if (radioodercheck[i]=='c') { //'c' fuer Checkbox
+											//zum CheckBoxArray cbs0 wird ein boolean-Array b0 erstellt mit true 
+											//fuer einen selected Button und false fuer einen nicht gewaehlten		
 											b0 = new boolean[cbs0.length];
 											for (int j = 0; j<cbs0.length; j++) {
 												b0[j] = cbs0[j].isSelected();
 											}
+											//die ausgewaehlten Werte werden nun mit Semikolon getrennt in einen
+											//String erg geschrieben
 											String erg = "";
 											for (int k = 0; k<b0.length; k++) {
 												if (b0[k]) {
@@ -154,11 +189,16 @@ public class Hauptstage extends Stage {
 													erg=erg+";";
 												}
 											}
+											//Der String erg wird schliesslich zur ergebnis-Liste hinzugefuegt.
+											//Da immer ein Semikolon an erg angehaengt wird, wird hier mittels
+											//substring das letzte Zeichen wieder abgeschnitten.
 											erg=erg.substring(0,erg.length()-1);
 											ergebnis.add(erg);
 										}
 										else {
-											//radioodercheck[i]='r';
+											//Hier ist also radioodercheck[i]='r' .
+											//Einfacherweise wird nun einfach der "Text" des gewaehlten RadioButtons
+											//zu ergebnis hinzugefuegt, also bspw "Trifft zu".											
 											ergebnis.add(rbgroup0.getSelectedToggle().getUserData().toString());
 										}
 										break;
@@ -258,37 +298,38 @@ public class Hauptstage extends Stage {
 										
 							}
 						}
-					   //schreiben der Werte in Output-Datei
-					   //Output.schreibeWerte(klassif,teil2Textarea.getText(),ergebnis);
-					   
-					   System.out.println(klassif.texte.length);
-					   System.out.println(klassif.textids.size());
 					   
 					   //ProgressBar updaten
 					   texteklassi++;
 					   prozent=(double)texteklassi/texteges;
 					   fortschritt.setProgress(prozent);
+					   //schreiben der ausgelesenen Werte in Output-Datei
 					   Output.schreibeWerte(klassif,teil2Textarea.getText() , ergebnis);
 					   
-					   //neuen Text laden und anzeigen
+					   //neuen Text laden
 					   String[] neuertext = klassif.getText();
-					   String neuertext2 = neuertext[1];
+					   String neuertext2 = neuertext[1];	//neuertext[0] waere ID des Textes
+					   //wenn kein Text mehr vorhanden wird die Stage geschlossen und eine neue FertigStage geoeffnet
 					   if (neuertext2 == "") {
 						   close();
 						   new FertigStage();
 						   return;
 					   }
+					   //neuen Text anzeigen
 					   teil2Textarea.setText(neuertext2);
-					   //neuinitialisierung der checkboxen und radiobuttons
+					   
+					   //Neuinitialisierung der CheckBoxen und RadioButtons mittel Iteration ueber alle Label
 					   for (int i = 0; i<labelarray.size();i++) {
 							switch (i) {
 								case 0: if (radioodercheck[i]=='c') {
+											//CheckBoxen werden alle auf nicht gewaehlt gesetzt
 											for (int j = 0; j<cbs0.length; j++) {
 												cbs0[j].setSelected(false);
 											}
 										}
 										else {
-											//radioodercheck[i]='r';
+											//radioodercheck[i]='r'
+											//hier wird nicht angezeigter "Hilfs-RadioButton" als gewaehlt gesetzt
 											rb0x.setSelected(true);;
 										}
 										break;
@@ -344,10 +385,9 @@ public class Hauptstage extends Stage {
 						}
 				   }
 				   else {
+					   //Falls nicht jedes Label zugeordnet wurde wird die Fehlermeldung sichtbar
 					   fehlermeldungHaupt.setVisible(true);
-					   //fehlermeldungHaupt.setText("Bitte prüfen Sie, dass sie jedes Label zugeordnet haben!");
 				   }
-				   
 			   } 
 		}; 
 		labelabsenden.addEventFilter(MouseEvent.MOUSE_CLICKED, pruefenuabsenden);
@@ -357,91 +397,35 @@ public class Hauptstage extends Stage {
 	 * Methode, die die Scene - und damit das Aussehen der Stage - initialisiert
 	 */
 	public  Scene erstelleScene(LinkedHashMap<String,ArrayList<String>> labels, int erlaubtezeit) {   
-		// Groesse der Scene
+		//Groesse der Scene - y wird anhand der Anzahl der Label berechnet
 		int ywith5labels = 600;
 		x = 935;
 		y = ywith5labels + (labels.size()-5)*30;
 		
-		// Spacer fuer gesamtes Pane
-		vboxspacer0 = new Region();
-		vboxspacer0.setPrefHeight(0);
-		VBox.setVgrow(vboxspacer0, Priority.ALWAYS);
-		vboxspacer1 = new Region();
-		vboxspacer1.setPrefHeight(0);
-		VBox.setVgrow(vboxspacer1, Priority.ALWAYS);
-		vboxspacer2 = new Region();
-		vboxspacer2.setPrefHeight(0);
-		VBox.setVgrow(vboxspacer2, Priority.ALWAYS);
-		vboxspacer3 = new Region();
-		vboxspacer3.setPrefHeight(20);
-		VBox.setVgrow(vboxspacer3, Priority.ALWAYS);
-		vboxspacer4 = new Region();
-		vboxspacer4.setPrefHeight(0);
-		VBox.setVgrow(vboxspacer4, Priority.ALWAYS);
 		
-		// Spacer fuer abstaende links u rechts aussen im fenster
-		//Region hboxspacer0 = new Region();
-		//hboxspacer0.setPrefWidth(40);
-		//HBox.setHgrow(hboxspacer0, Priority.ALWAYS);
-		//Region hboxspacer1 = new Region();
-		//hboxspacer1.setPrefWidth(40);
-		//HBox.setHgrow(hboxspacer1, Priority.ALWAYS);
-		
-		/**Spacer fuer teil1Daten
-		Region hboxspacerx = new Region();
-		hboxspacerx.setPrefWidth(185.0);
-		HBox.setHgrow(hboxspacerx, Priority.NEVER);
-		Region hboxspacery = new Region();
-		hboxspacery.setPrefWidth(185.0);
-		HBox.setHgrow(hboxspacery, Priority.NEVER);
-		*/
-		
-		//Spacer fuer Textgroessen-Buttons
-		Region hboxspaceri = new Region();
-		hboxspaceri.setPrefWidth(5);
-		//HBox.setHgrow(hboxspaceri, Priority.ALWAYS);
-		Region hboxspacerj = new Region();
-		hboxspacerj.setPrefWidth(2);
-		//HBox.setHgrow(hboxspacerj, Priority.ALWAYS);
-		
-		/**
-		 * VBox besteht aus 4 untereinanderliegenden Teilen
-		 * Teil 1:	allgemeine Angaben --> ID, Fortschrite, Timer
-		 * Teil 2:	scrollable textarea
-		 * Teil 3:	Labelwertungssystem
-		 * Teil 4:	schriftgroessen buttons + abschicken button
-		 */	
+		//Initialisierung des klasspanes und der vier einzelnen Teile
 		klasspane = new VBox();
-		//spacehalter = new HBox();
-		/** Leiste für Teil 1 */
 		teil1Daten = new HBox(157.0);
-		/** Teil 2 - scrollable textarea */
 		teil2Texthalter = new ScrollPane();
-		/** Teil 3 - Wertungssystem (tabellenfoermige Anordnung) */
 		teil3Ranking = new GridPane();
-		/** Teil 4 - Buttons werden links und rechts angezeigt */
 		teil4GroesseAbsenden = new HBox(142.0);
 
-		String nutzerstring = klassif.getNutzerID();
 		
 		//Teil1 - obere Zeile der Anzeige
+		//Wertzuweisung u Groessen- u Schrifteinstellungen des NutzerID-Labels u des Fortschrittbalkens
+		String nutzerstring = klassif.getNutzerID();
 		Label idanzeige = new Label("Nutzer-ID: "+nutzerstring);
 		idanzeige.setFont(Font.font("Tahoma"));
 		idanzeige.setMinWidth(200);
 		HBox.setHgrow(idanzeige, Priority.ALWAYS);
-		//ProgressBar fortschritt = new ProgressBar(0.01);
-		//fortschritt.impl_updatePeer();
 		fortschritt.setPrefWidth(300);
 		fortschritt.setMinWidth(300);
 		HBox.setHgrow(fortschritt, Priority.ALWAYS);
-		//fortschritt.setProgress(0.01);
 		if ((texteklassi/texteges) > 0) {
-			//fortschritt = new ProgressBar(texteklassi/texteges);
 			fortschritt.setProgress(texteklassi/texteges);
 		}
 		
-		//Label zeitanzeige = new Label("Verbleibende Zeit: "); 	//anpassen, so dass Zeit angezeigt wird
-		
+		//Wertzuweisung u Groessen- u Schrifteinstellungen des Timerlabels
 		Label timerlabel = new Label("");
 		timerlabel.setFont(Font.font("Tahoma"));
 		int timeinmin = erlaubtezeit;
@@ -449,36 +433,36 @@ public class Hauptstage extends Stage {
 		timerlabel.setMinWidth(41);
 		HBox.setHgrow(timerlabel, Priority.ALWAYS);
 		
+		//Timeline-Event, dass sofort mit Anzeigen der Stage gestartet wird und den Timer steuert
 		setOnShowing(new EventHandler<WindowEvent>() {
 		    @Override
 		    public void handle( WindowEvent event) {
-		    	//schriftplus.fire();schriftplus.fire();schriftplus.fire();schriftplus.fire();schriftplus.fire();
+		    	//Timerlabel auf Startzeit u auf sichtbar setzen
 		    	timerlabel.setText(timeinmin+":00");
 				timerlabel.setVisible(true);
+				//falls timeline (versehentlich) bereits vorher initialisiert wurde, wird sie hier beendet
 				if (timeline != null) {
 					timeline.stop();
 				}
 				timeinsec = timeinmin*60;
-	    	 
-				// update timerLabel
-				int min = timeinsec/60;
-				int sec = timeinsec%60;
-				if (sec > 9) {
-					timerlabel.setText(min+":"+sec);
-				}
-				else timerlabel.setText(min+":0"+sec);
-				timerlabel.setVisible(true);
+				//starten einer neuen Timeline
 				timeline = new Timeline();
+				//timeline so einstellen, dass handle() jede Sekunde ausgefuehrt wird
 				timeline.setCycleCount(Timeline.INDEFINITE);
 	    		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),new EventHandler<ActionEvent>() {
 	    			public void handle(ActionEvent e) {
+	    				//timerlabel updaten:
+	    				//dafuer zeit in sekunden aufteilen in Minuten und Sekunden
 	    				timeinsec--;
 	    				int min=timeinsec/60;
 	    				int sec = timeinsec%60;
+	    				//Anzeige der Zeit, dabei Unterscheidung in ein- und zweiziffrige Werte fuer Sekunden, 
+	    				//damit nicht bspw. 35:5, sonder lieber 35:05 angezeigt wird
 	    				if (sec > 9) {
 	    					timerlabel.setText(min+":"+sec);
 	    				}
 	    				else timerlabel.setText(min+":0"+sec);
+	    				//wenn Zeit abgelaufen wird die timeline gestoppt u timesup() aufgerufen
 	    				if (timeinsec <= 0) {
 	    					timesup();
 	    					timeline.stop();
@@ -489,40 +473,44 @@ public class Hauptstage extends Stage {
 		    }
 		});
 		
-		//teil1Daten.getChildren().addAll(idanzeige, hboxspacerx, fortschritt, hboxspacery, timerlabel);
+		//teil1Daten bekommt seine Elemente zugeordnet und wird auf die passende Breite gesetzt
 		teil1Daten.getChildren().addAll(idanzeige, fortschritt, timerlabel);
 		teil1Daten.setPrefWidth(850);
 		teil1Daten.setMinWidth(850.0);
 		teil1Daten.setMaxWidth(850.0);
-		System.out.println("idanzeige   "+idanzeige.getWidth());
-		System.out.println("timerlabel  "+timerlabel.getWidth());
 		
 		
-		//Teil2 - scrollabe TextArea
+		//Teil2 - Scrollabe TextArea
 		teil2Textarea = new TextArea();
+		//TextArea soll vom Nutzer nicht bearbeitbar sein:
 		teil2Textarea.setEditable(false);
+		//Einstellen der Schriftart und -groesse fuer den Text
 		sgroesse=14;
 		teil2Textarea.setFont(Font.font("Courier New",sgroesse));
+		//hinzufuegen der TextArea zum ScrollPane
 		teil2Texthalter.setContent(teil2Textarea);
+		//falls noetig u moeglich werden die ChildNodes des ScrollPanes auf die Breite des Panes
+		//angepasst, wenn es sich veraendern sollte (normalerweise sollte das jedoch nicht passieren)
 		teil2Texthalter.setFitToWidth(true);
 		teil2Texthalter.setPrefWidth(850);
 		teil2Texthalter.setPrefHeight(300);
 		teil2Texthalter.setMinSize(850, 300);
 		teil2Texthalter.setMaxSize(850, 300);
+		//Groesseneinstellungen fuer die TextArea, welche den tatsaechlichen Text beinhaltet
 		teil2Textarea.setPrefSize(830, 1500);
 		teil2Textarea.setMinSize(830, 299);
 		teil2Textarea.setMaxWidth(830);
+		//falls Text breiter ist als TextArea, werden automatisch Textumbrueche eingefuegt
 		teil2Textarea.setWrapText(true);
-		
+		//laden und anzeigen des ersten Texts
 		String[] t = klassif.getText();
 		String text = t[1];
 		teil2Textarea.setText(text);
 		teil2Textarea.setVisible(true);
 		
-		//teil 3 
-		//LinkedHashMap<String,ArrayList<String>> labels mit Labelname als Key und Auswahlmoegl. als Value
+		//Teil 3 - Labelwertungssystem
+		//Initalisierung der RadioButtons, CheckBoxen, ToggleGroups dieses Teils
 		teil3Ranking = new GridPane();
-		//teil3Ranking.setGridLinesVisible(true);
 		rbs0 = new RadioButton[0];
 		rbs1 = new RadioButton[0];
 		rbs2 = new RadioButton[0];
@@ -540,15 +528,21 @@ public class Hauptstage extends Stage {
 		rbgroup4 = new ToggleGroup();
 		char[] erstelleroc = {'n','n','n','n','n'};
 		radioodercheck = erstelleroc;	//n = nicht gesetzt, r = radio buttons, c= check boxes
-		//Zuordnung Label zu ihren Namen
-		Set<String> labelliste = labels.keySet();
+		//Einfuegen der Label in labelarray
 		labelarray = new ArrayList<String>();
-		for (Iterator<String> it = labelliste.iterator(); it.hasNext();) {
+		for (Iterator<String> it = labels.keySet().iterator(); it.hasNext();) {
 			labelarray.add(it.next());
 		}
-		
+		//Abfragen der LabelEigenschaften -> Array mit boolean-Werten, die angeben ob mehrere 
+		//Labelwerte ausgewaehlt werden duerfen -> Index gibt jeweils Labelnummer
 		mehrfachwahl = Input3.labelEigenschaft();
+		//in der labellabelliste werden die javafx-Label mit den Labelnamen als Text fuer den
+		//spaeteren Zugriff gesichert
 		ArrayList<Label> labellabelliste = new ArrayList<Label>();
+		//Im Folgenden werden je nachdem die CheckBoxen bzw RadioButtons und die Label mit den
+		//Labelnamen erstellt und ihren jeweiligen Listen und Arrays zugeordnet ueber die sie 
+		//im weiteren Verlauf angesprochen werden (labellabelliste, cbs'i'[] und rbs'i'[]).
+		//Ausserdem werden Werte zu radioodercheck hinzugefuegt (Moeglichkeiten s.o.)
 		for (int i = 0; i<labelarray.size();i++) {
 			switch (i) {
 				case 0: label0=new Label(labelarray.get(i));
@@ -565,6 +559,8 @@ public class Hauptstage extends Stage {
 						}
 						else {
 							radioodercheck[i]='r';
+							//hier wird zusaetzlich noch rb'i'x erstellt, der "Hilfs-RadioButton" durch den
+							//es moeglich wird, dass aus Nutzersicht kein RadioButton vorausgewaehlt ist
 							rb0x = new RadioButton();
 							rb0x.setSelected(true);
 							rb0x.setVisible(false);
@@ -695,18 +691,21 @@ public class Hauptstage extends Stage {
 						
 			}
 		}
-		//Label ins GridPane einfügen
+		//Label ins GridPane einfuegen
 		for(Integer i=0;i<labellabelliste.size();i++) {
 			GridPane.setColumnIndex(labellabelliste.get(i), 0);
 			GridPane.setRowIndex(labellabelliste.get(i), i);
 			teil3Ranking.getChildren().add(labellabelliste.get(i));
 		}
+		//nun werden alle RadioButtons und CheckBoxen in das GridPane eingefuegt
 		for(int i=0;i<radioodercheck.length;i++) {
 			switch(i) {
 			case 0:
 				switch(radioodercheck[i]) {
 				case 'r':
+					//oben iteriert i ueber die Label, hier iteriert j ueber die moeglichen Labelwerte
 					for (int j=0;j<rbs0.length;j++) {
+						//i+1, weil in Spalte/Column 0 der Labelname steht
 						GridPane.setColumnIndex(rbs0[j], j+1);
 						GridPane.setRowIndex(rbs0[j], i);
 						teil3Ranking.getChildren().add(rbs0[j]);
@@ -800,13 +799,35 @@ public class Hauptstage extends Stage {
 				break;
 			}
 		}
-		
+		//Layouteinstellungen fuer das GridPane
 		teil3Ranking.setHgap(20);
 		teil3Ranking.setVgap(5);
 		teil3Ranking.setPrefWidth(900);
 		teil3Ranking.setMinWidth(900);
 		
+		//Pane fuer optische Gruppierung der Label (="Streifen")
+		AnchorPane gestreift = new AnchorPane();
+		Region[] streifen = new Region[labels.size()];
+		//Erstellen eines Streifens je Label, diese werden im streifen-Array gesammelt
+		//und koennen im Folgenden darueber angesprochen werden
+		for (int i = 0; i< streifen.length; i++) {
+			streifen[i]=new Region();
+			streifen[i].setPrefWidth(850.0);
+			streifen[i].setPrefHeight(18.0);
+			streifen[i].setStyle("-fx-background-color: gainsboro;");
+			AnchorPane.setLeftAnchor(streifen[i], 0.0);
+			AnchorPane.setTopAnchor(streifen[i], i*(19.0+4.0));
+			gestreift.getChildren().add(streifen[i]);
+		}
+		//hinzufuegen von teil3Ranking zum AnchorPane gestreift
+		AnchorPane.setTopAnchor(teil3Ranking, 0.0);
+		AnchorPane.setLeftAnchor(teil3Ranking, 0.0);
+		teil3Ranking.setPadding(new Insets(0.0,5.0,0.0,5.0));
+		gestreift.getChildren().add(teil3Ranking);
+		
+		
 		//Teil 4 - Absenden und Schriftgroeße
+		//Initialisierung der Label und Buttons
 		schriftgroesse = new HBox();
 		schrift = new Label("Schriftgröße");
 		schrift.setFont(Font.font("Tahoma"));
@@ -821,92 +842,74 @@ public class Hauptstage extends Stage {
 		schriftplus.setMinWidth(28);
 		schriftminus.setPrefWidth(28);
 		schriftminus.setMinWidth(28);
+		
+		//Spacer fuer Textgroessen-Buttons
+		Region hboxspaceri = new Region();
+		hboxspaceri.setPrefWidth(5);
+		HBox.setHgrow(hboxspaceri, Priority.ALWAYS);
+		Region hboxspacerj = new Region();
+		hboxspacerj.setPrefWidth(2);
+		HBox.setHgrow(hboxspacerj, Priority.ALWAYS);
+		schriftgroesse.getChildren().addAll(schrift, hboxspaceri, schriftplus, hboxspacerj, schriftminus);
+		schriftgroesse.setMinWidth(135);
+		HBox.setHgrow(schriftgroesse, Priority.ALWAYS);
+		
+		//Initialisierung des Absenden-Buttons und des Fehlermeldung-Labels
 		labelabsenden = new Button("Absenden");
 		labelabsenden.setFont(Font.font("Tahoma"));
 		labelabsenden.setMinWidth(77);
 		HBox.setHgrow(labelabsenden, Priority.ALWAYS);
-		schriftgroesse.getChildren().addAll(schrift, hboxspaceri, schriftplus, hboxspacerj, schriftminus);
-		schriftgroesse.setMinWidth(135);
-		HBox.setHgrow(schriftgroesse, Priority.ALWAYS);
 		fehlermeldungHaupt = new Label("Bitte prüfen Sie, dass Sie jedes Label zugeordnet haben!");
 		fehlermeldungHaupt.setFont(Font.font("Tahoma"));
 		fehlermeldungHaupt.setVisible(false);
 		HBox.setHgrow(fehlermeldungHaupt, Priority.ALWAYS);
-		
 		fehlermeldungHaupt.setMinWidth(343.0);
-		//fehlermeldungHaupt.setMaxWidth(343.0);
-		//fehlermeldungHaupt.setPrefWidth(343.0);
 		
+		//Zuordnung aller Child-Nodes zur HBox
 		teil4GroesseAbsenden.getChildren().addAll(schriftgroesse,fehlermeldungHaupt,labelabsenden);	
 		teil4GroesseAbsenden.setPrefWidth(850);
 		teil4GroesseAbsenden.setMinWidth(850);teil4GroesseAbsenden.setMaxWidth(850);
 		
-		System.out.println(fehlermeldungHaupt.getWidth());
-		
-		AnchorPane gestreift = new AnchorPane();
-		Region[] streifen = new Region[labels.size()];
-		for (int i = 0; i< streifen.length; i++) {
-			streifen[i]=new Region();
-			streifen[i].setPrefWidth(850.0);
-			streifen[i].setPrefHeight(18.0);
-			//if (i%2==0) {
-			streifen[i].setStyle("-fx-background-color: gainsboro;");
-			//}
-			AnchorPane.setLeftAnchor(streifen[i], 0.0);
-			AnchorPane.setTopAnchor(streifen[i], i*(19.0+4.0));
-			gestreift.getChildren().add(streifen[i]);
-		}
-		AnchorPane.setTopAnchor(teil3Ranking, 0.0);
-		AnchorPane.setLeftAnchor(teil3Ranking, 0.0);
-		teil3Ranking.setPadding(new Insets(0.0,5.0,0.0,5.0));
-		gestreift.getChildren().add(teil3Ranking);
-		teil3Ranking.setOpacity(50.0);
-		
+		//Layouteinstellungen fuer das klasspane
 		klasspane.setPrefWidth(900);
 		klasspane.setMinWidth(900);
-		//klasspane.setFillWidth(true);
 		klasspane.getChildren().addAll(teil1Daten, teil2Texthalter, gestreift, teil4GroesseAbsenden);
-		//spacehalter.getChildren().addAll(hboxspacer0, klasspane, hboxspacer1);
 		klasspane.setPadding(new Insets(30,40,50,40));
 		klasspane.setSpacing(25);
+		
+		//erstellen einer Scene, die das klasspane beinhaltet
 		Scene klassi = new Scene(klasspane,x,y);
-		//klassi.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		
-		System.out.println("rankinggrid-Padding: "+teil3Ranking.getPadding());
-		System.out.println("rankinggrid-Hgap: "+teil3Ranking.getHgap());
-		System.out.println("rankinggrid-Vgap: "+teil3Ranking.getVgap());
-		//double[][] grid = teil3Ranking.getGrid();
-		System.out.println("rankinggrid-height: "+teil3Ranking.getHeight());
-		System.out.println("rankinggrid-width: "+teil3Ranking.getWidth());
-		//System.out.println("Column span 1: "+GridPane.getColumnSpan(rbs0[0]));
-		//System.out.println("Column span 2: "+GridPane.getColumnSpan(rbs0[1]));
-		//System.out.println("Column span 3: "+GridPane.getColumnSpan(rbs0[2]));
-		//System.out.println("Column span 4: "+GridPane.getColumnSpan(rbs0[3]));
-		//System.out.println("Column span 5: "+GridPane.getColumnSpan(rbs0[4]));
-		//System.out.println("row span: "+GridPane.getRowSpan(labellabelliste.get(0)));
-		
+		//Rueckgabe dieser Scene
 		return klassi;
 	}
 	
-	//prueft ob zu jedem Label (min.) 1 Moeglichkeit ausgewaehlt wurde -> true, wenn nicht false
+	/**
+	 * Diese Funktion prueft, ob zu jedem angezeigten Label (min.) 1 Moeglichkeit 
+	 * ausgewaehlt wurde und gibt entsprechend true oder false zurueck.
+	 */
 	public boolean check() {
+		//Rueckgabevariable
 		boolean check = true;
+		//Iteration durch alle Label
 		for (int i = 0; i<labelarray.size();i++) {
 			switch (i) {
 				case 0:
 					if (radioodercheck[i]=='c') {
+						//bei CheckBoxen wird durchgezaehlt wie viele Boxen ausgewaehlt wurden
 						boolz0 = 0;
 						for (int j = 0; j<cbs0.length; j++) {
 							if(cbs0[j].isSelected()) {
 								boolz0++;
 							}	
 						}
+						//wenn das Zaehlergebnis 0 ist, wird check auf false gesetzt
 						if(boolz0==0) {
 							check=false;
 							break;
 						}
 					}
 					else {
+						//hier wird nur getestet, dass nicht mehr der "Hilfs-RadioButton" gewaehlt ist
 						if (rbgroup0.getSelectedToggle()==rb0x) {
 							check=false;
 							break;
@@ -1008,7 +1011,8 @@ public class Hauptstage extends Stage {
 				default:
 					break;
 			}
-		}	   
+		}	
+		//Rueckgabe von check
 		return check;
 	}
 	
@@ -1019,22 +1023,5 @@ public class Hauptstage extends Stage {
 		close();
 		new ZeitEndeStage(fortschritt.getProgress());
 	}
-	
-	/**
-	public static double[][] getCurrentGrid(GridPane gp) {
-	    double[][] ret=new double [0][0];
-
-	    try {
-	        Method m=gp.getClass().getDeclaredMethod("getGrid");
-	        m.setAccessible(true);
-	        ret=(double[][])m.invoke(gp);                   
-
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-
-	    return ret;
-	}
-	*/
 
 }
