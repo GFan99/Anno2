@@ -660,7 +660,7 @@ public class Hauptstage extends Stage {
 						}
 						break;
 				case 4: label4=new Label(labelarray.get(i));
-				label4.setFont(Font.font("Tahoma"));
+						label4.setFont(Font.font("Tahoma"));
 						labellabelliste.add(label4);
 						if (mehrfachwahl[i]) {
 							radioodercheck[i]='c';
