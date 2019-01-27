@@ -19,8 +19,8 @@ import javafx.scene.text.Text;
 public class Klassifikator {
 	
 	private LinkedHashMap<String,ArrayList<String>> label;
-	protected String[][] texte;
-	public ArrayList<Integer> textids;
+	private String[][] texte;
+	private ArrayList<Integer> textids;
 	private String nutzerID;
 	
 	/**
@@ -113,6 +113,9 @@ public class Klassifikator {
 	 */
 	public String[][] getTexte() {
 		return this.texte;
+	}
+	public ArrayList<Integer> getTextids() {
+		return this.textids;
 	}
 	public String getNutzerID() {
 		return nutzerID;
