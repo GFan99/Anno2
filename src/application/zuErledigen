@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+Laura:
+uml -> Hauptstage.vboxspacer entfernen
+	-> FertigStage.schliessen hinzufügen
+
+Susanna:
+del -> Breite Streifen an Label anpassen 
+
+>>>>>>> parent of af3d716... Kommentare Klassifikator
 Zusatz:
 -> Hash aus Benutzername von HS-Login bilden
 -> Breite Streifen an Label anpassen 

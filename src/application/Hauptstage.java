@@ -487,6 +487,7 @@ public class Hauptstage extends Stage {
 		//Einstellen der Schriftart und -groesse fuer den Text
 		sgroesse=14;
 		teil2Textarea.setFont(Font.font("Courier New",sgroesse));
+		/**
 		//hinzufuegen der TextArea zum ScrollPane
 		teil2Texthalter.setContent(teil2Textarea);
 		//falls noetig u moeglich werden die ChildNodes des ScrollPanes auf die Breite des Panes
@@ -496,10 +497,11 @@ public class Hauptstage extends Stage {
 		teil2Texthalter.setPrefHeight(300);
 		teil2Texthalter.setMinSize(850, 300);
 		teil2Texthalter.setMaxSize(850, 300);
+		*/
 		//Groesseneinstellungen fuer die TextArea, welche den tatsaechlichen Text beinhaltet
-		teil2Textarea.setPrefSize(830, 1500);
-		teil2Textarea.setMinSize(830, 299);
-		teil2Textarea.setMaxWidth(830);
+		//teil2Textarea.setPrefSize(830, 1500);
+		teil2Textarea.setMinSize(850, 299);
+		teil2Textarea.setMaxWidth(850);
 		//falls Text breiter ist als TextArea, werden automatisch Textumbrueche eingefuegt
 		teil2Textarea.setWrapText(true);
 		//laden und anzeigen des ersten Texts
@@ -873,7 +875,7 @@ public class Hauptstage extends Stage {
 		//Layouteinstellungen fuer das klasspane
 		klasspane.setPrefWidth(900);
 		klasspane.setMinWidth(900);
-		klasspane.getChildren().addAll(teil1Daten, teil2Texthalter, gestreift, teil4GroesseAbsenden);
+		klasspane.getChildren().addAll(teil1Daten, teil2Textarea, gestreift, teil4GroesseAbsenden);
 		klasspane.setPadding(new Insets(30,40,50,40));
 		klasspane.setSpacing(25);
 		
