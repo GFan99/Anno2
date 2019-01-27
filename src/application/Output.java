@@ -208,7 +208,7 @@ public class Output {
 	 */
 	public static int auswerten(String erg, int anzahl) {
 		int wert=100;
-		if (erg.equals("Trifft nicht zu") && anzahl==6 ) {
+		if (erg.equals("Trifft nicht zu")) {
 			wert=-2;
 		}
 		else if(erg.equals("Trifft eher nicht zu")) {
@@ -217,20 +217,14 @@ public class Output {
 		else if(erg.equals("Trifft teilweise zu")) {
 			wert=1;
 		}
-		else if(erg.equals("Trifft zu") && anzahl==6) {
+		else if(erg.equals("Trifft zu")) {
 			wert=2;
 		}
-		else if(erg.equals("Trifft nicht zu") && anzahl==4) {
-			wert=-1;
-		}
-		else if(erg.equals("Trifft zu") && anzahl==4) {
-			wert=1;
-		}
 		else if(erg.equals("Nein")) {
-			wert=-1;
+			wert=-2;
 		}
 		else if(erg.equals("Ja")) {
-			wert=1;
+			wert=2;
 		}
 		else if(erg.equals("Ich weiss nicht")) {
 			wert=0;
