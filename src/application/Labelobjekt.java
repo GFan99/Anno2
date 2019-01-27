@@ -2,6 +2,14 @@ package application;
 
 import java.util.ArrayList;
 
+/**
+ * Die Klasse dient dazu ein Objekt erstellen zu koennen, welches die Eigenschaften der Labels
+ * speichert und spaeter wieder ausgelesen werden kann, damit sich die Reihenfolge und somit die
+ * Zuordnung nicht veraendert.
+ * @author Laura
+ *
+ */
+
 public class Labelobjekt {
 	private String name;
 	private ArrayList<String> beschriftung;
