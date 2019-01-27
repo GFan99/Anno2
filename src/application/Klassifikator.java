@@ -78,8 +78,8 @@ public class Klassifikator {
 	 * gibt es zurueck. Ist textids leer, so wird der "Fehler-Wert" -1 zurueckgegeben.
 	 */
 	public Integer waehleText() {
-		if (texte.length!=0) {
-			int zahl = (int)((Math.random())*textids.size());
+		if (textids.size()!=0) {
+			int zahl = (int)((Math.random())*texte.length);
 			try {
 				textids.remove(textids.indexOf(zahl));
 			}
