@@ -1,6 +1,7 @@
 Laura:
 uml -> Hauptstage.vboxspacer entfernen
 	-> FertigStage.schliessen hinzufügen
+	-> Klassifikator Variablen und Methoden entfernen
 
 Susanna:
 del -> Breite Streifen an Label anpassen 
