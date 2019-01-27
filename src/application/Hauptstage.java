@@ -406,7 +406,7 @@ public class Hauptstage extends Stage {
 		//Initialisierung des klasspanes und der vier einzelnen Teile
 		klasspane = new VBox();
 		teil1Daten = new HBox(157.0);
-		teil2Texthalter = new ScrollPane();
+		teil2Textarea = new TextArea();
 		teil3Ranking = new GridPane();
 		teil4GroesseAbsenden = new HBox(142.0);
 
@@ -481,25 +481,13 @@ public class Hauptstage extends Stage {
 		
 		
 		//Teil2 - Scrollabe TextArea
-		teil2Textarea = new TextArea();
+		
 		//TextArea soll vom Nutzer nicht bearbeitbar sein:
 		teil2Textarea.setEditable(false);
 		//Einstellen der Schriftart und -groesse fuer den Text
 		sgroesse=14;
 		teil2Textarea.setFont(Font.font("Courier New",sgroesse));
-		/**
-		//hinzufuegen der TextArea zum ScrollPane
-		teil2Texthalter.setContent(teil2Textarea);
-		//falls noetig u moeglich werden die ChildNodes des ScrollPanes auf die Breite des Panes
-		//angepasst, wenn es sich veraendern sollte (normalerweise sollte das jedoch nicht passieren)
-		teil2Texthalter.setFitToWidth(true);
-		teil2Texthalter.setPrefWidth(850);
-		teil2Texthalter.setPrefHeight(300);
-		teil2Texthalter.setMinSize(850, 300);
-		teil2Texthalter.setMaxSize(850, 300);
-		*/
 		//Groesseneinstellungen fuer die TextArea, welche den tatsaechlichen Text beinhaltet
-		//teil2Textarea.setPrefSize(830, 1500);
 		teil2Textarea.setMinSize(850, 299);
 		teil2Textarea.setMaxWidth(850);
 		//falls Text breiter ist als TextArea, werden automatisch Textumbrueche eingefuegt
