@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
  *  - texte        : Das Array mit den zu klassifizierenden Texten.
  *  - textids	   : Eine ArrayList, die die IDs der noch nicht klassifizierten Texte speichert.
  *  - nutzerID	   : Die ID des Nutzers.
+ * 
  * @author becksusanna
  */
 public class Klassifikator {

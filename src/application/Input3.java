@@ -33,8 +33,8 @@ import de.bioforscher.fosil.dataformatter.TextEntity;
  * Die Klasse dient zum Einlesen der Texte, der vorhandenen Nutzer IDs und den Labeln.
  * Zudem werden die Text IDs der bereits gelabelten Texte eingelesen. 
  * Aus der Property Datei werden der Pfad und die vorgegebene Uhrzeit ausgelesen.
+ * 
  * @author Laura
- *
  */
 
 public class Input3 {

@@ -18,9 +18,9 @@ import de.bioforscher.fosil.dataformatter.Label;
 import de.bioforscher.fosil.dataformatter.TextEntity;
 
 /**
- * Die Klasse ist für das Speichern der Ergebnisse verantortlich.
+ * Die Klasse ist fï¿½r das Speichern der Ergebnisse verantortlich.
+ * 
  * @author Laura
- *
  */
 public class Output {
 	
@@ -129,7 +129,7 @@ public class Output {
 			    marshallObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			    DataEntity dataEntity= new DataEntity();
 			    
-			    //neue TextEntity wird erzeugt, Werte zugewiesen und zu Liste hinzugefügt
+			    //neue TextEntity wird erzeugt, Werte zugewiesen und zu Liste hinzugefï¿½gt
 			    TextEntity textEntityneu= new TextEntity();
 			    
 				textEntityneu.setRaterID(klassif.getNutzerID());
