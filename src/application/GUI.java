@@ -56,7 +56,7 @@ public class GUI extends Application {
 			System.out.println(Font.getFamilies());
 			//erstellen des Pane und der Komponenten der "IDStage"
 			AnchorPane idpane = new AnchorPane();
-			Label idfrage = new Label("Bitte geben Sie ihre Nutzer-ID ein:");
+			Label idfrage = new Label("Bitte geben Sie Ihre Nutzer-ID ein:");
 			idfrage.setFont(Font.font("Tahoma"));
 			TextField idtext = new TextField();
 			idtext.setFont(Font.font("Tahoma"));
