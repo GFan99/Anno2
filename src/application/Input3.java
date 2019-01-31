@@ -33,8 +33,8 @@ import de.bioforscher.fosil.dataformatter.TextEntity;
  * Die Klasse dient zum Einlesen der Texte, der vorhandenen Nutzer IDs und den Labeln.
  * Zudem werden die Text IDs der bereits gelabelten Texte eingelesen. 
  * Aus der Property Datei werden der Pfad und die vorgegebene Uhrzeit ausgelesen.
- * 
  * @author Laura
+ *
  */
 
 public class Input3 {
@@ -138,19 +138,19 @@ public class Input3 {
 			    if (bezeichnung.equals("5Rating")) {
 					beschriftung.add("Trifft nicht zu");
 					beschriftung.add("Trifft eher nicht zu");
-					beschriftung.add("Ich weiss nicht");
+					beschriftung.add("Ich weiﬂ nicht");
 					beschriftung.add("Trifft teilweise zu");
 					beschriftung.add("Trifft zu");
 				}
 				else if (bezeichnung.equals("3Rating zutreffen")) {
 								
 					beschriftung.add("Trifft nicht zu");
-					beschriftung.add("Ich weiss nicht");
+					beschriftung.add("Ich weiﬂ nicht");
 					beschriftung.add("Trifft zu");
 					}
 				else if (bezeichnung.equals("3Rating ja")){
 					beschriftung.add("Nein");
-					beschriftung.add("Ich weiss nicht");
+					beschriftung.add("Ich weiﬂ nicht");
 					beschriftung.add("Ja"); 
 					}
 				else {
@@ -193,7 +193,6 @@ public class Input3 {
 		try {
 			String dateiname="";
 			String ordnername="Texte";
-			System.out.println(pfadNachOS(dateiname,ordnername));
 			File[] dateien =pfadNachOS(dateiname,ordnername).listFiles();
 			String[][] texte= new String[dateien.length][2];
 			

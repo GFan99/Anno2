@@ -62,7 +62,7 @@ public class Hauptstage extends Stage {
 	
 	//Panes fuer die vier Teile
 	private HBox teil1Daten; 				//Teil 1 - "Daten-Leiste" --> ID, Fortschritt, Timer
-	private TextArea teil2Textarea;		//Teil 2 - TextArea zeigt Text an
+	private TextArea teil2Textarea;			//Teil 2 - TextArea zeigt Text an
 	private GridPane teil3Ranking;			//Teil 3 - Labelwertungssystem (tabellenfoermige Anordnung)
 	private HBox teil4GroesseAbsenden;		//Teil 4 - Schriftgroessen-Buttons u Absenden-Button links und rechts, mittig Fehlermeldung
 	
@@ -805,7 +805,6 @@ public class Hauptstage extends Stage {
 			AnchorPane.setLeftAnchor(streifen[i], 0.0);
 			AnchorPane.setTopAnchor(streifen[i], i*(17.0+4.0));
 			gestreift.getChildren().add(streifen[i]);
-			System.out.println(streifen[i].getHeight());
 		}
 		//hinzufuegen von teil3Ranking zum AnchorPane gestreift
 		AnchorPane.setTopAnchor(teil3Ranking, 0.0);
@@ -814,10 +813,10 @@ public class Hauptstage extends Stage {
 		gestreift.getChildren().add(teil3Ranking);
 		
 		
-		//Teil 4 - Absenden und SchriftgroeÃŸe
+		//Teil 4 - Absenden und Schriftgroesse
 		//Initialisierung der Label und Buttons
 		schriftgroesse = new HBox();
-		schrift = new Label("SchriftgrÃ¶ÃŸe");
+		schrift = new Label("Schriftgröße");
 		schrift.setFont(Font.font("Tahoma"));
 		HBox.setHgrow(schrift, Priority.ALWAYS);
 		schriftplus = new Button("+");
@@ -847,7 +846,7 @@ public class Hauptstage extends Stage {
 		labelabsenden.setFont(Font.font("Tahoma"));
 		labelabsenden.setMinWidth(77);
 		HBox.setHgrow(labelabsenden, Priority.ALWAYS);
-		fehlermeldungHaupt = new Label("Bitte prÃ¼fen Sie, dass Sie jedes Label zugeordnet haben!");
+		fehlermeldungHaupt = new Label("Bitte prüfen Sie, dass Sie jedes Label zugeordnet haben!");
 		fehlermeldungHaupt.setFont(Font.font("Tahoma"));
 		fehlermeldungHaupt.setVisible(false);
 		HBox.setHgrow(fehlermeldungHaupt, Priority.ALWAYS);

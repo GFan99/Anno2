@@ -45,7 +45,7 @@ public class FertigStage extends Stage {
 		AnchorPane endpane=new AnchorPane();
 		Label fertig = new Label("Sie haben alle Texte klassifiziert.");
 		fertig.setFont(Font.font("Tahoma"));
-		schliessen = new Button("Schlie√üen");
+		schliessen = new Button("Schlieﬂen");
 		schliessen.setFont(Font.font("Tahoma"));
 		//Einstellung des Layouts
 		AnchorPane.setLeftAnchor(fertig, 25.0);

@@ -2,8 +2,6 @@ package application;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Set;
-import javafx.scene.text.Text;
 
 
 /**

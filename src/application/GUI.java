@@ -3,31 +3,17 @@ package application;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
-import java.util.Iterator;
-import java.util.Set;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextAreaBuilder;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 /**
  * Dies ist die Klasse GUI. In ihr ist die graphische Oberflaeche programmiert. Sie enthaelt
@@ -41,7 +27,7 @@ public class GUI extends Application {
 	/**
 	 * Da es sich bei GUI um eine Subklasse von javafx.application.Application handelt,
 	 * enthaelt die Startklasse einzig den Aufruf der Methode start(), welche die
-	 * Grafische OberflÃ¤che startet.
+	 * Grafische Oberflaeche startet.
 	 */
 	public static void main(String[] args) {
 		launch(args);
@@ -53,7 +39,6 @@ public class GUI extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			System.out.println(Font.getFamilies());
 			//erstellen des Pane und der Komponenten der "IDStage"
 			AnchorPane idpane = new AnchorPane();
 			Label idfrage = new Label("Bitte geben Sie Ihre Nutzer-ID ein:");
@@ -144,7 +129,7 @@ public class GUI extends Application {
 					else {
 						//falls die ID noch nicht existiert, so erscheint eine Fehlermeldung und
 						//die Groesse des Fensters wird entsprechend angepasst
-						fehlermeldung.setText("Bitte Ã¼berprÃ¼fen Sie Ihre Eingabe. \nDiese ID existiert nicht!");
+						fehlermeldung.setText("Bitte Überprüfen Sie Ihre Eingabe. \nDiese ID existiert nicht!");
 						primaryStage.setHeight(205.0);
 					}
 				}
