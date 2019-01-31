@@ -3,7 +3,6 @@ package application;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Iterator;
-import java.util.Set;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -15,7 +14,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
@@ -64,7 +62,7 @@ public class Hauptstage extends Stage {
 	
 	//Panes fuer die vier Teile
 	private HBox teil1Daten; 				//Teil 1 - "Daten-Leiste" --> ID, Fortschritt, Timer
-	private ScrollPane teil2Texthalter;		//Teil 2 - scrollable textarea
+	private TextArea teil2Textarea;		//Teil 2 - TextArea zeigt Text an
 	private GridPane teil3Ranking;			//Teil 3 - Labelwertungssystem (tabellenfoermige Anordnung)
 	private HBox teil4GroesseAbsenden;		//Teil 4 - Schriftgroessen-Buttons u Absenden-Button links und rechts, mittig Fehlermeldung
 	
@@ -74,8 +72,7 @@ public class Hauptstage extends Stage {
 	private int timeinsec;
 	private double prozent;					//prozent gibt den Fortschritt in prozent -> "Wert" der ProgressBar
 	
-	//Teil2
-	private TextArea teil2Textarea;			//Feld in dem Text angezeigt wird
+	//Teil2 -> keine weiteren Komponenten	
 	
 	//Teil3
 	

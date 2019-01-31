@@ -128,7 +128,7 @@ public class GUI extends Application {
 						//Texte, die er noch klassifizieren muss entfernt
 						int anzklassi = schonklassi.size();
 						while (schonklassi.size()!=0) {
-							klasse.textids.remove(schonklassi.remove(0));
+							klasse.getTextids().remove(schonklassi.remove(0));
 						}
 						//Schliessen der 'IDStage'
 						primaryStage.close();

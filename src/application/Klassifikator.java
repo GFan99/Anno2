@@ -14,13 +14,14 @@ import javafx.scene.text.Text;
  *  - texte        : Das Array mit den zu klassifizierenden Texten.
  *  - textids	   : Eine ArrayList, die die IDs der noch nicht klassifizierten Texte speichert.
  *  - nutzerID	   : Die ID des Nutzers.
+ * 
  * @author becksusanna
  */
 public class Klassifikator {
 	
 	private LinkedHashMap<String,ArrayList<String>> label;
-	protected String[][] texte;
-	public ArrayList<Integer> textids;
+	private String[][] texte;
+	private ArrayList<Integer> textids;
 	private String nutzerID;
 	
 	/**
@@ -113,6 +114,9 @@ public class Klassifikator {
 	 */
 	public String[][] getTexte() {
 		return this.texte;
+	}
+	public ArrayList<Integer> getTextids() {
+		return this.textids;
 	}
 	public String getNutzerID() {
 		return nutzerID;
