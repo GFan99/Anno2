@@ -139,19 +139,19 @@ public class Input3 {
 			    if (bezeichnung.equals("5Rating")) {
 					beschriftung.add("Trifft nicht zu");
 					beschriftung.add("Trifft eher nicht zu");
-					beschriftung.add("Ich wei� nicht");
+					beschriftung.add("Ich weiß nicht");
 					beschriftung.add("Trifft teilweise zu");
 					beschriftung.add("Trifft zu");
 				}
 				else if (bezeichnung.equals("3Rating zutreffen")) {
 								
 					beschriftung.add("Trifft nicht zu");
-					beschriftung.add("Ich wei� nicht");
+					beschriftung.add("Ich weiß nicht");
 					beschriftung.add("Trifft zu");
 					}
 				else if (bezeichnung.equals("3Rating ja")){
 					beschriftung.add("Nein");
-					beschriftung.add("Ich wei� nicht");
+					beschriftung.add("Ich weiß nicht");
 					beschriftung.add("Ja"); 
 					}
 				else {

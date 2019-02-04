@@ -226,7 +226,7 @@ public class Output {
 		else if(erg.equals("Ja")) {
 			wert=2;
 		}
-		else if(erg.equals("Ich weiﬂ nicht")) {
+		else if(erg.equals("Ich wei√ü nicht")) {
 			wert=0;
 		}
 		
