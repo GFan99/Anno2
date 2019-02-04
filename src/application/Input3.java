@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -54,7 +55,7 @@ public class Input3 {
 			String i=System.getProperty("file.separator");
 			
 			//Property-File einlesen
-			FileInputStream fstream=new FileInputStream("."+i+"src"+i+"application"+i+"anno.properties");
+			InputStream fstream = Input3.class.getClassLoader().getResourceAsStream("anno.properties");
 			stream = new BufferedInputStream(fstream);
 			properties.load(stream);
 			stream.close();
@@ -138,19 +139,19 @@ public class Input3 {
 			    if (bezeichnung.equals("5Rating")) {
 					beschriftung.add("Trifft nicht zu");
 					beschriftung.add("Trifft eher nicht zu");
-					beschriftung.add("Ich weiß nicht");
+					beschriftung.add("Ich weiï¿½ nicht");
 					beschriftung.add("Trifft teilweise zu");
 					beschriftung.add("Trifft zu");
 				}
 				else if (bezeichnung.equals("3Rating zutreffen")) {
 								
 					beschriftung.add("Trifft nicht zu");
-					beschriftung.add("Ich weiß nicht");
+					beschriftung.add("Ich weiï¿½ nicht");
 					beschriftung.add("Trifft zu");
 					}
 				else if (bezeichnung.equals("3Rating ja")){
 					beschriftung.add("Nein");
-					beschriftung.add("Ich weiß nicht");
+					beschriftung.add("Ich weiï¿½ nicht");
 					beschriftung.add("Ja"); 
 					}
 				else {
@@ -279,7 +280,7 @@ public class Input3 {
 			String i=System.getProperty("file.separator");
 			
 			//Property-File einlesen
-			FileInputStream fstream=new FileInputStream("."+i+"src"+i+"application"+i+"anno.properties");
+			InputStream fstream=Input3.class.getClassLoader().getResourceAsStream("anno.properties");
 			stream = new BufferedInputStream(fstream);
 			properties.load(stream);
 			stream.close();

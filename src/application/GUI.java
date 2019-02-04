@@ -44,6 +44,7 @@ public class GUI extends Application {
 			Label idfrage = new Label("Bitte geben Sie Ihre Nutzer-ID ein:");
 			idfrage.setFont(Font.font("Tahoma"));
 			TextField idtext = new TextField();
+			idtext.setText(System.getProperty("user.dir"));
 			idtext.setFont(Font.font("Tahoma"));
 			Button idok = new Button("OK");
 			idok.setFont(Font.font("Tahoma"));
@@ -129,7 +130,7 @@ public class GUI extends Application {
 					else {
 						//falls die ID noch nicht existiert, so erscheint eine Fehlermeldung und
 						//die Groesse des Fensters wird entsprechend angepasst
-						fehlermeldung.setText("Bitte Überprüfen Sie Ihre Eingabe. \nDiese ID existiert nicht!");
+						fehlermeldung.setText("Bitte ÃœberprÃ¼fen Sie Ihre Eingabe. \nDiese ID existiert nicht!");
 						primaryStage.setHeight(205.0);
 					}
 				}
