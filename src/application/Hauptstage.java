@@ -162,7 +162,9 @@ public class Hauptstage extends Stage {
 			   @Override 
 			   public void handle(MouseEvent e) { 
 				   //check zeigt dass je label (min) 1 Option ausgewaehlt ist
-				   if(check()) { 
+				   if(check()) {
+					   //Fehlermeldung wieder "entfernen"
+					   fehlermeldungHaupt.setVisible(false);
 					   //Erstellen eines String-Arrays fuer die gewaehlten Optionen
 					   ArrayList<String> ergebnis = new ArrayList<String>();
 					   //Iteration ueber alle Label
