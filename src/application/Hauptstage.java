@@ -816,7 +816,7 @@ public class Hauptstage extends Stage {
 		//Teil 4 - Absenden und Schriftgroesse
 		//Initialisierung der Label und Buttons
 		schriftgroesse = new HBox();
-		schrift = new Label("Schriftgröße");
+		schrift = new Label("SchriftgrÃ¶ÃŸe");
 		schrift.setFont(Font.font("Tahoma"));
 		HBox.setHgrow(schrift, Priority.ALWAYS);
 		schriftplus = new Button("+");
@@ -846,7 +846,7 @@ public class Hauptstage extends Stage {
 		labelabsenden.setFont(Font.font("Tahoma"));
 		labelabsenden.setMinWidth(77);
 		HBox.setHgrow(labelabsenden, Priority.ALWAYS);
-		fehlermeldungHaupt = new Label("Bitte prüfen Sie, dass Sie jedes Label zugeordnet haben!");
+		fehlermeldungHaupt = new Label("Bitte prÃ¼fen Sie, dass Sie jedes Label zugeordnet haben!");
 		fehlermeldungHaupt.setFont(Font.font("Tahoma"));
 		fehlermeldungHaupt.setVisible(false);
 		HBox.setHgrow(fehlermeldungHaupt, Priority.ALWAYS);
