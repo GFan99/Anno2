@@ -51,10 +51,10 @@ public class ZeitEndeStage extends Stage {
 		//erstellen der Panes
 		VBox box = new VBox();
 		//Initialisierung des Labels und des Buttons
-		Label timeout = new Label("Ihre Zeit ist f¸r heute abgelaufen. \nSie haben bereits " + prozent*100 + "% klassifiziert.");
+		Label timeout = new Label("Ihre Zeit ist f√ºr heute abgelaufen. \nSie haben bereits " + prozent*100 + "% klassifiziert.");
 		timeout.setFont(Font.font("Tahoma"));
 		timeout.setTextAlignment(TextAlignment.CENTER);
-		schliessen = new Button("Schlieﬂen");
+		schliessen = new Button("Schlie√üen");
 		schliessen.setFont(Font.font("Tahoma"));
 		//Layoutoptionen der VBox
 		box.setAlignment(Pos.CENTER);

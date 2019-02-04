@@ -276,9 +276,6 @@ public class Input3 {
 			Properties properties = new Properties();
 			BufferedInputStream stream;
 			
-			//Trennzeichen je nach Betriebssystem
-			String i=System.getProperty("file.separator");
-			
 			//Property-File einlesen
 			InputStream fstream=Input3.class.getClassLoader().getResourceAsStream("anno.properties");
 			stream = new BufferedInputStream(fstream);
